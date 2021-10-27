@@ -8,31 +8,38 @@
     interface Location {
         name: string,
         country: string,
-        loc: number[]
+        loc: L.LatLng
     }
 
     export let navmenu_open = false;
-    export let locations: Location[] = [];
+    export let allLocations: Location[] = [];
     export let countries: Set<string> = new Set();
     
-    let map: any;
-    let locationLayer: any;
+    let map: L.Map;
+    let locationLayer: L.FeatureGroup<any>;
 
-    function showmap(location: Location) {
+    function showmap(show_locs: Location[]) {
         if (locationLayer != undefined) {
             map.removeLayer(locationLayer);
         }
-        map.setView(location.loc, 5);
+
         navmenu_open = false;
         
         locationLayer = new L.FeatureGroup();
+        
+        if (show_locs.length > 0) {
+            
+            show_locs.forEach(location => {
+                var marker = L.marker(location.loc)
+                    .bindPopup(location.name)
+                    .openPopup();
+                locationLayer.addLayer(marker);
+            });
 
-        var marker = L.marker(location.loc)
-            .bindPopup(location.name)
-            .openPopup();
-        locationLayer.addLayer(marker);
-
-        map.addLayer(locationLayer);
+            map.addLayer(locationLayer);
+            // map.setView(location.loc, 5);
+            map.fitBounds(L.latLngBounds(show_locs.map(l => l.loc)));
+        }
     }
 
     onMount(() => {
@@ -48,22 +55,21 @@
         map.setView([0, 0], 3);
 
         // Debug out for location
-        map.on("click", function (ev) {
-            var latlng = map.mouseEventToLatLng(ev.originalEvent);
-            console.log(latlng.lat + ", " + latlng.lng);
+        map.on("click", function (ev : L.LeafletMouseEvent) {
+            console.log(ev.latlng.lat + ", " + ev.latlng.lng);
         });
 
         loadMarkers();
 
         async function loadMarkers() {
             // using Promise
-            locations = await fetch("locations.json")
+            allLocations = await fetch("locations.json")
                 .then((response) => response.json());
 
-            locations.sort((a, b) => a.name.localeCompare(b.name));
+            allLocations.sort((a, b) => a.name.localeCompare(b.name));
             
             countries.clear();
-            locations.forEach(loc => countries.add(loc.country));
+            allLocations.forEach(loc => countries.add(loc.country));
 
             // Hide markers when zoomed out
             // map.on("zoomend", function () {
@@ -75,7 +81,7 @@
             // });
 
             // Zoom to last location
-            map.setView(locations[locations.length - 1].loc, 3);
+            map.setView(allLocations[allLocations.length - 1].loc, 3);
         }
     });
 </script>
@@ -88,11 +94,15 @@
     
     {#if navmenu_open}
     <div class="navmenu" transition:slide="{{delay: 250, duration: 300, easing: quintOut }}">
-        {#each Array.from(countries) as country}
-        <h3>{country}</h3>
+        {#each Array.from(countries).sort((a, b) => a.localeCompare(b)) as country}
+        
+        <button on:click={() => showmap(allLocations.filter(l => l.country == country))}>
+            <h3>{country}</h3>
+        </button>
+
         <ul>
-            {#each locations.filter(l => l.country == country) as location}
-            <li><button on:click={() => showmap(location)}>
+            {#each allLocations.filter(l => l.country == country) as location}
+            <li><button on:click={() => showmap([location])}>
                 <span>{location.name}</span>
             </button></li>
             {/each}
@@ -165,7 +175,7 @@
         color: #987;
         cursor: pointer;
     }
-    .navmenu li:hover {
+    .navmenu button:hover {
         background-color: #443322;
     }
     .navmenu span {
