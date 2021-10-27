@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Meerfort",
+    "country":"Contriari",
+    "loc": [48.10, -45.31]
+  },
+  {
+    "name": "Mithanhyr",
+    "country":"Contriari",
+    "loc": [44.21, -97.43]
+  },  
+  {
+    "name": "Shan Torl",
+    "country":"Felia",
+    "loc": [63.09, 21.53]
+  },
+  {
+    "name": "Shan Marnag",
+    "country":"Felia",
+    "loc": [57.11, 29.62]
+  },
+  {
+    "name": "Faerschan",
+    "country":"Felia",
+    "loc": [51.65, 10.28]
+  },
+  {
+    "name": "Selhaaf",
+    "country": "Hoaran",
+    "loc": [-54.85, -63.24]
+  },
+  {
+    "name": "Selwyk",
+    "country": "Hoaran",
+    "loc": [-42.55, -50.41]
+  },
+  {
+    "name": "Skeeronrok",
+    "country": "Hoaran",
+    "loc": [-51.54, -62.01]
+  },
+  {
+    "name": "Oxgon",
+    "country": "Karn",
+    "loc": [-38.99, -68.20]
+  },
+  {
+    "name": "Muddam",
+    "country": "Karn",
+    "loc": [-45.06, -67.24]
+  },
+  {
+    "name":"Gytmotte",
+    "country": "Karn",
+    "loc": [-50.01, -67.28]
+  },
+  {
+    "name": "Niveld",
+    "country": "Karn",
+    "loc": [-48.31, -69.30]
+  },
+  {
+    "name": "Lelem",
+    "country":"Karn",
+    "loc": [-37.13, -62.89]
+  },
+  {
+    "name": "Graanhym",
+    "country": "Karn",
+    "loc": [-52.70, -72.86]
+  },
+  {
+    "name":"Stendepunt",
+    "country": "Karn",
+    "loc": [-49.75, -83.28]
+  },
+  {
+    "name": "Hornmir",
+    "country": "Karn",
+    "loc": [-56.61, -72.25]
+  },
+  {
+    "name":"Gipmond",
+    "country": "Karn",
+    "loc": [-47.90, -100.63]
+  },
+  {
+    "name": "Lensbrug",
+    "country": "Karn",
+    "loc": [-48.25, -68.68]
+  }
+]
