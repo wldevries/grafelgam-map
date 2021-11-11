@@ -1,5 +1,5 @@
 <article>
-    <img src="runes/{rune.name}.svg" alt={rune.description} />
+    <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.description} />
     <h3>{rune.name} <span class="description">({rune.description})</span></h3>
     <ul>
         {#each rune.translations as translation}

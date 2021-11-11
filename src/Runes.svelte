@@ -1,7 +1,7 @@
 <div>
     {#each Array.from(runes) as rune}
         <!-- <button on:click={() => { showRune(rune) }}>
-            <img src="runes/{rune.name}.svg" alt={rune.description} />
+            <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.description} />
         </button> -->
         <div class="rune">
             <RunePopup bind:rune="{rune}" />
