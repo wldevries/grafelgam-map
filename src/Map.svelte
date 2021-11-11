@@ -1,17 +1,9 @@
 <div id="map" />
 
-<script lang="ts" context="module">
-    export interface Location {
-        name: string;
-        country: string;
-        loc: L.LatLng;
-    }    
-</script>
-
 <script lang="ts">
     import { onMount } from "svelte";
-
     import * as L from "leaflet";
+    import type { Location } from "./Models"
 
     let map: L.Map;
     let locationLayer: L.FeatureGroup<any>;

@@ -1,11 +1,14 @@
-<main>
+<Modal show={$modal}>
     <Nav on:showLocations={showLocations}/>
     <Map bind:this={map}/>
-</main>
+</Modal>
 
 <script lang="ts">
+    import Modal from './Modal.svelte';
+	import { modal } from './Stores';
+
     import Map from "./Map.svelte";
-    import type { Location } from './Map.svelte'
+    import type { Location } from "./Models"
     import Nav from "./Nav.svelte";
 
     let map: Map;

@@ -1,13 +1,65 @@
+<script lang="ts">
+    import { onMount } from "svelte";
+    import { slide } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
+    import { createEventDispatcher } from "svelte";
+
+    import type { Location } from "./Models";
+    import Runes from "./Runes.svelte";
+
+    const dispatch = createEventDispatcher();
+
+    export let locationMenuOpen = false;
+    export let runeMenuOpen = false;
+
+    export let allLocations: Location[] = [];
+    export let countries: Set<string> = new Set();
+
+    function openLocations() {
+        locationMenuOpen = !locationMenuOpen;
+        if (locationMenuOpen) {
+            runeMenuOpen = false;
+        }
+    }
+
+    function openRunes() {
+        runeMenuOpen = !runeMenuOpen;
+        if (locationMenuOpen) {
+            locationMenuOpen = false;
+        }
+    }
+
+    function showLocations(locations: Location[]) {
+        locationMenuOpen = false;
+        dispatch("showLocations", {
+            locations: locations,
+        });
+    }
+
+    onMount(() => {
+        loadLocations();
+    });
+
+    async function loadLocations() {
+        allLocations = await fetch("locations.json").then((response) =>
+            response.json()
+        );
+
+        allLocations.sort((a, b) => a.name.localeCompare(b.name));
+
+        countries.clear();
+        allLocations.forEach((loc) => countries.add(loc.country));
+    }
+</script>
+
 <div class="nav">
     <div class="navbar">
         <h2>Grafelgam</h2>
-        <button
-            on:click={() => (navmenu_open = !navmenu_open)}
-            class="navtoggle">Locations</button
-        >
+        <button on:click={openLocations} class="navtoggle">Locations</button>
+        <button on:click={openRunes} class="navtoggle">Runes</button>
     </div>
 
-    {#if navmenu_open}
+    {#if locationMenuOpen}
         <div
             class="navmenu"
             transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
@@ -15,7 +67,7 @@
             {#each Array.from(countries).sort( (a, b) => a.localeCompare(b) ) as country}
                 <button
                     on:click={() =>
-                        showmap(
+                        showLocations(
                             allLocations.filter((l) => l.country == country)
                         )}
                 >
@@ -25,7 +77,7 @@
                 <ul>
                     {#each allLocations.filter((l) => l.country == country) as location}
                         <li>
-                            <button on:click={() => showmap([location])}>
+                            <button on:click={() => showLocations([location])}>
                                 <span>{location.name}</span>
                             </button>
                         </li>
@@ -34,54 +86,19 @@
             {/each}
         </div>
     {/if}
+
+    {#if runeMenuOpen}
+        <div
+            class="navmenu"
+            transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
+        >
+            <Runes />
+        </div>
+    {/if}
 </div>
-
-<script lang="ts">
-    import { onMount } from "svelte";
-    import { slide } from "svelte/transition";
-    import { quintOut } from "svelte/easing";
-	import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
-
-    interface Location {
-        name: string;
-        country: string;
-        loc: L.LatLng;
-    }
-
-    export let navmenu_open = false;
-    export let allLocations: Location[] = [];
-    export let countries: Set<string> = new Set();
-
-    function showmap(locations: Location[]) {
-        navmenu_open = false;
-        dispatch('showLocations', {
-            locations: locations
-        });
-    }
-
-    onMount(() => {
-        loadMarkers();
-
-        async function loadMarkers() {
-            // using Promise
-            allLocations = await fetch("locations.json").then((response) =>
-                response.json()
-            );
-
-            allLocations.sort((a, b) => a.name.localeCompare(b.name));
-
-            countries.clear();
-            allLocations.forEach((loc) => countries.add(loc.country));
-
-        }
-    });
-</script>
 
 <style>
     ul {
-        background: #333333;
         margin: 0px;
         padding: 0px;
     }
@@ -119,19 +136,18 @@
         all: unset;
         color: #987;
         cursor: pointer;
-        padding: 2px 40px;
+        padding: 2px 10px;
     }
 
     .navmenu {
         color: #987;
-        background-color: #333333;
+        background-color: #444;
         position: absolute;
         top: 65px;
         margin: 0;
         padding: 0;
         z-index: 1;
         width: 100%;
-        /* margin: 65px 0px 0px 0px; */
     }
 
     .navmenu button {
