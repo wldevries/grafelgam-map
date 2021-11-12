@@ -416,6 +416,14 @@
         ]
     },
     {
+        "name": "Ansfort",
+        "country": "Hoaran",
+        "loc": [
+            51.234406,
+            113.291016
+        ]
+    },
+    {
         "name": "Arendmijn",
         "country": "Hoaran",
         "loc": [
@@ -504,6 +512,14 @@
         ]
     },
     {
+        "name": "Kaltar",
+        "country": "Hoaran",
+        "loc": [
+            -2.4601812,
+            117.94922
+        ]
+    },
+    {
         "name": "Lawfort",
         "country": "Hoaran",
         "loc": [
@@ -536,6 +552,14 @@
         ]
     },
     {
+        "name": "Rantilhaaf",
+        "country": "Hoaran",
+        "loc": [
+            25.363882,
+            88.41797
+        ]
+    },
+    {
         "name": "Selhaaf",
         "country": "Hoaran",
         "loc": [
@@ -565,6 +589,22 @@
         "loc": [
             -51.309322,
             -39.780197
+        ]
+    },
+    {
+        "name": "Sundrel",
+        "country": "Hoaran",
+        "loc": [
+            49.21042,
+            113.37891
+        ]
+    },
+    {
+        "name": "Surlitte",
+        "country": "Hoaran",
+        "loc": [
+            26.549223,
+            82.08984
         ]
     },
     {
@@ -1088,14 +1128,6 @@
         ]
     },
     {
-        "name": "Kaltar",
-        "country": "Kathian",
-        "loc": [
-            -2.4601812,
-            117.94922
-        ]
-    },
-    {
         "name": "Hirbrun",
         "country": "Odris",
         "loc": [
@@ -1224,43 +1256,11 @@
         ]
     },
     {
-        "name": "Rantilhaaf",
-        "country": "Surian",
-        "loc": [
-            25.363882,
-            88.41797
-        ]
-    },
-    {
-        "name": "Surlitte",
-        "country": "Surian",
-        "loc": [
-            26.549223,
-            82.08984
-        ]
-    },
-    {
         "name": "Boiling Bay",
         "country": "Sutrill",
         "loc": [
             33.211117,
             95.756836
-        ]
-    },
-    {
-        "name": "Ansfort",
-        "country": "Trillian Eilanden",
-        "loc": [
-            51.234406,
-            113.291016
-        ]
-    },
-    {
-        "name": "Sundrel",
-        "country": "Trillian Eilanden",
-        "loc": [
-            49.21042,
-            113.37891
         ]
     },
     {
