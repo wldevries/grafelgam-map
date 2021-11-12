@@ -1,7 +1,7 @@
 <div class="sentence">
     {#each Array.from(selectedRunes) as rune}
         <div class="icon">
-            <RuneIcon bind:rune="{rune}" />
+            <RuneIcon bind:rune="{rune}" showTranslations="{true}" />
         </div>
     {/each}
 </div>
