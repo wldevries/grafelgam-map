@@ -1,6 +1,7 @@
 <article>
-    <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.description} />
-    <h3>{rune.name} <span class="description">({rune.description})</span></h3>
+    <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.name} />
+    <h3>{rune.name}</h3>    
+    <h4 class="translation">{rune.translation} Rune</h4>
     <ul>
         {#each rune.translations as translation}
             <li>{translation}</li>
@@ -19,6 +20,8 @@
         max-width: 150px;
     }
     img {
+        display: block;
+        margin: auto;
         height: 150px;
         max-width: 150px;
         filter: invert(58%) sepia(11%) saturate(597%)
@@ -26,20 +29,31 @@
                 drop-shadow(1px 1px 0.1rem #333);
     }
     h3 {
+        text-align: center;
         margin: 0.2em 0;
     }
-    ul, li {list-style: none;}
-    ul {
+    h4 {
+        text-align: center;
         margin: 0;
+    }
+    ul, li {
+        list-style: none;
+    }
+    ul {
+        margin: auto;
         padding: 0;
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
     }
     li {
         margin-right: 1em;
-    }
-    .description {
         opacity: 50%;
-        font-size: 0.7em;
+        font-size: 0.8em;
+    }
+    .translation {
+        display: float;
+        opacity: 80%;
+        font-size: 0.8em;
     }
 </style>

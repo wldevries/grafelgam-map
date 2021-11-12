@@ -1,7 +1,7 @@
 [
     {
         "name": "Uvar",
-        "description": "Storm Rune",
+        "translation": "Storm",
         "translations": [
             "Disturbance",
             "Chaos"
@@ -9,7 +9,7 @@
     },
     {
         "name": "Skye",
-        "description": "Cloud Rune",
+        "translation": "Cloud",
         "translations": [
             "Light headed",
             "High"
@@ -17,7 +17,7 @@
     },
     {
         "name": "Ild",
-        "description": "Fire Rune",
+        "translation": "Fire",
         "translations": [
             "Hot",
             "Flame",
@@ -26,7 +26,7 @@
     },
     {
         "name": "Ise",
-        "description": "Ice Rune",
+        "translation": "Ice",
         "translations": [
             "Cold",
             "Unmoving"
@@ -34,7 +34,7 @@
     },
     {
         "name": "Stein",
-        "description": "Stone Rune",
+        "translation": "Stone",
         "translations": [
             "Solid",
             "Reliable"
@@ -42,14 +42,14 @@
     },
     {
         "name": "Maug",
-        "description": "Hill Rune",
+        "translation": "Hill",
         "translations": [
             "Simple"
         ]
     },
     {
         "name": "Jotun",
-        "description": "Giant Rune",
+        "translation": "Giant",
         "translations": [
             "Huge",
             "Mighty"
@@ -57,7 +57,7 @@
     },
     {
         "name": "Fe",
-        "description": "Fey Rune",
+        "translation": "Fey",
         "translations": [
             "Fairy",
             "Elf"
@@ -65,7 +65,7 @@
     },
     {
         "name": "Eladrin",
-        "description": "Eladrin Rune",
+        "translation": "Eladrin",
         "translations": [
             "Druid",
             "Season"
@@ -73,7 +73,7 @@
     },
     {
         "name": "Mann",
-        "description": "Human Rune",
+        "translation": "Human",
         "translations": [
             "Undefined",
             "Uncertain",
@@ -82,7 +82,7 @@
     },
     {
         "name": "Dverg",
-        "description": "Dwarf Rune",
+        "translation": "Dwarf",
         "translations": [
             "Tiny Giant",
             "Digger"
@@ -90,7 +90,7 @@
     },
     {
         "name": "Geni",
-        "description": "Genie Rune",
+        "translation": "Genie",
         "translations": [
             "Elemental",
             "Smart"
@@ -98,14 +98,14 @@
     },
     {
         "name": "Wyrm",
-        "description": "Dragon Rune",
+        "translation": "Dragon",
         "translations": [
             "Dragon"
         ]
     },
     {
         "name": "Or",
-        "description": "Orc Rune",
+        "translation": "Orc",
         "translations": [
             "Angry",
             "Dim"
@@ -113,7 +113,7 @@
     },
     {
         "name": "Dyr",
-        "description": "Animal Rune",
+        "translation": "Animal",
         "translations": [
             "Creature",
             "Beast"
@@ -121,7 +121,7 @@
     },
     {
         "name": "Blod",
-        "description": "Blood Rune",
+        "translation": "Blood",
         "translations": [
             "Pain",
             "Suffering"
@@ -129,7 +129,7 @@
     },
     {
         "name": "Uven",
-        "description": "Enemy Rune",
+        "translation": "Enemy",
         "translations": [
             "Adversary",
             "Rival"
@@ -137,7 +137,7 @@
     },
     {
         "name": "Gift",
-        "description": "Poison Rune",
+        "translation": "Poison",
         "translations": [
             "Sickness",
             "Ill",
@@ -147,7 +147,7 @@
     },
     {
         "name": "Dod",
-        "description": "Death Rune",
+        "translation": "Death",
         "translations": [
             "End",
             "Passing"
@@ -155,7 +155,7 @@
     },
     {
         "name": "Krig",
-        "description": "War Rune",
+        "translation": "War",
         "translations": [
             "Conflict",
             "Contest",
@@ -164,7 +164,7 @@
     },
     {
         "name": "Hold",
-        "description": "Stop Rune",
+        "translation": "Stop",
         "translations": [
             "End",
             "Halt"
@@ -172,7 +172,7 @@
     },
     {
         "name": "Diav",
-        "description": "Devil Rune",
+        "translation": "Devil",
         "translations": [
             "Evil",
             "Deceptive"
@@ -180,7 +180,7 @@
     },
     {
         "name": "Natt",
-        "description": "Dark Rune",
+        "translation": "Dark",
         "translations": [
             "Night",
             "Black",
@@ -189,7 +189,7 @@
     },
     {
         "name": "Tid",
-        "description": "Time Rune",
+        "translation": "Time",
         "translations": [
             "Passage of Time",
             "Flow",
@@ -198,7 +198,7 @@
     },
     {
         "name": "Flok",
-        "description": "Forrest Rune",
+        "translation": "Forrest",
         "translations": [
             "Many",
             "Lost"
@@ -206,7 +206,7 @@
     },
     {
         "name": "Ferd",
-        "description": "Journey Rune",
+        "translation": "Journey",
         "translations": [
             "Search",
             "Adventure",
@@ -215,7 +215,7 @@
     },
     {
         "name": "Drom",
-        "description": "Dream Rune",
+        "translation": "Dream",
         "translations": [
             "Sleep",
             "Fantasy",
@@ -226,7 +226,7 @@
     },
     {
         "name": "Se",
-        "description": "Sight Rune",
+        "translation": "Sight",
         "translations": [
             "Vision",
             "Observation",
@@ -236,7 +236,7 @@
     },
     {
         "name": "Vind",
-        "description": "Wind Rune",
+        "translation": "Wind",
         "translations": [
             "Breath",
             "Speed"
@@ -244,7 +244,7 @@
     },
     {
         "name": "Vand",
-        "description": "Water Rune",
+        "translation": "Water",
         "translations": [
             "Flow",
             "Drink"
@@ -252,14 +252,14 @@
     },
     {
         "name": "Fjell",
-        "description": "Mountain Rune",
+        "translation": "Mountain",
         "translations": [
             "Hardship"
         ]
     },
     {
         "name": "Venn",
-        "description": "Friend Rune",
+        "translation": "Friend",
         "translations": [
             "Ally",
             "Marry",
@@ -268,7 +268,7 @@
     },
     {
         "name": "Strom",
-        "description": "Strong Rune",
+        "translation": "Strong",
         "translations": [
             "Powerful",
             "Tough"
@@ -276,7 +276,7 @@
     },
     {
         "name": "Kong",
-        "description": "King Rune",
+        "translation": "King",
         "translations": [
             "Ruler",
             "Leader",
@@ -286,7 +286,7 @@
     },
     {
         "name": "Hellig",
-        "description": "Holy Rune",
+        "translation": "Holy",
         "translations": [
             "Sacret",
             "Revered",
@@ -295,7 +295,7 @@
     },
     {
         "name": "Skon",
-        "description": "Beauty Rune",
+        "translation": "Beauty",
         "translations": [
             "Seductive",
             "Charismatic"
@@ -303,7 +303,7 @@
     },
     {
         "name": "Skabl",
-        "description": "Creation Rune",
+        "translation": "Creation",
         "translations": [
             "Make",
             "Forge",
@@ -313,7 +313,7 @@
     },
     {
         "name": "Skold",
-        "description": "Shield Rune",
+        "translation": "Shield",
         "translations": [
             "Protection",
             "Defence",
@@ -323,7 +323,7 @@
     },
     {
         "name": "Liv",
-        "description": "Life Rune",
+        "translation": "Life",
         "translations": [
             "Entity",
             "Soul"
@@ -331,7 +331,7 @@
     },
     {
         "name": "Stig",
-        "description": "Light Rune",
+        "translation": "Light",
         "translations": [
             "Brilliant",
             "Fair",
@@ -341,7 +341,7 @@
     },
     {
         "name": "Magi",
-        "description": "Magic Rune",
+        "translation": "Magic",
         "translations": [
             "Arcana",
             "Witchcraft"
@@ -349,7 +349,7 @@
     },
     {
         "name": "Nisse",
-        "description": "Gnome Rune",
+        "translation": "Gnome",
         "translations": [
             "Small",
             "Halfman",
@@ -358,28 +358,28 @@
     },
     {
         "name": "Fugleperson",
-        "description": "Aarakocra Rune",
+        "translation": "Aarakocra",
         "translations": [
             "Flying Person"
         ]
     },
     {
         "name": "Metall Wyrm",
-        "description": "Metallic Dragon Rune",
+        "translation": "Metallic Dragon",
         "translations": [
             "Metallic Dragon"
         ]
     },
     {
         "name": "Fomorian I",
-        "description": "Fomorain Rune",
+        "translation": "Fomorian",
         "translations": [
             "Beatiful"
         ]
     },
     {
         "name": "Fomorian II",
-        "description": "Cursed Fomorian Rune",
+        "translation": "Cursed Fomorian",
         "translations": [
             "Cursed",
             "Banished"

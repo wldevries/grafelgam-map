@@ -6,6 +6,6 @@ export interface Location {
 
 export interface Rune {
     name: string;
-    description: string;
+    translation: string;
     translations: string[];
 }

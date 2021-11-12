@@ -1,8 +1,8 @@
 <article>
-    <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.description} />
+    <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.name} />
     <h5>{rune.name}</h5>
     {#if showTranslations}
-        <p class="translation">{rune.translations[Math.floor(Math.random() * rune.translations.length)].toLocaleLowerCase()}</p>
+        <p class="translation">{rune.translation}</p>
     {/if}
 </article>
 
