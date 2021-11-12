@@ -1,1 +1,1274 @@
-[{"name":"Colwalt","country":"Aurum","loc":[10.055403,72.6416]},{"name":"Grindarmin","country":"Aurum","loc":[16.130262,69.30176]},{"name":"Moperhaaf","country":"Aurum","loc":[20.014645,77.87109]},{"name":"Sesthan","country":"Aurum","loc":[13.325485,75.4541]},{"name":"Wezefort","country":"Aurum","loc":[10.487812,63.76465]},{"name":"Wilbrol","country":"Aurum","loc":[6.8828,62.314453]},{"name":"Ardan","country":"Brodova","loc":[6.280676,-65.310196]},{"name":"Cedhaaf","country":"Brodova","loc":[5.360676,-66.1002]},{"name":"Lefswoude","country":"Brodova","loc":[9.200676,-73.130196]},{"name":"Naderveer","country":"Brodova","loc":[7.110676,-57.790195]},{"name":"Nederburg","country":"Brodova","loc":[16.820675,-78.62019]},{"name":"Odrie","country":"Brodova","loc":[-1.0893242,-47.950195]},{"name":"Welfort","country":"Brodova","loc":[15.220675,-68.7802]},{"name":"Calitin","country":"Contriari","loc":[45.320675,-104.0702]},{"name":"Fellmire","country":"Contriari","loc":[23.885838,-86.83594]},{"name":"Fridget","country":"Contriari","loc":[63.35213,-50.36133]},{"name":"Lararym","country":"Contriari","loc":[33.110676,-77.310196]},{"name":"Meerfort","country":"Contriari","loc":[55.130676,-59.290195]},{"name":"Mithanhyr","country":"Contriari","loc":[44.440678,-75.200195]},{"name":"Oloth","country":"Contriari","loc":[60.120674,-89.6102]},{"name":"Olrym","country":"Contriari","loc":[33.550674,-101.4302]},{"name":"Rashaaf","country":"Contriari","loc":[62.820675,-73.6102]},{"name":"Wardeklok","country":"Contriari","loc":[48.330677,-23.080194]},{"name":"Ydekder","country":"Contriari","loc":[58.650677,-21.140196]},{"name":"Aranet","country":"Cord","loc":[-61.93895,-36.254883]},{"name":"Diepkan","country":"Cord","loc":[-63.11464,-87.1875]},{"name":"Eugval","country":"Cord","loc":[-65.238304,-69.78516]},{"name":"Grinbaai","country":"Cord","loc":[-51.645294,-89.42871]},{"name":"Halmoet","country":"Cord","loc":[-66.99884,-64.11621]},{"name":"Pranford","country":"Cord","loc":[-55.30414,-77.25586]},{"name":"Smogin","country":"Cord","loc":[-39.740986,-83.27637]},{"name":"Staalwoud","country":"Cord","loc":[-58.470722,-74.44336]},{"name":"Thornhaaf","country":"Cord","loc":[-60.478878,-63.19336]},{"name":"Urstrom","country":"Cord","loc":[-67.16995,-89.296875]},{"name":"Zander","country":"Duergar","loc":[28.844673,25.97168]},{"name":"Alwam","country":"Felia","loc":[24.080675,7.8198047]},{"name":"Ashfell","country":"Felia","loc":[55.80128,59.15039]},{"name":"Beurset","country":"Felia","loc":[44.060677,10.359805]},{"name":"Dahinset","country":"Felia","loc":[41.240677,8.079804]},{"name":"Dathpor","country":"Felia","loc":[50.930737,88.461914]},{"name":"Dippo","country":"Felia","loc":[70.69995,21.84082]},{"name":"Faerschan","country":"Felia","loc":[51.880676,32.509804]},{"name":"Sarclif","country":"Felia","loc":[25.630676,-8.660195]},{"name":"Shan Marnag","country":"Felia","loc":[57.183903,51.723633]},{"name":"Shan Torl","country":"Felia","loc":[63.11464,43.725586]},{"name":"Steverit","country":"Felia","loc":[46.760677,46.799805]},{"name":"Taxmari","country":"Felia","loc":[75.541115,55.458984]},{"name":"Waldraaf","country":"Felia","loc":[52.820675,0.2598047]},{"name":"Walhut","country":"Felia","loc":[59.790676,9.929805]},{"name":"Abfoorde","country":"Hoaran","loc":[-57.729324,-35.250195]},{"name":"Alfjord","country":"Hoaran","loc":[-16.409325,-5.5401955]},{"name":"Amirhaaf","country":"Hoaran","loc":[-57.679325,-39.730194]},{"name":"Arendmijn","country":"Hoaran","loc":[3.8642547,-3.515625]},{"name":"Bluehig","country":"Hoaran","loc":[-3.4256916,-4.1308594]},{"name":"Bokhaven","country":"Hoaran","loc":[-56.759323,-21.230196]},{"name":"Codhaaf","country":"Hoaran","loc":[5.834616,23.510742]},{"name":"Danswal","country":"Hoaran","loc":[13.923404,18.149414]},{"name":"Duomir","country":"Hoaran","loc":[-10.779325,-14.200195]},{"name":"Fenmir","country":"Hoaran","loc":[4.784469,13.579102]},{"name":"Fit","country":"Hoaran","loc":[-38.489323,1.3598046]},{"name":"Gordemin","country":"Hoaran","loc":[13.154376,25.927734]},{"name":"Idrahl","country":"Hoaran","loc":[10.358151,16.655273]},{"name":"Irdo","country":"Hoaran","loc":[-58.829323,-39.250195]},{"name":"Lawfort","country":"Hoaran","loc":[-0.70310736,-6.064453]},{"name":"Mehir","country":"Hoaran","loc":[-58.719326,-47.640194]},{"name":"Normir","country":"Hoaran","loc":[-3.4256916,-12.3046875]},{"name":"RangWalt","country":"Hoaran","loc":[-60.289326,-40.700195]},{"name":"Selhaaf","country":"Hoaran","loc":[-54.619324,-41.010197]},{"name":"Selwyk","country":"Hoaran","loc":[-42.319324,-28.180195]},{"name":"Sikdahl","country":"Hoaran","loc":[9.31899,19.379883]},{"name":"Skeeronrok","country":"Hoaran","loc":[-51.309322,-39.780197]},{"name":"Urzig","country":"Hoaran","loc":[11.436955,10.063477]},{"name":"Wyksand","country":"Hoaran","loc":[-34.619324,-23.910194]},{"name":"Zagermond","country":"Hoaran","loc":[-15.049324,-10.160195]},{"name":"Baaldyk","country":"Karn","loc":[-30.751278,-34.98047]},{"name":"Clodmoor","country":"Karn","loc":[-52.429222,-66.26953]},{"name":"Daghelder","country":"Karn","loc":[-32.175613,-44.472656]},{"name":"Demerhoek","country":"Karn","loc":[-13.609324,-52.350197]},{"name":"Denderyk","country":"Karn","loc":[-17.098793,-28.95996]},{"name":"Draakhil","country":"Karn","loc":[-17.014767,-32.563477]},{"name":"Dreizwik","country":"Karn","loc":[-20.509354,-39.902344]},{"name":"Drufhaag","country":"Karn","loc":[-43.919323,-73.9202]},{"name":"Drysford","country":"Karn","loc":[-37.09024,-32.43164]},{"name":"Eldehaaf","country":"Karn","loc":[-26.194878,-20.566406]},{"name":"Flogmenfort","country":"Karn","loc":[-29.15216,-24.169922]},{"name":"Fort Mirzicht","country":"Karn","loc":[-9.40571,-21.796875]},{"name":"Fulsmijn","country":"Karn","loc":[-22.024546,-22.58789]},{"name":"Gildeharm","country":"Karn","loc":[-22.553148,-31.02539]},{"name":"Gipmond","country":"Karn","loc":[-47.669323,-78.40019]},{"name":"Glearmaz","country":"Karn","loc":[-13.909325,-24.000195]},{"name":"Graanhym","country":"Karn","loc":[-52.469326,-50.630196]},{"name":"Greefort","country":"Karn","loc":[-34.307144,-39.63867]},{"name":"Gytmotte","country":"Karn","loc":[-49.779324,-45.050194]},{"name":"Hoogsfort","country":"Karn","loc":[-5.9657536,-35.507812]},{"name":"Hornmir","country":"Karn","loc":[-56.379326,-50.020195]},{"name":"Inderwoud","country":"Karn","loc":[-32.472694,-32.958984]},{"name":"Kletl","country":"Karn","loc":[-29.764378,-28.03711]},{"name":"Klinkerhaard","country":"Karn","loc":[-49.21042,-49.746094]},{"name":"Lelem","country":"Karn","loc":[-36.899323,-40.660194]},{"name":"Lensbrug","country":"Karn","loc":[-48.019325,-46.450195]},{"name":"Moetbrug","country":"Karn","loc":[-24.046465,-26.455078]},{"name":"Moton","country":"Karn","loc":[-10.185187,-29.179688]},{"name":"Muddam","country":"Karn","loc":[-44.829323,-45.010197]},{"name":"Muilbron","country":"Karn","loc":[-43.229195,-34.760742]},{"name":"Muilstein","country":"Karn","loc":[-39.198204,-41.176758]},{"name":"Niveld","country":"Karn","loc":[-48.079323,-47.070194]},{"name":"Odracht","country":"Karn","loc":[-12.940322,-37.30957]},{"name":"Ooiveld","country":"Karn","loc":[-25.403585,-30.146484]},{"name":"Oxgon","country":"Karn","loc":[-38.759323,-45.970196]},{"name":"Oxmoor","country":"Karn","loc":[-43.834526,-47.63672]},{"name":"Pluimhaaf","country":"Karn","loc":[-28.497662,-27.597656]},{"name":"Riesmoor","country":"Karn","loc":[-41.64008,-43.76953]},{"name":"Rodveld","country":"Karn","loc":[-22.958393,-32.08008]},{"name":"Roodfort","country":"Karn","loc":[-19.68397,-45.439453]},{"name":"Sansmills","country":"Karn","loc":[-26.194878,-36.035156]},{"name":"Stendepunt","country":"Karn","loc":[-49.519325,-61.050194]},{"name":"Swynhaaf","country":"Karn","loc":[-30.069094,-42.626953]},{"name":"Winfort","country":"Karn","loc":[-45.599323,-76.6002]},{"name":"Zeisveld","country":"Karn","loc":[-25.720736,-42.890625]},{"name":"Kaltar","country":"Kathian","loc":[-2.4601812,117.94922]},{"name":"Hirbrun","country":"Odris","loc":[34.16182,-22.060547]},{"name":"Esserpas","country":"Ordent","loc":[10.9306755,-47.730194]},{"name":"Gizig","country":"Ordent","loc":[17.240675,-29.760195]},{"name":"Kallan","country":"Ordent","loc":[12.740676,-20.620195]},{"name":"Koperzicht","country":"Ordent","loc":[16.230677,-59.420197]},{"name":"Marker Tunnel","country":"Ordent","loc":[12.050675,-54.630196]},{"name":"Nieuwlijn","country":"Ordent","loc":[10.670676,-34.640194]},{"name":"Odrisval","country":"Ordent","loc":[-5.2493243,-29.270195]},{"name":"Ordemar","country":"Ordent","loc":[19.250675,-65.480194]},{"name":"Otry","country":"Ordent","loc":[3.0406759,-24.350195]},{"name":"Runnelfort","country":"Ordent","loc":[5.410676,-40.350197]},{"name":"Skif","country":"Ordent","loc":[0.010675815,-32.610195]},{"name":"Woudmill","country":"Ordent","loc":[-1.6193242,-21.360195]},{"name":"Padren","country":"Quatla","loc":[-72.945435,-62.841797]},{"name":"Rodglop","country":"Quatla","loc":[-72.04684,-47.021484]},{"name":"Woohlsbellow","country":"Quatla","loc":[-73.92247,-72.86133]},{"name":"Rantilhaaf","country":"Surian","loc":[25.363882,88.41797]},{"name":"Surlitte","country":"Surian","loc":[26.549223,82.08984]},{"name":"Boiling Bay","country":"Sutrill","loc":[33.211117,95.756836]},{"name":"Ansfort","country":"Trillian Eilanden","loc":[51.234406,113.291016]},{"name":"Sundrel","country":"Trillian Eilanden","loc":[49.21042,113.37891]},{"name":"Gloardal","country":"Wyvernia","loc":[-6.7518964,-97.4707]}]
+[
+    {
+        "name": "Colwalt",
+        "country": "Aurum",
+        "loc": [
+            10.055403,
+            72.6416
+        ]
+    },
+    {
+        "name": "Grindarmin",
+        "country": "Aurum",
+        "loc": [
+            16.130262,
+            69.30176
+        ]
+    },
+    {
+        "name": "Moperhaaf",
+        "country": "Aurum",
+        "loc": [
+            20.014645,
+            77.87109
+        ]
+    },
+    {
+        "name": "Sesthan",
+        "country": "Aurum",
+        "loc": [
+            13.325485,
+            75.4541
+        ]
+    },
+    {
+        "name": "Wezefort",
+        "country": "Aurum",
+        "loc": [
+            10.487812,
+            63.76465
+        ]
+    },
+    {
+        "name": "Wilbrol",
+        "country": "Aurum",
+        "loc": [
+            6.8828,
+            62.314453
+        ]
+    },
+    {
+        "name": "Ardan",
+        "country": "Brodova",
+        "loc": [
+            6.280676,
+            -65.310196
+        ]
+    },
+    {
+        "name": "Cedhaaf",
+        "country": "Brodova",
+        "loc": [
+            5.360676,
+            -66.1002
+        ]
+    },
+    {
+        "name": "Lefswoude",
+        "country": "Brodova",
+        "loc": [
+            9.200676,
+            -73.130196
+        ]
+    },
+    {
+        "name": "Naderveer",
+        "country": "Brodova",
+        "loc": [
+            7.110676,
+            -57.790195
+        ]
+    },
+    {
+        "name": "Nederburg",
+        "country": "Brodova",
+        "loc": [
+            16.820675,
+            -78.62019
+        ]
+    },
+    {
+        "name": "Odrie",
+        "country": "Brodova",
+        "loc": [
+            -1.0893242,
+            -47.950195
+        ]
+    },
+    {
+        "name": "Welfort",
+        "country": "Brodova",
+        "loc": [
+            15.220675,
+            -68.7802
+        ]
+    },
+    {
+        "name": "Calitin",
+        "country": "Contriari",
+        "loc": [
+            45.320675,
+            -104.0702
+        ]
+    },
+    {
+        "name": "Fellmire",
+        "country": "Contriari",
+        "loc": [
+            23.885838,
+            -86.83594
+        ]
+    },
+    {
+        "name": "Fridget",
+        "country": "Contriari",
+        "loc": [
+            63.35213,
+            -50.36133
+        ]
+    },
+    {
+        "name": "Lararym",
+        "country": "Contriari",
+        "loc": [
+            33.110676,
+            -77.310196
+        ]
+    },
+    {
+        "name": "Meerfort",
+        "country": "Contriari",
+        "loc": [
+            55.130676,
+            -59.290195
+        ]
+    },
+    {
+        "name": "Mithanhyr",
+        "country": "Contriari",
+        "loc": [
+            44.440678,
+            -75.200195
+        ]
+    },
+    {
+        "name": "Oloth",
+        "country": "Contriari",
+        "loc": [
+            60.120674,
+            -89.6102
+        ]
+    },
+    {
+        "name": "Olrym",
+        "country": "Contriari",
+        "loc": [
+            33.550674,
+            -101.4302
+        ]
+    },
+    {
+        "name": "Rashaaf",
+        "country": "Contriari",
+        "loc": [
+            62.820675,
+            -73.6102
+        ]
+    },
+    {
+        "name": "Wardeklok",
+        "country": "Contriari",
+        "loc": [
+            48.330677,
+            -23.080194
+        ]
+    },
+    {
+        "name": "Ydekder",
+        "country": "Contriari",
+        "loc": [
+            58.650677,
+            -21.140196
+        ]
+    },
+    {
+        "name": "Aranet",
+        "country": "Cord",
+        "loc": [
+            -61.93895,
+            -36.254883
+        ]
+    },
+    {
+        "name": "Diepkan",
+        "country": "Cord",
+        "loc": [
+            -63.11464,
+            -87.1875
+        ]
+    },
+    {
+        "name": "Eugval",
+        "country": "Cord",
+        "loc": [
+            -65.238304,
+            -69.78516
+        ]
+    },
+    {
+        "name": "Grinbaai",
+        "country": "Cord",
+        "loc": [
+            -51.645294,
+            -89.42871
+        ]
+    },
+    {
+        "name": "Halmoet",
+        "country": "Cord",
+        "loc": [
+            -66.99884,
+            -64.11621
+        ]
+    },
+    {
+        "name": "Pranford",
+        "country": "Cord",
+        "loc": [
+            -55.30414,
+            -77.25586
+        ]
+    },
+    {
+        "name": "Smogin",
+        "country": "Cord",
+        "loc": [
+            -39.740986,
+            -83.27637
+        ]
+    },
+    {
+        "name": "Staalwoud",
+        "country": "Cord",
+        "loc": [
+            -58.470722,
+            -74.44336
+        ]
+    },
+    {
+        "name": "Thornhaaf",
+        "country": "Cord",
+        "loc": [
+            -60.478878,
+            -63.19336
+        ]
+    },
+    {
+        "name": "Urstrom",
+        "country": "Cord",
+        "loc": [
+            -67.16995,
+            -89.296875
+        ]
+    },
+    {
+        "name": "Zander",
+        "country": "Duergar",
+        "loc": [
+            28.844673,
+            25.97168
+        ]
+    },
+    {
+        "name": "Alwam",
+        "country": "Felia",
+        "loc": [
+            24.080675,
+            7.8198047
+        ]
+    },
+    {
+        "name": "Ashfell",
+        "country": "Felia",
+        "loc": [
+            55.80128,
+            59.15039
+        ]
+    },
+    {
+        "name": "Beurset",
+        "country": "Felia",
+        "loc": [
+            44.060677,
+            10.359805
+        ]
+    },
+    {
+        "name": "Dahinset",
+        "country": "Felia",
+        "loc": [
+            41.240677,
+            8.079804
+        ]
+    },
+    {
+        "name": "Dathpor",
+        "country": "Felia",
+        "loc": [
+            50.930737,
+            88.461914
+        ]
+    },
+    {
+        "name": "Dippo",
+        "country": "Felia",
+        "loc": [
+            70.69995,
+            21.84082
+        ]
+    },
+    {
+        "name": "Faerschan",
+        "country": "Felia",
+        "loc": [
+            51.880676,
+            32.509804
+        ]
+    },
+    {
+        "name": "Sarclif",
+        "country": "Felia",
+        "loc": [
+            25.630676,
+            -8.660195
+        ]
+    },
+    {
+        "name": "Shan Marnag",
+        "country": "Felia",
+        "loc": [
+            57.183903,
+            51.723633
+        ]
+    },
+    {
+        "name": "Shan Torl",
+        "country": "Felia",
+        "loc": [
+            63.11464,
+            43.725586
+        ]
+    },
+    {
+        "name": "Steverit",
+        "country": "Felia",
+        "loc": [
+            46.760677,
+            46.799805
+        ]
+    },
+    {
+        "name": "Taxmari",
+        "country": "Felia",
+        "loc": [
+            75.541115,
+            55.458984
+        ]
+    },
+    {
+        "name": "Waldraaf",
+        "country": "Felia",
+        "loc": [
+            52.820675,
+            0.2598047
+        ]
+    },
+    {
+        "name": "Walhut",
+        "country": "Felia",
+        "loc": [
+            59.790676,
+            9.929805
+        ]
+    },
+    {
+        "name": "Abfoorde",
+        "country": "Hoaran",
+        "loc": [
+            -57.729324,
+            -35.250195
+        ]
+    },
+    {
+        "name": "Alfjord",
+        "country": "Hoaran",
+        "loc": [
+            -16.409325,
+            -5.5401955
+        ]
+    },
+    {
+        "name": "Amirhaaf",
+        "country": "Hoaran",
+        "loc": [
+            -57.679325,
+            -39.730194
+        ]
+    },
+    {
+        "name": "Arendmijn",
+        "country": "Hoaran",
+        "loc": [
+            3.8642547,
+            -3.515625
+        ]
+    },
+    {
+        "name": "Bluehig",
+        "country": "Hoaran",
+        "loc": [
+            -3.4256916,
+            -4.1308594
+        ]
+    },
+    {
+        "name": "Bokhaven",
+        "country": "Hoaran",
+        "loc": [
+            -56.759323,
+            -21.230196
+        ]
+    },
+    {
+        "name": "Codhaaf",
+        "country": "Hoaran",
+        "loc": [
+            5.834616,
+            23.510742
+        ]
+    },
+    {
+        "name": "Danswal",
+        "country": "Hoaran",
+        "loc": [
+            13.923404,
+            18.149414
+        ]
+    },
+    {
+        "name": "Duomir",
+        "country": "Hoaran",
+        "loc": [
+            -10.779325,
+            -14.200195
+        ]
+    },
+    {
+        "name": "Fenmir",
+        "country": "Hoaran",
+        "loc": [
+            4.784469,
+            13.579102
+        ]
+    },
+    {
+        "name": "Fit",
+        "country": "Hoaran",
+        "loc": [
+            -38.489323,
+            1.3598046
+        ]
+    },
+    {
+        "name": "Gordemin",
+        "country": "Hoaran",
+        "loc": [
+            13.154376,
+            25.927734
+        ]
+    },
+    {
+        "name": "Idrahl",
+        "country": "Hoaran",
+        "loc": [
+            10.358151,
+            16.655273
+        ]
+    },
+    {
+        "name": "Irdo",
+        "country": "Hoaran",
+        "loc": [
+            -58.829323,
+            -39.250195
+        ]
+    },
+    {
+        "name": "Lawfort",
+        "country": "Hoaran",
+        "loc": [
+            -0.70310736,
+            -6.064453
+        ]
+    },
+    {
+        "name": "Mehir",
+        "country": "Hoaran",
+        "loc": [
+            -58.719326,
+            -47.640194
+        ]
+    },
+    {
+        "name": "Normir",
+        "country": "Hoaran",
+        "loc": [
+            -3.4256916,
+            -12.3046875
+        ]
+    },
+    {
+        "name": "RangWalt",
+        "country": "Hoaran",
+        "loc": [
+            -60.289326,
+            -40.700195
+        ]
+    },
+    {
+        "name": "Selhaaf",
+        "country": "Hoaran",
+        "loc": [
+            -54.619324,
+            -41.010197
+        ]
+    },
+    {
+        "name": "Selwyk",
+        "country": "Hoaran",
+        "loc": [
+            -42.319324,
+            -28.180195
+        ]
+    },
+    {
+        "name": "Sikdahl",
+        "country": "Hoaran",
+        "loc": [
+            9.31899,
+            19.379883
+        ]
+    },
+    {
+        "name": "Skeeronrok",
+        "country": "Hoaran",
+        "loc": [
+            -51.309322,
+            -39.780197
+        ]
+    },
+    {
+        "name": "Urzig",
+        "country": "Hoaran",
+        "loc": [
+            11.436955,
+            10.063477
+        ]
+    },
+    {
+        "name": "Wyksand",
+        "country": "Hoaran",
+        "loc": [
+            -34.619324,
+            -23.910194
+        ]
+    },
+    {
+        "name": "Zagermond",
+        "country": "Hoaran",
+        "loc": [
+            -15.049324,
+            -10.160195
+        ]
+    },
+    {
+        "name": "Daarhim",
+        "country": "Irkath",
+        "loc": [
+            25.244696,
+            114.8291
+        ]
+    },
+    {
+        "name": "Fardewalm",
+        "country": "Irkath",
+        "loc": [
+            19.062119,
+            49.04297
+        ]
+    },
+    {
+        "name": "Hoggejar",
+        "country": "Irkath",
+        "loc": [
+            -7.1008925,
+            93.603516
+        ]
+    },
+    {
+        "name": "Iftilrun",
+        "country": "Irkath",
+        "loc": [
+            -2.2845507,
+            77.43164
+        ]
+    },
+    {
+        "name": "Jirreton",
+        "country": "Irkath",
+        "loc": [
+            -18.020527,
+            91.05469
+        ]
+    },
+    {
+        "name": "Minril",
+        "country": "Irkath",
+        "loc": [
+            21.207458,
+            115.40039
+        ]
+    },
+    {
+        "name": "Morhalm",
+        "country": "Irkath",
+        "loc": [
+            11.350797,
+            56.689453
+        ]
+    },
+    {
+        "name": "Pordille",
+        "country": "Irkath",
+        "loc": [
+            14.349547,
+            115.40039
+        ]
+    },
+    {
+        "name": "Porgador",
+        "country": "Irkath",
+        "loc": [
+            7.623887,
+            100.89844
+        ]
+    },
+    {
+        "name": "Porjaf",
+        "country": "Irkath",
+        "loc": [
+            -4.1272855,
+            61.083984
+        ]
+    },
+    {
+        "name": "Ranskar",
+        "country": "Irkath",
+        "loc": [
+            -2.811371,
+            81.65039
+        ]
+    },
+    {
+        "name": "Ranwold",
+        "country": "Irkath",
+        "loc": [
+            15.961329,
+            46.933594
+        ]
+    },
+    {
+        "name": "Rederhaaf",
+        "country": "Irkath",
+        "loc": [
+            -30.562262,
+            73.125
+        ]
+    },
+    {
+        "name": "Scaril",
+        "country": "Irkath",
+        "loc": [
+            0.26367095,
+            92.37305
+        ]
+    },
+    {
+        "name": "Storkil",
+        "country": "Irkath",
+        "loc": [
+            -36.066864,
+            69.3457
+        ]
+    },
+    {
+        "name": "Winmeez",
+        "country": "Irkath",
+        "loc": [
+            -16.551962,
+            94.13086
+        ]
+    },
+    {
+        "name": "Zerbrug",
+        "country": "Irkath",
+        "loc": [
+            17.644022,
+            41.660156
+        ]
+    },
+    {
+        "name": "Baaldyk",
+        "country": "Karn",
+        "loc": [
+            -30.751278,
+            -34.98047
+        ]
+    },
+    {
+        "name": "Clodmoor",
+        "country": "Karn",
+        "loc": [
+            -52.429222,
+            -66.26953
+        ]
+    },
+    {
+        "name": "Daghelder",
+        "country": "Karn",
+        "loc": [
+            -32.175613,
+            -44.472656
+        ]
+    },
+    {
+        "name": "Demerhoek",
+        "country": "Karn",
+        "loc": [
+            -13.609324,
+            -52.350197
+        ]
+    },
+    {
+        "name": "Denderyk",
+        "country": "Karn",
+        "loc": [
+            -17.098793,
+            -28.95996
+        ]
+    },
+    {
+        "name": "Draakhil",
+        "country": "Karn",
+        "loc": [
+            -17.014767,
+            -32.563477
+        ]
+    },
+    {
+        "name": "Dreizwik",
+        "country": "Karn",
+        "loc": [
+            -20.509354,
+            -39.902344
+        ]
+    },
+    {
+        "name": "Drufhaag",
+        "country": "Karn",
+        "loc": [
+            -43.919323,
+            -73.9202
+        ]
+    },
+    {
+        "name": "Drysford",
+        "country": "Karn",
+        "loc": [
+            -37.09024,
+            -32.43164
+        ]
+    },
+    {
+        "name": "Eldehaaf",
+        "country": "Karn",
+        "loc": [
+            -26.194878,
+            -20.566406
+        ]
+    },
+    {
+        "name": "Flogmenfort",
+        "country": "Karn",
+        "loc": [
+            -29.15216,
+            -24.169922
+        ]
+    },
+    {
+        "name": "Fort Mirzicht",
+        "country": "Karn",
+        "loc": [
+            -9.40571,
+            -21.796875
+        ]
+    },
+    {
+        "name": "Fulsmijn",
+        "country": "Karn",
+        "loc": [
+            -22.024546,
+            -22.58789
+        ]
+    },
+    {
+        "name": "Gildeharm",
+        "country": "Karn",
+        "loc": [
+            -22.553148,
+            -31.02539
+        ]
+    },
+    {
+        "name": "Gipmond",
+        "country": "Karn",
+        "loc": [
+            -47.669323,
+            -78.40019
+        ]
+    },
+    {
+        "name": "Glearmaz",
+        "country": "Karn",
+        "loc": [
+            -13.909325,
+            -24.000195
+        ]
+    },
+    {
+        "name": "Graanhym",
+        "country": "Karn",
+        "loc": [
+            -52.469326,
+            -50.630196
+        ]
+    },
+    {
+        "name": "Greefort",
+        "country": "Karn",
+        "loc": [
+            -34.307144,
+            -39.63867
+        ]
+    },
+    {
+        "name": "Gytmotte",
+        "country": "Karn",
+        "loc": [
+            -49.779324,
+            -45.050194
+        ]
+    },
+    {
+        "name": "Hoogsfort",
+        "country": "Karn",
+        "loc": [
+            -5.9657536,
+            -35.507812
+        ]
+    },
+    {
+        "name": "Hornmir",
+        "country": "Karn",
+        "loc": [
+            -56.379326,
+            -50.020195
+        ]
+    },
+    {
+        "name": "Inderwoud",
+        "country": "Karn",
+        "loc": [
+            -32.472694,
+            -32.958984
+        ]
+    },
+    {
+        "name": "Kletl",
+        "country": "Karn",
+        "loc": [
+            -29.764378,
+            -28.03711
+        ]
+    },
+    {
+        "name": "Klinkerhaard",
+        "country": "Karn",
+        "loc": [
+            -49.21042,
+            -49.746094
+        ]
+    },
+    {
+        "name": "Lelem",
+        "country": "Karn",
+        "loc": [
+            -36.899323,
+            -40.660194
+        ]
+    },
+    {
+        "name": "Lensbrug",
+        "country": "Karn",
+        "loc": [
+            -48.019325,
+            -46.450195
+        ]
+    },
+    {
+        "name": "Moetbrug",
+        "country": "Karn",
+        "loc": [
+            -24.046465,
+            -26.455078
+        ]
+    },
+    {
+        "name": "Moton",
+        "country": "Karn",
+        "loc": [
+            -10.185187,
+            -29.179688
+        ]
+    },
+    {
+        "name": "Muddam",
+        "country": "Karn",
+        "loc": [
+            -44.829323,
+            -45.010197
+        ]
+    },
+    {
+        "name": "Muilbron",
+        "country": "Karn",
+        "loc": [
+            -43.229195,
+            -34.760742
+        ]
+    },
+    {
+        "name": "Muilstein",
+        "country": "Karn",
+        "loc": [
+            -39.198204,
+            -41.176758
+        ]
+    },
+    {
+        "name": "Niveld",
+        "country": "Karn",
+        "loc": [
+            -48.079323,
+            -47.070194
+        ]
+    },
+    {
+        "name": "Odracht",
+        "country": "Karn",
+        "loc": [
+            -12.940322,
+            -37.30957
+        ]
+    },
+    {
+        "name": "Ooiveld",
+        "country": "Karn",
+        "loc": [
+            -25.403585,
+            -30.146484
+        ]
+    },
+    {
+        "name": "Oxgon",
+        "country": "Karn",
+        "loc": [
+            -38.759323,
+            -45.970196
+        ]
+    },
+    {
+        "name": "Oxmoor",
+        "country": "Karn",
+        "loc": [
+            -43.834526,
+            -47.63672
+        ]
+    },
+    {
+        "name": "Pluimhaaf",
+        "country": "Karn",
+        "loc": [
+            -28.497662,
+            -27.597656
+        ]
+    },
+    {
+        "name": "Riesmoor",
+        "country": "Karn",
+        "loc": [
+            -41.64008,
+            -43.76953
+        ]
+    },
+    {
+        "name": "Rodveld",
+        "country": "Karn",
+        "loc": [
+            -22.958393,
+            -32.08008
+        ]
+    },
+    {
+        "name": "Roodfort",
+        "country": "Karn",
+        "loc": [
+            -19.68397,
+            -45.439453
+        ]
+    },
+    {
+        "name": "Sansmills",
+        "country": "Karn",
+        "loc": [
+            -26.194878,
+            -36.035156
+        ]
+    },
+    {
+        "name": "Stendepunt",
+        "country": "Karn",
+        "loc": [
+            -49.519325,
+            -61.050194
+        ]
+    },
+    {
+        "name": "Swynhaaf",
+        "country": "Karn",
+        "loc": [
+            -30.069094,
+            -42.626953
+        ]
+    },
+    {
+        "name": "Winfort",
+        "country": "Karn",
+        "loc": [
+            -45.599323,
+            -76.6002
+        ]
+    },
+    {
+        "name": "Zeisveld",
+        "country": "Karn",
+        "loc": [
+            -25.720736,
+            -42.890625
+        ]
+    },
+    {
+        "name": "Kaltar",
+        "country": "Kathian",
+        "loc": [
+            -2.4601812,
+            117.94922
+        ]
+    },
+    {
+        "name": "Hirbrun",
+        "country": "Odris",
+        "loc": [
+            34.16182,
+            -22.060547
+        ]
+    },
+    {
+        "name": "Esserpas",
+        "country": "Ordent",
+        "loc": [
+            10.9306755,
+            -47.730194
+        ]
+    },
+    {
+        "name": "Gizig",
+        "country": "Ordent",
+        "loc": [
+            17.240675,
+            -29.760195
+        ]
+    },
+    {
+        "name": "Kallan",
+        "country": "Ordent",
+        "loc": [
+            12.740676,
+            -20.620195
+        ]
+    },
+    {
+        "name": "Koperzicht",
+        "country": "Ordent",
+        "loc": [
+            16.230677,
+            -59.420197
+        ]
+    },
+    {
+        "name": "Marker Tunnel",
+        "country": "Ordent",
+        "loc": [
+            12.050675,
+            -54.630196
+        ]
+    },
+    {
+        "name": "Nieuwlijn",
+        "country": "Ordent",
+        "loc": [
+            10.670676,
+            -34.640194
+        ]
+    },
+    {
+        "name": "Odrisval",
+        "country": "Ordent",
+        "loc": [
+            -5.2493243,
+            -29.270195
+        ]
+    },
+    {
+        "name": "Ordemar",
+        "country": "Ordent",
+        "loc": [
+            19.250675,
+            -65.480194
+        ]
+    },
+    {
+        "name": "Otry",
+        "country": "Ordent",
+        "loc": [
+            3.0406759,
+            -24.350195
+        ]
+    },
+    {
+        "name": "Runnelfort",
+        "country": "Ordent",
+        "loc": [
+            5.410676,
+            -40.350197
+        ]
+    },
+    {
+        "name": "Skif",
+        "country": "Ordent",
+        "loc": [
+            0.010675815,
+            -32.610195
+        ]
+    },
+    {
+        "name": "Woudmill",
+        "country": "Ordent",
+        "loc": [
+            -1.6193242,
+            -21.360195
+        ]
+    },
+    {
+        "name": "Padren",
+        "country": "Quatla",
+        "loc": [
+            -72.945435,
+            -62.841797
+        ]
+    },
+    {
+        "name": "Rodglop",
+        "country": "Quatla",
+        "loc": [
+            -72.04684,
+            -47.021484
+        ]
+    },
+    {
+        "name": "Woohlsbellow",
+        "country": "Quatla",
+        "loc": [
+            -73.92247,
+            -72.86133
+        ]
+    },
+    {
+        "name": "Rantilhaaf",
+        "country": "Surian",
+        "loc": [
+            25.363882,
+            88.41797
+        ]
+    },
+    {
+        "name": "Surlitte",
+        "country": "Surian",
+        "loc": [
+            26.549223,
+            82.08984
+        ]
+    },
+    {
+        "name": "Boiling Bay",
+        "country": "Sutrill",
+        "loc": [
+            33.211117,
+            95.756836
+        ]
+    },
+    {
+        "name": "Ansfort",
+        "country": "Trillian Eilanden",
+        "loc": [
+            51.234406,
+            113.291016
+        ]
+    },
+    {
+        "name": "Sundrel",
+        "country": "Trillian Eilanden",
+        "loc": [
+            49.21042,
+            113.37891
+        ]
+    },
+    {
+        "name": "Gloardal",
+        "country": "Wyvernia",
+        "loc": [
+            -6.7518964,
+            -97.4707
+        ]
+    }
+]
