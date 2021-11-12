@@ -1,14 +1,16 @@
-<div class="sentence">
-    {#each Array.from(selectedRunes) as rune}
-        <div class="icon">
-            <RuneIcon bind:rune="{rune}" showTranslations="{true}" />
-        </div>
-    {/each}
-</div>
+{#if selectedRunes.length > 0}
+    <div class="sentence">
+        {#each Array.from(selectedRunes) as rune, i}
+            <button on:click={() => { removeRune(i) }} class="icon">
+                <RuneIcon bind:rune="{rune}" showTranslations="{true}" />
+            </button>
+        {/each}
+    </div>
+{/if}
 
 <div class="runes">
     {#each Array.from(runes) as rune}
-        <button on:click={() => { showRune(rune) }} class="rune">
+        <button on:click={() => { addRune(rune) }} class="rune">
             <RuneFull bind:rune="{rune}" />
         </button>
     {/each}
@@ -37,7 +39,12 @@
         runes.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    function showRune(rune: Rune) {
+    function removeRune(index: number) {
+        selectedRunes.splice(index, 1);
+        selectedRunes = selectedRunes;
+    }
+
+    function addRune(rune: Rune) {
         selectedRunes = [...selectedRunes, rune];
     }
 </script>
@@ -48,8 +55,13 @@
         flex-wrap: wrap;
     }
     .sentence {
+        background-color: #222;
+        padding: 20px;
+        z-index: 1;
+        position: sticky;
         display: flex;
         overflow: auto;
+        top: 0px;
     }
     button {
         all: unset;

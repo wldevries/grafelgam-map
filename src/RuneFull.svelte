@@ -4,7 +4,7 @@
     <h4 class="translation">{rune.translation} Rune</h4>
     <ul>
         {#each rune.translations as translation}
-            <li>{translation}</li>
+            <li>{translation.toLocaleLowerCase()}</li>
         {/each}
     </ul>
 </article>
@@ -48,7 +48,7 @@
     }
     li {
         margin-right: 1em;
-        opacity: 50%;
+        opacity: 60%;
         font-size: 0.8em;
     }
     .translation {

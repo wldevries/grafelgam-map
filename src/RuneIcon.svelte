@@ -1,8 +1,8 @@
 <article>
     <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.name} />
-    <h5>{rune.name}</h5>
+    <h4>{rune.name}</h4>
     {#if showTranslations}
-        <p class="translation">{rune.translation}</p>
+        <p class="translation">{rune.translation.toLocaleLowerCase()}</p>
     {/if}
 </article>
 
@@ -23,7 +23,7 @@
                 hue-rotate(349deg) brightness(60%) contrast(90%)
                 drop-shadow(1px 1px 0.1rem #333);
     }
-    h5 {
+    h4 {
         margin: auto;
         text-align: center;
         word-wrap: break-word;
