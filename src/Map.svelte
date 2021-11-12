@@ -60,7 +60,7 @@
 <style>
     #map {
         position: fixed;
-        background: #eee;
+        background: #222;
         z-index: 0;
         top: 65px;
         left: 0px;
