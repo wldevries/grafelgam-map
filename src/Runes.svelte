@@ -22,15 +22,20 @@
     import RuneFull from "./RuneFull.svelte"
     import RuneIcon from "./RuneIcon.svelte"
 
-    const { open } = getContext('simple-modal');
+    const storageKey = "runeSentence";
 
     export let runes: Rune[] = [];
     export let selectedRunes: Rune[] = [];
 
-    onMount(() => {
-        loadRunes();
+    onMount(async () => {
+        if (runes.length == 0) {
+            await loadRunes();
+        }
+        if (selectedRunes.length == 0) {
+            loadSaved();
+        }
     });
-    
+
     async function loadRunes() {
         runes = await fetch("runes.json").then((response) =>
             response.json()
@@ -39,14 +44,34 @@
         runes.sort((a, b) => a.name.localeCompare(b.name));
     }
 
+    function loadSaved() {
+        const namesJson = localStorage.getItem(storageKey);
+        const names: string[] = JSON.parse(namesJson);
+        if (Array.isArray(names)) {
+            names.forEach(n => {
+                const rune = runes.find(r => r.name === n);
+                if (rune != undefined) {
+                    selectedRunes = [...selectedRunes, rune];
+                }
+            });
+        }
+    }
+
     function removeRune(index: number) {
         selectedRunes.splice(index, 1);
         selectedRunes = selectedRunes;
+        saveLocalStorage();
     }
 
     function addRune(rune: Rune) {
         selectedRunes = [...selectedRunes, rune];
+        saveLocalStorage();
     }
+
+    function saveLocalStorage() {
+        localStorage.setItem(storageKey,JSON.stringify(selectedRunes.map(r => r.name)));
+    }
+
 </script>
 
 <style>

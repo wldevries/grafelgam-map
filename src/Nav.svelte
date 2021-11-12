@@ -88,10 +88,7 @@
     {/if}
 
     {#if runeMenuOpen}
-        <div
-            class="navmenu"
-            transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
-        >
+        <div class="navmenu">
             <Runes />
         </div>
     {/if}
