@@ -47,7 +47,7 @@
         flex-wrap: wrap;
     }
     li {
-        margin-right: 1em;
+        margin: 0 .5em;
         opacity: 60%;
         font-size: 0.8em;
     }
