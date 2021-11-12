@@ -23,7 +23,7 @@
         max-width: 150px;
         filter: invert(58%) sepia(11%) saturate(597%)
                 hue-rotate(349deg) brightness(60%) contrast(90%)
-                drop-shadow(1px 1x 0.1rem #333);
+                drop-shadow(1px 1px 0.1rem #333);
     }
     h3 {
         margin: 0.2em 0;
