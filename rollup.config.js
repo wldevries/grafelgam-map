@@ -32,11 +32,15 @@ function serve() {
 
 export default {
 	input: 'src/main.ts',
+    external: ["leaflet"],
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/bundle.js',
+        globals: {
+            leaflet: 'L'
+        }
 	},
 	plugins: [
 		svelte({
