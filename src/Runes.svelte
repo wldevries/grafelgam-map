@@ -1,22 +1,29 @@
-<div>
-    {#each Array.from(runes) as rune}
-        <!-- <button on:click={() => { showRune(rune) }}>
-            <img src="runes/{rune.name.toLowerCase()}.svg" alt={rune.description} />
-        </button> -->
-        <div class="rune">
-            <RunePopup bind:rune="{rune}" />
+<div class="sentence">
+    {#each Array.from(selectedRunes) as rune}
+        <div class="icon">
+            <RuneIcon bind:rune="{rune}" />
         </div>
+    {/each}
+</div>
+
+<div class="runes">
+    {#each Array.from(runes) as rune}
+        <button on:click={() => { showRune(rune) }} class="rune">
+            <RuneFull bind:rune="{rune}" />
+        </button>
     {/each}
 </div>
 
 <script lang="ts">
     import { getContext, onMount } from 'svelte';
     import type { Rune } from "./Models"
-    import RunePopup from "./RunePopup.svelte"
+    import RuneFull from "./RuneFull.svelte"
+    import RuneIcon from "./RuneIcon.svelte"
 
     const { open } = getContext('simple-modal');
 
     export let runes: Rune[] = [];
+    export let selectedRunes: Rune[] = [];
 
     onMount(() => {
         loadRunes();
@@ -31,23 +38,29 @@
     }
 
     function showRune(rune: Rune) {
-        open(RunePopup, { rune: rune })
+        selectedRunes = [...selectedRunes, rune];
     }
 </script>
 
 <style>
-    div {
+    .runes {
         display: flex;
         flex-wrap: wrap;
     }
-    img {
-        margin: 10px;
+    .sentence {
+        display: flex;
+        overflow: auto;
     }
     button {
         all: unset;
         cursor: pointer;
+        display: inline-flex; /* keep the inline nature of buttons */
+        align-items: flex-start; /* this is default */
     }
     .rune {
         margin: 20px;
+    }
+    .icon {
+        margin: 5px;
     }
 </style>
