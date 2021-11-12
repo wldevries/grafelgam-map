@@ -16,11 +16,14 @@
 
 <style>
     article {
-        max-width: 200px;
+        max-width: 150px;
     }
     img {
-        height: 200px;
-        max-width: 200px;
+        height: 150px;
+        max-width: 150px;
+        filter: invert(58%) sepia(11%) saturate(597%)
+                hue-rotate(349deg) brightness(60%) contrast(90%)
+                drop-shadow(0 0 0.1rem #333);
     }
     h3 {
         margin: 0.2em 0;
