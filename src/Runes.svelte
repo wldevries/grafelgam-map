@@ -25,7 +25,7 @@
     import { quintOut } from "svelte/easing";
     import { onMount } from 'svelte';
 
-    import { v4 as uuidv4 } from 'uuid';
+    import { v4 as uuid } from 'uuid';
 
     import RuneFull from "./RuneFull.svelte"
     import RuneIcon from "./RuneIcon.svelte"
@@ -37,11 +37,11 @@
 
     class RuneWithId implements Rune {
         static fromRune(rune: Rune) {
-            return new RuneWithId(uuidv4(), rune.name, rune.translation, rune.translations);
+            return new RuneWithId(uuid(), rune.name, rune.translation, rune.translations);
         }
 
         constructor(
-            public id: uuidv4,
+            public id: string,
             public name: string,
             public translation: string,
             public translations: string[]) {}
@@ -78,7 +78,7 @@
         }
     }
 
-    function removeRune(id: uuidv4) {
+    function removeRune(id: string) {
         const index = selectedRunes.findIndex(r => r.id === id);
         if (index != -1) {
             selectedRunes.splice(index, 1);
