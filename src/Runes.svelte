@@ -18,7 +18,6 @@
 
 <script lang="ts">
     import { getContext, onMount } from 'svelte';
-    import type { Rune } from "./Models"
     import RuneFull from "./RuneFull.svelte"
     import RuneIcon from "./RuneIcon.svelte"
 

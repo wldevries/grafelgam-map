@@ -10,8 +10,6 @@
 </article>
 
 <script lang="ts">
-    import type { Rune } from "./Models"
-
     export let rune: Rune;
 </script>
 
@@ -25,12 +23,12 @@
         height: 150px;
         max-width: 150px;
         filter: invert(58%) sepia(11%) saturate(597%)
-                hue-rotate(349deg) brightness(60%) contrast(90%)
+                hue-rotate(349deg) brightness(80%) contrast(90%)
                 drop-shadow(1px 1px 0.1rem #333);
     }
     h3 {
         text-align: center;
-        margin: 0.2em 0;
+        margin: 1em auto .2em auto;
     }
     h4 {
         text-align: center;

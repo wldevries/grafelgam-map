@@ -7,8 +7,6 @@
 </article>
 
 <script lang="ts">
-    import type { Rune } from "./Models"
-
     export let rune: Rune;
     export let showTranslations: boolean = false;
 </script>
@@ -20,11 +18,10 @@
         max-width: 50px;
         margin: auto;
         filter: invert(58%) sepia(11%) saturate(597%)
-                hue-rotate(349deg) brightness(60%) contrast(90%)
-                drop-shadow(1px 1px 0.1rem #333);
+                hue-rotate(349deg) brightness(70%) contrast(90%);
     }
     h4 {
-        margin: auto;
+        margin: .5em auto auto auto;
         text-align: center;
         word-wrap: break-word;
     }
