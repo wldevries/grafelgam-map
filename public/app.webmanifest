@@ -1,0 +1,10 @@
+{
+    "short_name": "Grafelgam",
+    "name": "Grafelgam map",
+    "start_url": "/",
+    "background_color": "#333",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#3367D6",
+    "description": "Grafelgam map and tools"
+}
