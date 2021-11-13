@@ -6,7 +6,8 @@
         items={allLocations}
         bind:selectedItem={selectedLocation}        
         labelFieldName="name"
-        onChange="{showLocation}"  />
+        onChange="{showLocation}"
+        showClear="true" />
 </div>
 
 <script lang="ts">
@@ -18,12 +19,17 @@
     let map: L.Map;
     let locationLayer: L.FeatureGroup<any>;
 
+    let multipleSelected: boolean;
     let selectedLocation;
     let allLocations: Location[] = [];
 
     function showLocation(location: Location) {
         if (location != undefined) {
             showLocations([location]);
+        }
+        else if (!multipleSelected && map != undefined) {
+            map.removeLayer(locationLayer);
+            locationLayer = undefined;
         }
     }
 
@@ -34,6 +40,10 @@
 
         if (locations.length == 1) {
             selectedLocation = locations[0];
+        }
+        else if (locations.length > 1) {
+            multipleSelected = true;
+            selectedLocation = undefined;
         }
         else {
             selectedLocation = undefined;
@@ -50,18 +60,12 @@
             });
 
             map.addLayer(locationLayer);
-            // map.setView(location.loc, 5);
             map.fitBounds(L.latLngBounds(locations.map((l) => l.loc)));
         }
     }
 
     onMount(async () => {
         var moptions: L.MapOptions = {
-            // Simple might be nice, but is different
-            // from coordinates we already have defined
-            // crs: L.CRS.Simple,
-            // minZoom: 1,
-            // maxZoom: 5,
             zoomSnap: 0.5,
             zoomDelta: 0.5,
         };
@@ -107,7 +111,6 @@
     /* More styling is on autocomplete class in global styles */
     .search {
         width: 250px;
-        z-index: 1000;
         position: fixed;
         top: 76px;
         left: 80px;
