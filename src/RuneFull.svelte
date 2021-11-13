@@ -15,6 +15,7 @@
 
 <style>
     article {
+        user-select: none;
         max-width: 150px;
     }
     img {

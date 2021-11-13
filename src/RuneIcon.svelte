@@ -12,6 +12,9 @@
 </script>
 
 <style>
+    article {
+        user-select: none;
+    }
     img {
         display: block;
         height: 50px;

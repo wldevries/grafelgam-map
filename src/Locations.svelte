@@ -112,6 +112,7 @@
     button {
         all: unset;
         cursor: pointer;
+        user-select: none;
     }
 
     .country-list {
