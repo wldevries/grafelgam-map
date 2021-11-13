@@ -92,8 +92,8 @@
     button {
         all: unset;
         cursor: pointer;
-        display: inline-flex; /* keep the inline nature of buttons */
-        align-items: flex-start; /* this is default */
+        display: flex;        
+        justify-content: center;
     }
     .rune {
         margin: 20px;
