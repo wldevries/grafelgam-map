@@ -70,6 +70,7 @@
             {#each Array.from(countries).sort( (a, b) => a.localeCompare(b) ) as country}
                 <section class="country-list">
                     <button
+                        class="country-heading"
                         on:click={() =>
                             showLocations(
                                 allLocations.filter((l) => l.country == country)
@@ -78,9 +79,9 @@
                         <h3>{country}</h3>
                     </button>
 
-                    <ul>
+                    <ul class="country-entries">
                         {#each allLocations.filter((l) => l.country == country) as location}
-                            <li>
+                            <li class="country-entry">
                                 <button on:click={() => showLocations([location])}>
                                     <span>{location.name}</span>
                                 </button>
@@ -106,9 +107,9 @@
     }
 
     li {
-        color: #987;
-        line-height: 2em;
         list-style-type: none;
+        margin: 0px;
+        padding: 0px;
     }
 
     h2 {
@@ -117,8 +118,9 @@
         padding: 0;
     }
 
-    h3 {
-        margin: 20px 0px 10px 40px;
+    button {
+        all: unset;
+        cursor: pointer;        
     }
 
     .navbar {
@@ -130,20 +132,24 @@
         z-index: 1;
         width: 100%;
         height: 65px;
-        line-height: 50px;
         top: 0px;
     }
 
     .navbar button {
-        all: unset;
+        padding: 0px 10px;
         color: #987;
-        cursor: pointer;
-        padding: 2px 10px;
+        height: 100%;
+    }
+    .navbar button:hover {
+        background-color: #333;
+    }
+    .navbar button:active {
+        background-color: #303030;
     }
 
     .navmenu {
         color: #987;
-        background-color: #444;
+        background-color: #444444;
         position: absolute;
         top: 65px;
         margin: 0;
@@ -153,24 +159,36 @@
     }
 
     .navmenu-locations {
-        columns: 200px;
-        column-gap: 10px;
+        background-color: #333333F0;
+        columns: 180px;
+        column-gap: 5px;
     }
-
-    .navmenu button {
-        all: unset;
-        width: 100%;
-        color: #987;
-        cursor: pointer;
-    }
-    .navmenu button:hover {
-        background-color: #443322;
-    }
-    .navmenu span {
-        margin: 0px 45px;
-    }
-
+    
     .country-list {
+        margin: 5px;
         break-inside: avoid;
+    }
+
+    .country-list button {
+        width: 100%;
+    }
+    .country-list button:hover {
+        background-color: #333;
+    }
+    .country-list button:active {
+        background-color: #303030;
+    }
+
+    .country-heading h3 {
+        line-height: 2.5em;
+        margin: 5px 10px 0 10px;
+    }
+
+    .country-entry {
+        margin: 0px;
+        line-height: 2em;
+    }
+    .country-entry span {
+        margin: 0px 15px;
     }
 </style>
