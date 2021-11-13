@@ -64,28 +64,30 @@
 
     {#if locationMenuOpen}
         <div
-            class="navmenu"
+            class="navmenu navmenu-locations"
             transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
         >
             {#each Array.from(countries).sort( (a, b) => a.localeCompare(b) ) as country}
-                <button
-                    on:click={() =>
-                        showLocations(
-                            allLocations.filter((l) => l.country == country)
-                        )}
-                >
-                    <h3>{country}</h3>
-                </button>
+                <section class="country-list">
+                    <button
+                        on:click={() =>
+                            showLocations(
+                                allLocations.filter((l) => l.country == country)
+                            )}
+                    >
+                        <h3>{country}</h3>
+                    </button>
 
-                <ul>
-                    {#each allLocations.filter((l) => l.country == country) as location}
-                        <li>
-                            <button on:click={() => showLocations([location])}>
-                                <span>{location.name}</span>
-                            </button>
-                        </li>
-                    {/each}
-                </ul>
+                    <ul>
+                        {#each allLocations.filter((l) => l.country == country) as location}
+                            <li>
+                                <button on:click={() => showLocations([location])}>
+                                    <span>{location.name}</span>
+                                </button>
+                            </li>
+                        {/each}
+                    </ul>
+                </section>
             {/each}
         </div>
     {/if}
@@ -150,6 +152,11 @@
         width: 100%;
     }
 
+    .navmenu-locations {
+        columns: 200px;
+        column-gap: 10px;
+    }
+
     .navmenu button {
         all: unset;
         width: 100%;
@@ -161,5 +168,9 @@
     }
     .navmenu span {
         margin: 0px 45px;
+    }
+
+    .country-list {
+        break-inside: avoid;
     }
 </style>
