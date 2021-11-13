@@ -14,6 +14,6 @@
     let map: Map;
 
     function showLocations(e: CustomEvent<{locations: Location[]}>) {
-        map.showmap(e.detail.locations);
+        map.showLocations(e.detail.locations);
     }
 </script>
