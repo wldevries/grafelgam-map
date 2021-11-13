@@ -8,7 +8,6 @@
 	import { modal } from './Stores';
 
     import Map from "./Map.svelte";
-    import type { Location } from "./Models"
     import Nav from "./Nav.svelte";
 
     let map: Map;

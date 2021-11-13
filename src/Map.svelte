@@ -14,7 +14,6 @@
     import { onMount } from "svelte";
     import AutoComplete from "simple-svelte-autocomplete";
     import * as L from "leaflet";
-    import type { Location } from "./Models"
 
     let map: L.Map;
     let locationLayer: L.FeatureGroup<any>;

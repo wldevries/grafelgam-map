@@ -4,7 +4,6 @@
     import { quintOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte";
 
-    import type { Location } from "./Models";
     import Runes from "./Runes.svelte";
 
     const dispatch = createEventDispatcher();
