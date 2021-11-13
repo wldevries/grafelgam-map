@@ -19,7 +19,7 @@
     let locationLayer: L.FeatureGroup<any>;
 
     let multipleSelected: boolean;
-    let selectedLocation;
+    let selectedLocation: Location;
     let allLocations: Location[] = [];
 
     function showLocation(location: Location) {

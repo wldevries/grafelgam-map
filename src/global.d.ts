@@ -2,6 +2,7 @@
 
 interface Location {
     name: string;
+    region: string;
     country: string;
     loc: L.LatLng;
 }
