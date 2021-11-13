@@ -78,6 +78,7 @@
     .runes {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
     }
     .sentence {
         background-color: #222;
@@ -96,8 +97,10 @@
     }
     .rune {
         margin: 20px;
+        flex-grow: 1;
     }
     .icon {
         margin: 5px;
+        flex-shrink: 0;
     }
 </style>
