@@ -32,6 +32,13 @@
         }
     }
 
+    function popupText(location: Location) : string {
+        if (location.region == undefined) {
+            return `<h3>${location.name}</h3><p>${location.country}</p>`;
+        }
+        return `<h3>${location.name}</h3><p>${location.country}  (${location.region})</p>`;
+    }
+
     export function showLocations(locations: Location[]) {
         if (locationLayer != undefined) {
             map.removeLayer(locationLayer);
@@ -48,18 +55,23 @@
             selectedLocation = undefined;
         }
 
-        locationLayer = new L.FeatureGroup();
-
         if (locations.length > 0) {
-            locations.forEach((location) => {
-                var marker = L.marker(location.loc)
-                    .bindPopup(location.name)
-                    .openPopup();
-                locationLayer.addLayer(marker);
-            });
+            locationLayer = new L.FeatureGroup().addTo(map);
 
-            map.addLayer(locationLayer);
-            map.fitBounds(L.latLngBounds(locations.map((l) => l.loc)));
+            locations.forEach(l => {
+                const m = L.marker(l.loc)
+                    .addTo(locationLayer)
+                    .bindTooltip(popupText(l));
+                
+                    if (locations.length == 1) {
+                        const p = new L.Popup({ autoClose: false })
+                            .setContent(popupText(l))
+                            .setLatLng(l.loc);
+                        m.bindPopup(p).openPopup();
+                }
+            });
+            
+            map.fitBounds(L.latLngBounds(locations.map(l => l.loc)));
         }
     }
 

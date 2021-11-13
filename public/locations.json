@@ -292,6 +292,7 @@
     },
     {
         "name": "Alwam",
+        "region": "Urling",
         "country": "Felia",
         "loc": [
             24.080675,
@@ -300,6 +301,7 @@
     },
     {
         "name": "Ashfell",
+        "region": "Setmar",
         "country": "Felia",
         "loc": [
             55.80128,
@@ -335,6 +337,7 @@
     },
     {
         "name": "Dippo",
+        "region": "Hopexi",
         "country": "Felia",
         "loc": [
             70.69995,
@@ -352,6 +355,7 @@
     },
     {
         "name": "Sarclif",
+        "region": "Urling",
         "country": "Felia",
         "loc": [
             25.630676,
@@ -369,6 +373,7 @@
     },
     {
         "name": "Shan Torl",
+        "region": "Fearkhans embrace",
         "country": "Felia",
         "loc": [
             63.11464,
@@ -386,6 +391,7 @@
     },
     {
         "name": "Taxmari",
+        "region": "Tabaxi",
         "country": "Felia",
         "loc": [
             75.541115,
@@ -403,6 +409,7 @@
     },
     {
         "name": "Walhut",
+        "region": "Valian",
         "country": "Felia",
         "loc": [
             59.790676,
@@ -798,7 +805,7 @@
     },
     {
         "name": "Scaril",
-        "region": "Rilkath",
+        "region": "Rundor",
         "country": "Irkath",
         "loc": [
             0.26367095,
@@ -843,6 +850,7 @@
     },
     {
         "name": "Clodmoor",
+        "region": "Ardoa",
         "country": "Karn",
         "loc": [
             -52.429222,
@@ -1148,6 +1156,7 @@
     },
     {
         "name": "Oxmoor",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -43.834526,
