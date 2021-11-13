@@ -3,6 +3,7 @@
          transition:slide|local={{duration: 200, easing: quintOut}}>
         {#each Array.from(selectedRunes) as rune (rune.id)}
             <button on:click={() => { removeRune(rune.id) }} class="icon"
+                    animate:flip|local={{duration: 200, easing: quintOut}}
                     transition:fade|local={{duration: 200, easing: quintOut}}>
                 <RuneIcon bind:rune="{rune}" showTranslations="{true}" />
             </button>
@@ -20,6 +21,7 @@
 
 <script lang="ts">
     import { fade, slide } from "svelte/transition";
+    import { flip } from 'svelte/animate';
     import { quintOut } from "svelte/easing";
     import { onMount } from 'svelte';
 
