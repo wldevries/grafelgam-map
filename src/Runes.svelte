@@ -1,7 +1,9 @@
 {#if selectedRunes.length > 0}
-    <div class="sentence">
-        {#each Array.from(selectedRunes) as rune, i}
-            <button on:click={() => { removeRune(i) }} class="icon">
+    <div class="sentence"
+         transition:slide|local={{duration: 200, easing: quintOut}}>
+        {#each Array.from(selectedRunes) as rune (rune.id)}
+            <button on:click={() => { removeRune(rune.id) }} class="icon"
+                    transition:fade|local={{duration: 200, easing: quintOut}}>
                 <RuneIcon bind:rune="{rune}" showTranslations="{true}" />
             </button>
         {/each}
@@ -17,14 +19,31 @@
 </div>
 
 <script lang="ts">
-    import { getContext, onMount } from 'svelte';
+    import { fade, slide } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
+    import { onMount } from 'svelte';
+
+    import { v4 as uuidv4 } from 'uuid';
+
     import RuneFull from "./RuneFull.svelte"
     import RuneIcon from "./RuneIcon.svelte"
 
     const storageKey = "runeSentence";
 
     export let runes: Rune[] = [];
-    export let selectedRunes: Rune[] = [];
+    export let selectedRunes: RuneWithId[] = [];
+
+    class RuneWithId implements Rune {
+        static fromRune(rune: Rune) {
+            return new RuneWithId(uuidv4(), rune.name, rune.translation, rune.translations);
+        }
+
+        constructor(
+            public id: uuidv4,
+            public name: string,
+            public translation: string,
+            public translations: string[]) {}
+    }
 
     onMount(async () => {
         if (runes.length == 0) {
@@ -50,20 +69,25 @@
             names.forEach(n => {
                 const rune = runes.find(r => r.name === n);
                 if (rune != undefined) {
-                    selectedRunes = [...selectedRunes, rune];
+                    let runeid = RuneWithId.fromRune(rune);
+                    selectedRunes = [...selectedRunes, runeid];
                 }
             });
         }
     }
 
-    function removeRune(index: number) {
-        selectedRunes.splice(index, 1);
-        selectedRunes = selectedRunes;
-        saveLocalStorage();
+    function removeRune(id: uuidv4) {
+        const index = selectedRunes.findIndex(r => r.id === id);
+        if (index != -1) {
+            selectedRunes.splice(index, 1);
+            selectedRunes = selectedRunes;
+            saveLocalStorage();
+        }
     }
 
     function addRune(rune: Rune) {
-        selectedRunes = [...selectedRunes, rune];
+        let runeid = RuneWithId.fromRune(rune);
+        selectedRunes = [...selectedRunes, runeid];
         saveLocalStorage();
     }
 

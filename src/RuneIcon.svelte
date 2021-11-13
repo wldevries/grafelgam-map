@@ -6,7 +6,7 @@
     {/if}
 </article>
 
-<script lang="ts">
+<script lang="ts">    
     export let rune: Rune;
     export let showTranslations: boolean = false;
 </script>
