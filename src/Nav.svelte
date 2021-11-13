@@ -35,6 +35,10 @@
         });
     }
 
+    function goHome() {
+        locationMenuOpen = runeMenuOpen = false;
+    }
+
     onMount(() => {
         loadLocations();
     });
@@ -53,9 +57,9 @@
 
 <div class="nav">
     <div class="navbar">
-        <h2>Grafelgam</h2>
-        <button on:click={openLocations} class="navtoggle">Locations</button>
-        <button on:click={openRunes} class="navtoggle">Runes</button>
+        <button on:click={goHome}><h2>Grafelgam</h2></button>
+        <button on:click={openLocations}>Locations</button>
+        <button on:click={openRunes}>Runes</button>
     </div>
 
     {#if locationMenuOpen}
@@ -128,7 +132,7 @@
         top: 0px;
     }
 
-    .navtoggle {
+    .navbar button {
         all: unset;
         color: #987;
         cursor: pointer;
