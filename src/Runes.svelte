@@ -96,11 +96,11 @@
         justify-content: center;
     }
     .rune {
-        margin: 20px;
+        padding: 20px;
         flex-grow: 1;
     }
     .icon {
-        margin: 5px;
+        padding: 5px;
         flex-shrink: 0;
     }
 </style>
