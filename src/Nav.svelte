@@ -105,6 +105,7 @@
     }
 
     .navbar button {
+        font-weight: 700;
         padding: 0px 10px;
         color: #987;
         height: 100%;

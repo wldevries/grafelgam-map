@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { map } from "leaflet";
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
 
@@ -16,6 +17,23 @@
             locations: locations,
         });
     }
+
+    function getCountries() {
+        return Array.from(countries).sort((a, b) => a.localeCompare(b));
+    }
+
+    function getRegions(country: string) {
+        return Array.from(new Set(
+            allLocations
+                .filter((l) => l.country == country)
+                .map((l) => l.region)
+        )).sort((a, b) => a.localeCompare(b));
+    }
+
+    function getLocations(country: string, region: string) {
+        return allLocations.filter((l) => l.country === country && l.region === region)
+    }
+
     async function loadLocations() {
         allLocations = await fetch("locations.json").then((response) =>
             response.json()
@@ -29,25 +47,47 @@
 </script>
 
 <div class="locations">
-    {#each Array.from(countries).sort((a, b) => a.localeCompare(b)) as country}
+    {#each getCountries() as country}
         <section class="country-list">
             <button
                 class="country-heading"
                 on:click={() =>
-                    showLocations(allLocations.filter((l) => l.country == country))}
+                    showLocations(
+                        allLocations.filter((l) => l.country == country)
+                    )}
             >
-                <h3>{country}</h3>
+                <h2>{country}</h2>
             </button>
 
-            <ul class="country-entries">
-                {#each allLocations.filter((l) => l.country == country) as location}
-                    <li class="country-entry">
-                        <button on:click={() => showLocations([location])}>
-                            <span>{location.name}</span>
-                        </button>
-                    </li>
-                {/each}
-            </ul>
+            {#each getRegions(country) as region}
+                {#if region != undefined}
+                    <button
+                        class="country-heading"
+                        on:click={() =>
+                            showLocations(
+                                allLocations.filter(
+                                    (l) =>
+                                        l.country == country &&
+                                        l.region == region
+                                )
+                            )}
+                    >
+                        <h3>{region}</h3>
+                    </button>
+                {:else if getRegions(country).length > 1}
+                    <p/>
+                {/if}
+
+                <ul class="country-entries">
+                    {#each getLocations(country, region) as location}
+                        <li class="country-entry">
+                            <button on:click={() => showLocations([location])}>
+                                <span>{location.name}</span>
+                            </button>
+                        </li>
+                    {/each}
+                </ul>
+            {/each}
         </section>
     {/each}
 </div>
@@ -73,7 +113,7 @@
         all: unset;
         cursor: pointer;
     }
-    
+
     .country-list {
         margin: 5px;
         break-inside: avoid;
@@ -89,8 +129,14 @@
         background-color: #303030;
     }
 
-    .country-heading h3 {
+    .country-heading h2 {
+        color: #ba9;
         line-height: 2.5em;
+        margin: 5px 10px 0 10px;
+    }
+    .country-list h3 {
+        color: #a98;
+        line-height: 2em;
         margin: 5px 10px 0 10px;
     }
 

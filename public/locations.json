@@ -105,6 +105,7 @@
     },
     {
         "name": "Calitin",
+        "region": "Canwin",
         "country": "Contriari",
         "loc": [
             45.320675,
@@ -113,6 +114,7 @@
     },
     {
         "name": "Fellmire",
+        "region": "Sudcan",
         "country": "Contriari",
         "loc": [
             23.885838,
@@ -121,6 +123,7 @@
     },
     {
         "name": "Fridget",
+        "region": "Illdran",
         "country": "Contriari",
         "loc": [
             63.35213,
@@ -129,6 +132,7 @@
     },
     {
         "name": "Lararym",
+        "region": "Sudcan",
         "country": "Contriari",
         "loc": [
             33.110676,
@@ -137,6 +141,7 @@
     },
     {
         "name": "Meerfort",
+        "region": "Illdran",
         "country": "Contriari",
         "loc": [
             55.130676,
@@ -145,6 +150,7 @@
     },
     {
         "name": "Mithanhyr",
+        "region": "Tonner",
         "country": "Contriari",
         "loc": [
             44.440678,
@@ -153,6 +159,7 @@
     },
     {
         "name": "Oloth",
+        "region": "Norcan",
         "country": "Contriari",
         "loc": [
             60.120674,
@@ -161,6 +168,7 @@
     },
     {
         "name": "Olrym",
+        "region": "Olrican",
         "country": "Contriari",
         "loc": [
             33.550674,
@@ -169,6 +177,7 @@
     },
     {
         "name": "Rashaaf",
+        "region": "Galast",
         "country": "Contriari",
         "loc": [
             62.820675,
@@ -177,6 +186,7 @@
     },
     {
         "name": "Wardeklok",
+        "region": "Hymerdan",
         "country": "Contriari",
         "loc": [
             48.330677,
@@ -184,7 +194,8 @@
         ]
     },
     {
-        "name": "Ydekder",
+        "name": "Yderder",
+        "region": "Derring",
         "country": "Contriari",
         "loc": [
             58.650677,
@@ -297,6 +308,7 @@
     },
     {
         "name": "Beurset",
+        "region": "Setmond",
         "country": "Felia",
         "loc": [
             44.060677,
@@ -305,6 +317,7 @@
     },
     {
         "name": "Dahinset",
+        "region": "Setmond",
         "country": "Felia",
         "loc": [
             41.240677,
@@ -313,6 +326,7 @@
     },
     {
         "name": "Dathpor",
+        "region": "Espedath",
         "country": "Felia",
         "loc": [
             50.930737,
@@ -328,7 +342,8 @@
         ]
     },
     {
-        "name": "Faerschan",
+        "name": "Fearschan",
+        "region": "Famoset",
         "country": "Felia",
         "loc": [
             51.880676,
@@ -345,6 +360,7 @@
     },
     {
         "name": "Shan Marnag",
+        "region": "Setmar",
         "country": "Felia",
         "loc": [
             57.183903,
@@ -361,6 +377,7 @@
     },
     {
         "name": "Steverit",
+        "region": "Famoset",
         "country": "Felia",
         "loc": [
             46.760677,
@@ -377,6 +394,7 @@
     },
     {
         "name": "Waldraaf",
+        "region": "Derring",
         "country": "Felia",
         "loc": [
             52.820675,
@@ -393,6 +411,7 @@
     },
     {
         "name": "Abfoorde",
+        "region": "Abrian",
         "country": "Hoaran",
         "loc": [
             -57.729324,
@@ -401,6 +420,7 @@
     },
     {
         "name": "Alfjord",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -16.409325,
@@ -409,6 +429,7 @@
     },
     {
         "name": "Amirhaaf",
+        "region": "Mehir",
         "country": "Hoaran",
         "loc": [
             -57.679325,
@@ -417,6 +438,7 @@
     },
     {
         "name": "Ansfort",
+        "region": "Trillian Eilanden",
         "country": "Hoaran",
         "loc": [
             51.234406,
@@ -425,6 +447,7 @@
     },
     {
         "name": "Arendmijn",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             3.8642547,
@@ -433,6 +456,7 @@
     },
     {
         "name": "Bluehig",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -3.4256916,
@@ -441,6 +465,7 @@
     },
     {
         "name": "Bokhaven",
+        "region": "Pastran",
         "country": "Hoaran",
         "loc": [
             -56.759323,
@@ -449,6 +474,7 @@
     },
     {
         "name": "Codhaaf",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             5.834616,
@@ -457,6 +483,7 @@
     },
     {
         "name": "Danswal",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             13.923404,
@@ -465,6 +492,7 @@
     },
     {
         "name": "Duomir",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -10.779325,
@@ -473,6 +501,7 @@
     },
     {
         "name": "Fenmir",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             4.784469,
@@ -481,6 +510,7 @@
     },
     {
         "name": "Fit",
+        "region": "Ooi eilanden",
         "country": "Hoaran",
         "loc": [
             -38.489323,
@@ -489,6 +519,7 @@
     },
     {
         "name": "Gordemin",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             13.154376,
@@ -497,6 +528,7 @@
     },
     {
         "name": "Idrahl",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             10.358151,
@@ -505,6 +537,7 @@
     },
     {
         "name": "Irdo",
+        "region": "Abrian",
         "country": "Hoaran",
         "loc": [
             -58.829323,
@@ -513,6 +546,7 @@
     },
     {
         "name": "Kaltar",
+        "region": "Kathian",
         "country": "Hoaran",
         "loc": [
             -2.4601812,
@@ -521,6 +555,7 @@
     },
     {
         "name": "Lawfort",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -0.70310736,
@@ -529,6 +564,7 @@
     },
     {
         "name": "Mehir",
+        "region": "Mehir",
         "country": "Hoaran",
         "loc": [
             -58.719326,
@@ -537,6 +573,7 @@
     },
     {
         "name": "Normir",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -3.4256916,
@@ -544,7 +581,8 @@
         ]
     },
     {
-        "name": "RangWalt",
+        "name": "Rangwalt",
+        "region": "Abrian",
         "country": "Hoaran",
         "loc": [
             -60.289326,
@@ -553,6 +591,7 @@
     },
     {
         "name": "Rantilhaaf",
+        "region": "Surian",
         "country": "Hoaran",
         "loc": [
             25.363882,
@@ -561,6 +600,7 @@
     },
     {
         "name": "Selhaaf",
+        "region": "Mehir",
         "country": "Hoaran",
         "loc": [
             -54.619324,
@@ -569,6 +609,7 @@
     },
     {
         "name": "Selwyk",
+        "region": "Lerian",
         "country": "Hoaran",
         "loc": [
             -42.319324,
@@ -577,6 +618,7 @@
     },
     {
         "name": "Sikdahl",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             9.31899,
@@ -585,6 +627,7 @@
     },
     {
         "name": "Skeeronrok",
+        "region": "Lerian",
         "country": "Hoaran",
         "loc": [
             -51.309322,
@@ -592,7 +635,8 @@
         ]
     },
     {
-        "name": "Sundrel",
+        "name": "Sundel",
+        "region": "Trillian Eilanden",
         "country": "Hoaran",
         "loc": [
             49.21042,
@@ -601,6 +645,7 @@
     },
     {
         "name": "Surlitte",
+        "region": "Surian",
         "country": "Hoaran",
         "loc": [
             26.549223,
@@ -609,6 +654,7 @@
     },
     {
         "name": "Urzig",
+        "region": "Fendahl",
         "country": "Hoaran",
         "loc": [
             11.436955,
@@ -617,6 +663,7 @@
     },
     {
         "name": "Wyksand",
+        "region": "Lerian",
         "country": "Hoaran",
         "loc": [
             -34.619324,
@@ -625,6 +672,7 @@
     },
     {
         "name": "Zagermond",
+        "region": "Duomir",
         "country": "Hoaran",
         "loc": [
             -15.049324,
@@ -633,6 +681,7 @@
     },
     {
         "name": "Daarhim",
+        "region": "Rilkath",
         "country": "Irkath",
         "loc": [
             25.244696,
@@ -641,6 +690,7 @@
     },
     {
         "name": "Fardewalm",
+        "region": "Ravian",
         "country": "Irkath",
         "loc": [
             19.062119,
@@ -649,6 +699,7 @@
     },
     {
         "name": "Hoggejar",
+        "region": "Mezikath",
         "country": "Irkath",
         "loc": [
             -7.1008925,
@@ -657,6 +708,7 @@
     },
     {
         "name": "Iftilrun",
+        "region": "Ranskar",
         "country": "Irkath",
         "loc": [
             -2.2845507,
@@ -665,6 +717,7 @@
     },
     {
         "name": "Jirreton",
+        "region": "Mezikath",
         "country": "Irkath",
         "loc": [
             -18.020527,
@@ -673,6 +726,7 @@
     },
     {
         "name": "Minril",
+        "region": "Rilkath",
         "country": "Irkath",
         "loc": [
             21.207458,
@@ -681,6 +735,7 @@
     },
     {
         "name": "Morhalm",
+        "region": "Ravian",
         "country": "Irkath",
         "loc": [
             11.350797,
@@ -689,6 +744,7 @@
     },
     {
         "name": "Pordille",
+        "region": "Rilkath",
         "country": "Irkath",
         "loc": [
             14.349547,
@@ -697,6 +753,7 @@
     },
     {
         "name": "Porgador",
+        "region": "Rundor",
         "country": "Irkath",
         "loc": [
             7.623887,
@@ -705,6 +762,7 @@
     },
     {
         "name": "Porjaf",
+        "region": "Omeliath",
         "country": "Irkath",
         "loc": [
             -4.1272855,
@@ -713,6 +771,7 @@
     },
     {
         "name": "Ranskar",
+        "region": "Ranskar",
         "country": "Irkath",
         "loc": [
             -2.811371,
@@ -721,6 +780,7 @@
     },
     {
         "name": "Ranwold",
+        "region": "Ravian",
         "country": "Irkath",
         "loc": [
             15.961329,
@@ -729,6 +789,7 @@
     },
     {
         "name": "Rederhaaf",
+        "region": "Estafar",
         "country": "Irkath",
         "loc": [
             -30.562262,
@@ -737,6 +798,7 @@
     },
     {
         "name": "Scaril",
+        "region": "Rilkath",
         "country": "Irkath",
         "loc": [
             0.26367095,
@@ -745,6 +807,7 @@
     },
     {
         "name": "Storkil",
+        "region": "Estafar",
         "country": "Irkath",
         "loc": [
             -36.066864,
@@ -753,6 +816,7 @@
     },
     {
         "name": "Winmeez",
+        "region": "Mezikath",
         "country": "Irkath",
         "loc": [
             -16.551962,
@@ -761,6 +825,7 @@
     },
     {
         "name": "Zerbrug",
+        "region": "Ravian",
         "country": "Irkath",
         "loc": [
             17.644022,
@@ -769,6 +834,7 @@
     },
     {
         "name": "Baaldyk",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -30.751278,
@@ -785,6 +851,7 @@
     },
     {
         "name": "Daghelder",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -32.175613,
@@ -793,6 +860,7 @@
     },
     {
         "name": "Demerhoek",
+        "region": "Demerhoek",
         "country": "Karn",
         "loc": [
             -13.609324,
@@ -801,6 +869,7 @@
     },
     {
         "name": "Denderyk",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -17.098793,
@@ -809,6 +878,7 @@
     },
     {
         "name": "Draakhil",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -17.014767,
@@ -817,6 +887,7 @@
     },
     {
         "name": "Dreizwik",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -20.509354,
@@ -824,7 +895,8 @@
         ]
     },
     {
-        "name": "Drufhaag",
+        "name": "Drufhaaf",
+        "region": "Ardoa",
         "country": "Karn",
         "loc": [
             -43.919323,
@@ -833,6 +905,7 @@
     },
     {
         "name": "Drysford",
+        "region": "Grimmbar",
         "country": "Karn",
         "loc": [
             -37.09024,
@@ -841,6 +914,7 @@
     },
     {
         "name": "Eldehaaf",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -26.194878,
@@ -849,6 +923,7 @@
     },
     {
         "name": "Flogmenfort",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -29.15216,
@@ -857,6 +932,7 @@
     },
     {
         "name": "Fort Mirzicht",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -9.40571,
@@ -865,6 +941,7 @@
     },
     {
         "name": "Fulsmijn",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -22.024546,
@@ -873,6 +950,7 @@
     },
     {
         "name": "Gildeharm",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -22.553148,
@@ -881,6 +959,7 @@
     },
     {
         "name": "Gipmond",
+        "region": "Ardoa",
         "country": "Karn",
         "loc": [
             -47.669323,
@@ -889,6 +968,7 @@
     },
     {
         "name": "Glearmaz",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -13.909325,
@@ -897,6 +977,7 @@
     },
     {
         "name": "Graanhym",
+        "region": "Karmel",
         "country": "Karn",
         "loc": [
             -52.469326,
@@ -905,6 +986,7 @@
     },
     {
         "name": "Greefort",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -34.307144,
@@ -913,6 +995,7 @@
     },
     {
         "name": "Gytmotte",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -49.779324,
@@ -921,6 +1004,7 @@
     },
     {
         "name": "Hoogsfort",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -5.9657536,
@@ -929,6 +1013,7 @@
     },
     {
         "name": "Hornmir",
+        "region": "Karmel",
         "country": "Karn",
         "loc": [
             -56.379326,
@@ -937,6 +1022,7 @@
     },
     {
         "name": "Ielem",
+        "region": "Grimmbar",
         "country": "Karn",
         "loc": [
             -36.899323,
@@ -945,6 +1031,7 @@
     },
     {
         "name": "Inderwoud",
+        "region": "Grimmbar",
         "country": "Karn",
         "loc": [
             -32.472694,
@@ -953,6 +1040,7 @@
     },
     {
         "name": "Kletl",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -29.764378,
@@ -961,6 +1049,7 @@
     },
     {
         "name": "Klinkerhaard",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -49.21042,
@@ -969,6 +1058,7 @@
     },
     {
         "name": "Lensbrug",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -48.019325,
@@ -977,6 +1067,7 @@
     },
     {
         "name": "Moetbrug",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -24.046465,
@@ -985,6 +1076,7 @@
     },
     {
         "name": "Moton",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -10.185187,
@@ -993,6 +1085,7 @@
     },
     {
         "name": "Muddam",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -44.829323,
@@ -1001,6 +1094,7 @@
     },
     {
         "name": "Muilbron",
+        "region": "Grimmbar",
         "country": "Karn",
         "loc": [
             -43.229195,
@@ -1009,6 +1103,7 @@
     },
     {
         "name": "Muilstein",
+        "region": "Grimmbar",
         "country": "Karn",
         "loc": [
             -39.198204,
@@ -1017,6 +1112,7 @@
     },
     {
         "name": "Niveld",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -48.079323,
@@ -1025,6 +1121,7 @@
     },
     {
         "name": "Odracht",
+        "region": "Demerhoek",
         "country": "Karn",
         "loc": [
             -12.940322,
@@ -1033,6 +1130,7 @@
     },
     {
         "name": "Ooiveld",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -25.403585,
@@ -1041,6 +1139,7 @@
     },
     {
         "name": "Oxgon",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -38.759323,
@@ -1057,6 +1156,7 @@
     },
     {
         "name": "Pluimhaaf",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -28.497662,
@@ -1065,6 +1165,7 @@
     },
     {
         "name": "Riesmoor",
+        "region": "Warg",
         "country": "Karn",
         "loc": [
             -41.64008,
@@ -1073,6 +1174,7 @@
     },
     {
         "name": "Rodveld",
+        "region": "Bondsland",
         "country": "Karn",
         "loc": [
             -22.958393,
@@ -1081,6 +1183,7 @@
     },
     {
         "name": "Roodfort",
+        "region": "Demerhoek",
         "country": "Karn",
         "loc": [
             -19.68397,
@@ -1089,6 +1192,7 @@
     },
     {
         "name": "Sansmills",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -26.194878,
@@ -1097,6 +1201,7 @@
     },
     {
         "name": "Stendepunt",
+        "region": "Karmel",
         "country": "Karn",
         "loc": [
             -49.519325,
@@ -1105,6 +1210,7 @@
     },
     {
         "name": "Swynhaaf",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -30.069094,
@@ -1112,7 +1218,8 @@
         ]
     },
     {
-        "name": "Winfort",
+        "name": "Wynfort",
+        "region": "Ardoa",
         "country": "Karn",
         "loc": [
             -45.599323,
@@ -1121,6 +1228,7 @@
     },
     {
         "name": "Zeisveld",
+        "region": "Alvelde",
         "country": "Karn",
         "loc": [
             -25.720736,
