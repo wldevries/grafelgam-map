@@ -34,3 +34,12 @@ jobs:
         path: public/ # default is _site/
         # Duration after which artifact will expire in days.
         retention-days: 1 # optional, default is 1
+
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
