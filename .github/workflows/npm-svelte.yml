@@ -2,6 +2,9 @@ name: NodeJS with Svelte
 
 permissions:
   id-token: write
+  
+env:
+  NODE_VERSION: 18.x
 
 on:
   push:
@@ -13,17 +16,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-    
     steps:
     - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js $NODE_VERSION
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: $NODE_VERSION
 
     - name: Build
       run: |
@@ -38,11 +37,6 @@ jobs:
         # Duration after which artifact will expire in days.
         retention-days: 1 # optional, default is 1
 
-  deployment:
-    runs-on: ubuntu-latest
-    environment: production
-    
-    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
