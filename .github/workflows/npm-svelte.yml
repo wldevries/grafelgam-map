@@ -1,8 +1,10 @@
 name: NodeJS with Svelte
 
 permissions:
+  contents: read
   id-token: write
   pages: write
+  deployments: write
   
 env:
   NODE_VERSION: 18.x
@@ -37,7 +39,15 @@ jobs:
         path: public/ # default is _site/
         # Duration after which artifact will expire in days.
         retention-days: 1 # optional, default is 1
-
+      
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
