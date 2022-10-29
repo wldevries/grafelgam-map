@@ -1,6 +1,7 @@
 name: NodeJS with Svelte
 
 permissions:
+  id-token: write
   pages: write
   
 env:
