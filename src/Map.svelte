@@ -26,10 +26,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import AutoComplete from "simple-svelte-autocomplete";
+    import { v4 as uuid } from 'uuid';
     import * as L from "leaflet";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
+    import LocationEditPopup from "./LocationEditPopup.svelte";
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -171,8 +173,18 @@
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
             else if (mode == EditMode.Single) {
-                L.marker(ev.latlng).addTo(map).on('click', onEditLocation);
-
+                let marker = L.marker(ev.latlng);
+                let location: CustomLocation = {
+                    id: uuid(),
+                    name: "",
+                    country: "",
+                    region: "",
+                };
+                
+                addEditPopup(marker, location);
+                marker
+                    .addTo(map)
+                    .openPopup();
                 resetEditMode();
             }
             else if (mode == EditMode.Region) {                
@@ -195,9 +207,15 @@
         });
     });
 
-    function onEditLocation(ev: L.LeafletMouseEvent) {
-        // both the marker and the click event are the same: this.getLatLng and ev.latlng
-        alert(this.getLatLng() + " " + ev.latlng);
+    function addEditPopup(marker: L.Marker, location: CustomLocation) {
+        bindPopup(marker, (m) => {
+            let c = new LocationEditPopup({
+                target: m,
+                props: {
+                    location,
+                },
+            });
+        });
     }
 
     async function loadLocations() {
@@ -209,27 +227,26 @@
     }
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
-	// `createFn` will be called whenever the popup is being created, and should create and return the component.
-	function bindPopup(marker, createFn) {
-		let popupComponent;
-		marker.bindPopup(() => {
-			let container = L.DomUtil.create('div');
-			popupComponent = createFn(container);
-			return container;
-		});
+    // `createFn` will be called whenever the popup is being created, and should create and return the component.
+    function bindPopup(marker, createFn) {
+        let popupComponent;
+        marker.bindPopup(() => {
+            let container = L.DomUtil.create('div');
+            popupComponent = createFn(container);
+            return container;
+        });
 
-		marker.on('popupclose', () => {
-			if(popupComponent) {
-				let old = popupComponent;
-				popupComponent = null;
-				// Wait to destroy until after the fadeout completes.
-				setTimeout(() => {
-					old.$destroy();
-				}, 500);
-
-			}
-		});
-	}
+        marker.on('popupclose', () => {
+            if(popupComponent) {
+                let old = popupComponent;
+                popupComponent = null;
+                // Wait to destroy until after the fadeout completes.
+                setTimeout(() => {
+                    old.$destroy();
+                }, 500);
+            }
+        });
+    }
 </script>
 
 <style>

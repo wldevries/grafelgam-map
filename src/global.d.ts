@@ -7,6 +7,10 @@ interface Location {
     loc: L.LatLng;
 }
 
+interface CustomLocation extends Location{
+    id: string;
+}
+
 interface Rune {
     name: string;
     translation: string;
