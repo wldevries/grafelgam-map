@@ -32,6 +32,7 @@
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
+    import { loadLocations } from "./LocationStore.js"
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -198,7 +199,8 @@
             }
         });
 
-        await loadLocations();
+        allLocations = await loadLocations();
+        allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
         map.pm.addControls({  
             position: 'topleft',
@@ -217,14 +219,6 @@
                 },
             });
         });
-    }
-
-    async function loadLocations() {
-        allLocations = await fetch("locations.json").then((response) =>
-            response.json()
-        );
-
-        allLocations.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.

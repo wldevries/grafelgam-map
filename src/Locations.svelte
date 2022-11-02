@@ -1,15 +1,20 @@
 <script lang="ts">
-    import { map } from "leaflet";
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
+    import { loadLocations } from "./LocationStore.js"
 
     const dispatch = createEventDispatcher();
 
     export let allLocations: MapLocation[] = [];
     export let countries: Set<string> = new Set();
 
-    onMount(() => {
-        loadLocations();
+    onMount(async () => {        
+        allLocations = await loadLocations();
+
+        allLocations.sort((a, b) => a.name.localeCompare(b.name));
+
+        countries.clear();
+        allLocations.forEach((loc) => countries.add(loc.country));
     });
 
     function showLocations(locations: MapLocation[]) {
@@ -32,17 +37,6 @@
 
     function getLocations(country: string, region: string) {
         return allLocations.filter((l) => l.country === country && l.region === region)
-    }
-
-    async function loadLocations() {
-        allLocations = await fetch("locations.json").then((response) =>
-            response.json()
-        );
-
-        allLocations.sort((a, b) => a.name.localeCompare(b.name));
-
-        countries.clear();
-        allLocations.forEach((loc) => countries.add(loc.country));
     }
 </script>
 
