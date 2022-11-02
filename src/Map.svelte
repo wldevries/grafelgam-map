@@ -29,6 +29,7 @@
     import * as L from "leaflet";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
+    import LocationPopup from "./LocationPopup.svelte";
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -127,15 +128,20 @@
             locationLayer = new L.FeatureGroup().addTo(map);
 
             locations.forEach(l => {
-                const m = L.marker(l.loc)
+                const marker = L.marker(l.loc)
                     .addTo(locationLayer)
                     .bindTooltip(popupText(l));
                 
-                    if (locations.length == 1) {
-                        const p = new L.Popup({ autoClose: false })
-                            .setContent(popupText(l))
-                            .setLatLng(l.loc);
-                        m.bindPopup(p).openPopup();
+                if (locations.length == 1) {
+                    bindPopup(marker, (m) => {
+                        let c = new LocationPopup({
+                            target: m,
+                            props: {
+                                location: l,
+                            },
+                        });
+                    });
+                    marker.openPopup();
                 }
             });
             
@@ -201,6 +207,29 @@
 
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
     }
+
+    // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
+	// `createFn` will be called whenever the popup is being created, and should create and return the component.
+	function bindPopup(marker, createFn) {
+		let popupComponent;
+		marker.bindPopup(() => {
+			let container = L.DomUtil.create('div');
+			popupComponent = createFn(container);
+			return container;
+		});
+
+		marker.on('popupclose', () => {
+			if(popupComponent) {
+				let old = popupComponent;
+				popupComponent = null;
+				// Wait to destroy until after the fadeout completes.
+				setTimeout(() => {
+					old.$destroy();
+				}, 500);
+
+			}
+		});
+	}
 </script>
 
 <style>
