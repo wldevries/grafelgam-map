@@ -162,6 +162,13 @@
         });
 
         await loadLocations();
+
+        map.pm.addControls({  
+            position: 'topleft',
+            drawCircle: false,
+            drawText: false,
+            rotateMode: false,
+        });
     });
 
     async function loadLocations() {
