@@ -10,17 +10,46 @@
         showClear="true" />
 </div>
 
+<div class="toolbar">
+    <button class="btn-tool"
+            bind:this={addRegionButton}
+            on:click={selectRegionMode}>
+        add region
+    </button>
+    <button class="btn-tool"
+            bind:this={addLocationButton}
+            on:click={selectLocationMode}>
+        add location
+    </button>
+</div>
+
 <script lang="ts">
     import { onMount } from "svelte";
     import AutoComplete from "simple-svelte-autocomplete";
     import * as L from "leaflet";
+    import '@geoman-io/leaflet-geoman-free';  
+    import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
 
     let map: L.Map;
+    let addRegionButton: HTMLButtonElement;
+    let addLocationButton: HTMLButtonElement;
     let locationLayer: L.FeatureGroup<any>;
 
     let multipleSelected: boolean;
     let selectedLocation: Location;
     let allLocations: Location[] = [];
+
+    // coordinates of region selected by the user
+    let regionCoords: L.LatLng[] = [];
+    let editRegion: L.Polygon;
+
+    enum EditMode{
+        None,
+        Single,
+        Region,
+    }
+
+    let mode = EditMode.None;
 
     function showLocation(location: Location) {
         if (location != undefined) {
@@ -37,6 +66,28 @@
             return `<h3>${location.name}</h3><p>${location.country}</p>`;
         }
         return `<h3>${location.name}</h3><p>${location.country}  (${location.region})</p>`;
+    }
+
+    function selectLocationMode() {
+        if (mode == EditMode.None){
+            mode = EditMode.Single;
+            addLocationButton.disabled = true;
+            addRegionButton.disabled = true;
+        }
+    }
+    
+    function selectRegionMode() {
+        if (mode == EditMode.None){
+            mode = EditMode.Region;
+            addLocationButton.disabled = true;
+            addRegionButton.disabled = true;
+        }
+    }
+
+    function resetEditMode(){
+        mode = EditMode.None;
+        addLocationButton.disabled = false;
+        addRegionButton.disabled = false;
     }
 
     export function showLocations(locations: Location[]) {
@@ -93,7 +144,21 @@
 
         // Debug out for location
         map.on("click", function (ev: L.LeafletMouseEvent) {
-            console.log(ev.latlng.lat + ", " + ev.latlng.lng);
+            if (mode == EditMode.None) {
+                console.log(ev.latlng.lat + ", " + ev.latlng.lng);
+            }
+            else if (mode == EditMode.Single) {
+                alert(ev.latlng.lat + ", " + ev.latlng.lng);
+                resetEditMode();
+            }
+            else if (mode == EditMode.Region) {                
+                regionCoords.push(ev.latlng);
+                if (editRegion != null) {
+                    map.removeLayer(editRegion);
+                }
+                editRegion = L.polygon(regionCoords);
+                editRegion.addTo(map);
+            }
         });
 
         await loadLocations();
@@ -125,5 +190,15 @@
         position: fixed;
         top: 76px;
         left: 80px;
+    }
+
+    .toolbar {
+        position: fixed;
+        top: 200px;
+        left: 80px;
+    }
+    .btn-tool {
+        border-radius: 4px;
+        /* width: 100px; */
     }
 </style>
