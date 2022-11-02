@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	
-	export let location: Location;
+	export let location: MapLocation;
 	
 	// function addValue(delta) {
 	// 	count += delta;

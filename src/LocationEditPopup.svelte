@@ -2,7 +2,7 @@
     import { onMount, createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	
-	export let location: CustomLocation;
+	export let location: CustomMapLocation;
 	
     let name: string = "";
     let country: string = "";

@@ -1,13 +1,13 @@
 /// <reference types="svelte" />
 
-interface Location {
+interface MapLocation {
     name: string;
     region: string;
     country: string;
     loc: L.LatLng;
 }
 
-interface CustomLocation extends Location{
+interface CustomMapLocation extends MapLocation {
     id: string;
 }
 

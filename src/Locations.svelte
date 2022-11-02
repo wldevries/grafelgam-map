@@ -5,14 +5,14 @@
 
     const dispatch = createEventDispatcher();
 
-    export let allLocations: Location[] = [];
+    export let allLocations: MapLocation[] = [];
     export let countries: Set<string> = new Set();
 
     onMount(() => {
         loadLocations();
     });
 
-    function showLocations(locations: Location[]) {
+    function showLocations(locations: MapLocation[]) {
         dispatch("showLocations", {
             locations: locations,
         });

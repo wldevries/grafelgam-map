@@ -39,8 +39,8 @@
     let locationLayer: L.FeatureGroup<any>;
 
     let multipleSelected: boolean;
-    let selectedLocation: Location;
-    let allLocations: Location[] = [];
+    let selectedLocation: MapLocation;
+    let allLocations: MapLocation[] = [];
 
     // coordinates of region selected by the user
     let regionCoords: L.LatLng[] = [];
@@ -57,7 +57,7 @@
 
     let mode = EditMode.None;
 
-    function showLocation(location: Location) {
+    function showLocation(location: MapLocation) {
         if (location != undefined) {
             showLocations([location]);
         }
@@ -67,7 +67,7 @@
         }
     }
 
-    function popupText(location: Location) : string {
+    function popupText(location: MapLocation) : string {
         if (location.region == undefined) {
             return `<h3>${location.name}</h3><p>${location.country}</p>`;
         }
@@ -110,7 +110,7 @@
         map.getContainer().style.cursor = '';
     }
 
-    export function showLocations(locations: Location[]) {
+    export function showLocations(locations: MapLocation[]) {
         if (locationLayer != undefined) {
             map.removeLayer(locationLayer);
         }
@@ -174,11 +174,12 @@
             }
             else if (mode == EditMode.Single) {
                 let marker = L.marker(ev.latlng);
-                let location: CustomLocation = {
+                let location: CustomMapLocation = {
                     id: uuid(),
                     name: "",
                     country: "",
                     region: "",
+                    loc: ev.latlng,
                 };
                 
                 addEditPopup(marker, location);
@@ -207,7 +208,7 @@
         });
     });
 
-    function addEditPopup(marker: L.Marker, location: CustomLocation) {
+    function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
         bindPopup(marker, (m) => {
             let c = new LocationEditPopup({
                 target: m,
