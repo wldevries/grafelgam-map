@@ -43,6 +43,9 @@
     let regionCoords: L.LatLng[] = [];
     let editRegion: L.Polygon;
 
+    // Temporary marker mouse
+    let mouseMarker: L.Marker;
+
     enum EditMode{
         None,
         Single,
@@ -73,6 +76,18 @@
             mode = EditMode.Single;
             addLocationButton.disabled = true;
             addRegionButton.disabled = true;
+
+            // disable mouse temporarily
+            map.getContainer().style.cursor = 'none';
+            map.on('mousemove', updateMouseMoveMarker);
+        }
+    }
+
+    function updateMouseMoveMarker(ev: L.LeafletMouseEvent) {
+        if (mouseMarker == null) {
+            mouseMarker = new L.Marker(ev.latlng).addTo(map);
+        } else {
+            mouseMarker.setLatLng(ev.latlng);
         }
     }
     
@@ -88,6 +103,8 @@
         mode = EditMode.None;
         addLocationButton.disabled = false;
         addRegionButton.disabled = false;
+        map.off('mousemove', updateMouseMoveMarker);
+        map.getContainer().style.cursor = '';
     }
 
     export function showLocations(locations: Location[]) {
@@ -148,7 +165,8 @@
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
             else if (mode == EditMode.Single) {
-                alert(ev.latlng.lat + ", " + ev.latlng.lng);
+                L.marker(ev.latlng).addTo(map).on('click', onEditLocation);
+
                 resetEditMode();
             }
             else if (mode == EditMode.Region) {                
@@ -170,6 +188,11 @@
             rotateMode: false,
         });
     });
+
+    function onEditLocation(ev: L.LeafletMouseEvent) {
+        // both the marker and the click event are the same: this.getLatLng and ev.latlng
+        alert(this.getLatLng() + " " + ev.latlng);
+    }
 
     async function loadLocations() {
         allLocations = await fetch("locations.json").then((response) =>
