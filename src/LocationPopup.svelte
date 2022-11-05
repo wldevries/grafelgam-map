@@ -27,9 +27,9 @@
 
 <div>
     <h3>{location.name}</h3>
-    {#if location.region == undefined}
-        <p>{location.country} hoi</p>
-    {:else}
-        <p>{location.country} ({location.region})</p>
+    <p>{location.country}
+    {#if location.region != undefined && location.region != ""}
+        <span>({location.region})</span>
     {/if}
+    </p>
 </div>

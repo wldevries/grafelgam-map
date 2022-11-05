@@ -68,3 +68,8 @@ button:focus {
     border-color: rgba(0,0,0,0.2);
     background-clip: padding-box;
 }
+
+.leaflet-popup-content {
+    width: auto !important;
+    min-width: 138px;
+}

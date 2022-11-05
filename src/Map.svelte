@@ -143,24 +143,22 @@
                 });
 
                 if (l instanceof CustomMapLocation) {
-                    bindPopup(marker, (m) => {
-                        let c = new LocationEditPopup({
+                    bindPopup(marker, (m) =>
+                        new LocationEditPopup({
                             target: m,
                             props: {
                                 location: l,
                             },
-                        });
-                    });
+                        }));
                 }
                 else {
-                    bindPopup(marker, (m) => {
-                        let c = new LocationPopup({
+                    bindPopup(marker, (m) =>
+                        new LocationPopup({
                             target: m,
                             props: {
                                 location: l,
                             },
-                        });
-                    });                
+                        }));                
                 }
 
                 if (locations.length == 1) {
@@ -263,24 +261,34 @@
     }
 
     function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
-        bindPopup(marker, (m) => {
-            let c = new LocationEditPopup({
+        bindPopup(marker, (m) =>
+            new LocationEditPopup({
                 target: m,
                 props: {
                     location,
                 },
-            });
-        });
+            }));
     }
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
     function bindPopup(marker: L.Marker, createFn) {
         let popupComponent;
+        let popup;
         marker.bindPopup(() => {
             let container = L.DomUtil.create('div');
             popupComponent = createFn(container);
+            if (popup != undefined) {
+                popupComponent.setPopup(popup);
+            }
             return container;
+        });
+
+        marker.on('popupopen', c => {
+            popup = c.popup;
+            if (popupComponent != undefined) {
+                popupComponent.setPopup(popup);
+            }
         });
 
         marker.on('popupclose', () => {
