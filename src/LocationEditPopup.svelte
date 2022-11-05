@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, createEventDispatcher } from 'svelte';
+    import { addLocation } from './LocationStore';
 	const dispatch = createEventDispatcher();
 	
 	export let location: CustomMapLocation;
@@ -18,9 +19,13 @@
 
     function updateLocation() {
         if (location != undefined) {
-            location.name = name;
-            location.country = country;
-            location.region = region;
+            location.name = name.trim();
+            location.country = country.trim();
+            location.region = region.trim();
+
+            if (location.name.length > 0) {
+                addLocation(location);
+            }
         }
     }
 </script>
