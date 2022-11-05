@@ -1,12 +1,37 @@
+import type { LatLng } from "leaflet";
+import { v4 as uuid } from 'uuid';
 
 const StorageKey = "customLocations;"
+
+export class CustomMapLocation implements MapLocation {
+    public id: string;
+    public name: string;
+    public region: string;
+    public country: string;
+    public loc: LatLng;
+
+    constructor(id: string, name: string, region: string, country: string, loc: LatLng) {
+        this.id = id;
+        this.name = name;
+        this.region = region;
+        this.country = country;
+        this.loc = loc;
+    }
+
+    static create(loc: LatLng){
+        return new CustomMapLocation(uuid(), "", "", "", loc);
+    }
+}
 
 export async function loadLocations() : Promise<MapLocation[]> {
     let locations = await (await fetch("locations.json")).json();
 
     let customLocations = loadCustomLocations();
 
-    return locations.concat(customLocations);
+    return locations.concat(customLocations)
+        .map(l => {
+            return l.id == undefined ? l : new CustomMapLocation(l.id, l.name, l.region, l.country, l.loc);
+        });
 }
 
 export function addLocation(loc: CustomMapLocation) {

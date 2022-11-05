@@ -7,10 +7,6 @@ interface MapLocation {
     loc: L.LatLng;
 }
 
-interface CustomMapLocation extends MapLocation {
-    id: string;
-}
-
 interface Rune {
     name: string;
     translation: string;

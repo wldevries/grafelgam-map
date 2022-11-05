@@ -26,13 +26,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import AutoComplete from "simple-svelte-autocomplete";
-    import { v4 as uuid } from 'uuid';
     import * as L from "leaflet";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
-    import { loadLocations } from "./LocationStore.js"
+    import { loadLocations, CustomMapLocation } from "./LocationStore.js"
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -135,7 +134,17 @@
                     .addTo(locationLayer)
                     .bindTooltip(popupText(l));
                 
-                if (locations.length == 1) {
+                if (l instanceof CustomMapLocation) {
+                    bindPopup(marker, (m) => {
+                        let c = new LocationEditPopup({
+                            target: m,
+                            props: {
+                                location: l,
+                            },
+                        });
+                    });
+                }
+                else {
                     bindPopup(marker, (m) => {
                         let c = new LocationPopup({
                             target: m,
@@ -143,7 +152,10 @@
                                 location: l,
                             },
                         });
-                    });
+                    });                
+                }
+                
+                if (locations.length == 1) {
                     marker.openPopup();
                 }
             });
@@ -165,15 +177,9 @@
                 mouseMarker = undefined;
 
                 let marker = L.marker(ev.latlng);
-                let location: CustomMapLocation = {
-                    id: uuid(),
-                    name: "",
-                    country: "",
-                    region: "",
-                    loc: ev.latlng,
-                };
+                let loc = CustomMapLocation.create(ev.latlng);
                 
-                addEditPopup(marker, location);
+                addEditPopup(marker, loc);
                 marker
                     .addTo(map)
                     .openPopup();
