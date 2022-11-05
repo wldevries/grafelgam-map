@@ -153,20 +153,7 @@
     }
 
     onMount(async () => {
-        var moptions: L.MapOptions = {
-            zoomSnap: 0.5,
-            zoomDelta: 0.5,
-        };
-        map = L.map("map", moptions);
-
-        var options: L.TileLayerOptions = {
-            minZoom: 1,
-            maxZoom: 5,
-            noWrap: true,
-        };
-        L.tileLayer("tiles/{z}/{x}/{y}.png", options).addTo(map);
-
-        map.setView([0, 0], 3);
+        configureMap();
 
         // Debug out for location
         map.on("click", function (ev: L.LeafletMouseEvent) {
@@ -174,6 +161,9 @@
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
             else if (mode == EditMode.Single) {
+                mouseMarker.remove();
+                mouseMarker = undefined;
+
                 let marker = L.marker(ev.latlng);
                 let location: CustomMapLocation = {
                     id: uuid(),
@@ -202,12 +192,31 @@
         allLocations = await loadLocations();
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
-        map.pm.addControls({  
-            position: 'topleft',
-            drawCircle: false,
-            drawText: false,
-            rotateMode: false,
-        });
+        function configureMap() {
+            var moptions: L.MapOptions={
+                zoomSnap: 0.5,
+                zoomDelta: 0.5,
+            };
+            map=L.map("map",moptions);
+
+            var options: L.TileLayerOptions={
+                minZoom: 1,
+                maxZoom: 5,
+                noWrap: true,
+            };
+            L.tileLayer("tiles/{z}/{x}/{y}.png",options).addTo(map);
+
+            map.setView([0,0],3);
+            
+            // Configure Geoman
+            map.pm.addControls({  
+                position: 'topleft',
+                drawCircle: false,
+                drawText: false,
+                rotateMode: false,
+            });        
+        }
+
     });
 
     function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
@@ -223,7 +232,7 @@
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
-    function bindPopup(marker, createFn) {
+    function bindPopup(marker: L.Marker, createFn) {
         let popupComponent;
         marker.bindPopup(() => {
             let container = L.DomUtil.create('div');
@@ -270,6 +279,7 @@
     }
     .btn-tool {
         border-radius: 4px;
-        /* width: 100px; */
+        border-width: 2px;
+        /* width: 100p; */
     }
 </style>
