@@ -7,9 +7,24 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Chrome",
             "url": "http://localhost:5000",
             "webRoot": "${workspaceFolder}/src"
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Firefox",
+            "reAttach": true,
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}/scr",
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Edge",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}/scr",
         }
     ]
 }
