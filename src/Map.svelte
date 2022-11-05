@@ -31,7 +31,7 @@
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
-    import { loadLocations, CustomMapLocation } from "./LocationStore.js"
+    import { loadLocations, CustomMapLocation, onDelete } from "./LocationStore.js"
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -48,6 +48,13 @@
 
     // Temporary marker mouse
     let mouseMarker: L.Marker;
+
+    interface LocationMarker {
+        location: MapLocation,
+        marker: L.Marker,
+    }
+
+    let openLocations: LocationMarker[];
 
     enum EditMode{
         None,
@@ -111,9 +118,7 @@
     }
 
     export function showLocations(locations: MapLocation[]) {
-        if (locationLayer != undefined) {
-            map.removeLayer(locationLayer);
-        }
+        clearLocationLayer();
 
         if (locations.length == 1) {
             selectedLocation = locations[0];
@@ -127,13 +132,16 @@
         }
 
         if (locations.length > 0) {
-            locationLayer = new L.FeatureGroup().addTo(map);
-
             locations.forEach(l => {
                 const marker = L.marker(l.loc)
                     .addTo(locationLayer)
                     .bindTooltip(popupText(l));
-                
+
+                openLocations.push({
+                    location: l,
+                    marker: marker,
+                });
+
                 if (l instanceof CustomMapLocation) {
                     bindPopup(marker, (m) => {
                         let c = new LocationEditPopup({
@@ -154,7 +162,7 @@
                         });
                     });                
                 }
-                
+
                 if (locations.length == 1) {
                     marker.openPopup();
                 }
@@ -173,16 +181,24 @@
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
             else if (mode == EditMode.Single) {
+                clearLocationLayer();
+
                 mouseMarker.remove();
                 mouseMarker = undefined;
 
-                let marker = L.marker(ev.latlng);
-                let loc = CustomMapLocation.create(ev.latlng);
+                const marker = L.marker(ev.latlng);
+                const loc = CustomMapLocation.create(ev.latlng);
                 
                 addEditPopup(marker, loc);
                 marker
-                    .addTo(map)
+                    .addTo(locationLayer)
                     .openPopup();
+
+                openLocations.push({
+                    location: loc,
+                    marker: marker,
+                });
+
                 resetEditMode();
             }
             else if (mode == EditMode.Region) {                
@@ -197,6 +213,19 @@
 
         allLocations = await loadLocations();
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
+
+        onDelete(id => {
+            const markerIndex = openLocations.findIndex(l => {
+                if (l.location instanceof CustomMapLocation) {
+                    return l.location.id == id;
+                }
+                return false;
+            });
+            if (markerIndex != -1) {
+                openLocations[markerIndex].marker.remove();
+                openLocations.slice(markerIndex, markerIndex + 1);
+            }
+        });
 
         function configureMap() {
             var moptions: L.MapOptions={
@@ -224,6 +253,14 @@
         }
 
     });
+
+    function clearLocationLayer() {
+        if (locationLayer != undefined) {
+            map.removeLayer(locationLayer);
+        }
+        openLocations=[];
+        locationLayer = new L.FeatureGroup().addTo(map);
+    }
 
     function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
         bindPopup(marker, (m) => {
