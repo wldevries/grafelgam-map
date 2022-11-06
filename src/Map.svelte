@@ -37,7 +37,7 @@
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
-    import { loadLocations, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import { loadLocations, addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
@@ -249,12 +249,17 @@
 
             map.setView([0,0],3);
             
-            // Configure Geoman
+            // Configure Leaflet-Geoman
             map.pm.addControls({  
                 position: 'topleft',
+                drawRectangle: false,
+                drawCircleMarker: false,
                 drawCircle: false,
                 drawText: false,
+                dragMode: false,
+                cutPolygon: false,
                 rotateMode: false,
+                removalMode: false,
             });        
         }
 
@@ -266,6 +271,21 @@
         }
         openLocations=[];
         locationLayer = new L.FeatureGroup().addTo(map);
+        locationLayer.pm.enable({
+            allowSelfIntersection: false,
+        });
+
+        // Save changes when a marker is moved
+        locationLayer.on('pm:edit', (e) => {
+            console.log(e);
+            if (e.layer instanceof L.Marker) {
+                let mloc = openLocations.find(l => l.marker == e.layer);
+                if (mloc.location instanceof CustomMapLocation) {
+                    mloc.location.loc = e.layer.getLatLng();
+                    addLocation(mloc.location);
+                }
+            }
+        });
     }
 
     function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
