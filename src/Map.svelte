@@ -1,14 +1,8 @@
 <div id="map" />
 
-<div class="search">
-    <AutoComplete
-        placeholder="search…"
-        items={allLocations}
-        bind:selectedItem={selectedLocation}        
-        labelFieldName="name"
-        onChange="{showLocation}"
-        showClear="true" />
-</div>
+<LocationAutoComplete
+    bind:this={locAutoComplete}
+    on:select={handleLocSelected} />
 
 <div class="toolbar">
     <div class="button-container">
@@ -31,24 +25,21 @@
 
 <script lang="ts">
     import { onMount } from "svelte";
-    import AutoComplete from "simple-svelte-autocomplete";
     import * as L from "leaflet";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
-    import { loadLocations, addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import LocationAutoComplete from "./LocationAutoComplete.svelte";
+    import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
     let addLocationButton: HTMLButtonElement;
+    let locAutoComplete: LocationAutoComplete;
     let locationLayer: L.FeatureGroup<any>;
-
-    let multipleSelected: boolean;
-    let selectedLocation: MapLocation;
-    let allLocations: MapLocation[] = [];
 
     // coordinates of region selected by the user
     let regionCoords: L.LatLng[] = [];
@@ -71,16 +62,6 @@
     }
 
     let mode = EditMode.None;
-
-    function showLocation(location: MapLocation) {
-        if (location != undefined) {
-            showLocations([location]);
-        }
-        else if (!multipleSelected && map != undefined) {
-            map.removeLayer(locationLayer);
-            locationLayer = undefined;
-        }
-    }
 
     function popupText(location: MapLocation) : string {
         if (location.region == undefined) {
@@ -125,18 +106,19 @@
         map.getContainer().style.cursor = '';
     }
 
+    function handleLocSelected(e: CustomEvent) {
+        const location = e.detail.location;
+        showLocations(location == undefined ? [] : [location]);
+    }
+
     export function showLocations(locations: MapLocation[]) {
         clearLocationLayer();
 
         if (locations.length == 1) {
-            selectedLocation = locations[0];
-        }
-        else if (locations.length > 1) {
-            multipleSelected = true;
-            selectedLocation = undefined;
-        }
+            locAutoComplete.select(locations[0]);
+        }        
         else {
-            selectedLocation = undefined;
+            locAutoComplete.select(undefined);
         }
 
         if (locations.length > 0) {
@@ -216,9 +198,6 @@
                 editRegion.addTo(map);
             }
         });
-
-        allLocations = await loadLocations();
-        allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
         onDelete(id => {
             const markerIndex = openLocations.findIndex(l => {
@@ -302,11 +281,11 @@
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
     function bindPopup(marker: L.Marker, createFn) {
         let popupComponent;
-        let popup;
+        let popup: L.Popup;
         marker.bindPopup(() => {
             let container = L.DomUtil.create('div');
             popupComponent = createFn(container);
-            if (popup != undefined) {
+            if (popup instanceof L.Popup) {
                 popupComponent.setPopup(popup);
             }
             return container;
@@ -314,13 +293,13 @@
 
         marker.on('popupopen', c => {
             popup = c.popup;
-            if (popupComponent != undefined) {
+            if (popupComponent.setPopup != undefined) {
                 popupComponent.setPopup(popup);
             }
         });
 
         marker.on('popupclose', () => {
-            if(popupComponent) {
+            if (popupComponent) {
                 let old = popupComponent;
                 popupComponent = null;
                 // Wait to destroy until after the fadeout completes.
@@ -341,14 +320,6 @@
         left: 0px;
         right: 0px;
         bottom: 0px;
-    }
-
-    /* More styling is on autocomplete class in global styles */
-    .search {
-        width: 250px;
-        position: fixed;
-        top: 76px;
-        left: 80px;
     }
 
     .toolbar {

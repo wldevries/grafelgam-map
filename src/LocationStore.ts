@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 const StorageKey = "customLocations;"
 
 let deleteListeners : ((id: string) => void)[] = [];
+let changeListeners : (() => void)[] = [];
 
 export class CustomMapLocation implements MapLocation {
     public id: string;
@@ -48,6 +49,7 @@ export function addLocation(loc: CustomMapLocation) {
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(customLocations));
+    changeListeners.forEach(h => h());
 }
 
 export function deleteLocation(loc: CustomMapLocation) {
@@ -57,11 +59,11 @@ export function deleteLocation(loc: CustomMapLocation) {
     if (matchIndex != -1) {
         customLocations.splice(matchIndex, matchIndex + 1);
         localStorage.setItem(StorageKey, JSON.stringify(customLocations));
-
     }
 
     // publish anyway, the location may not have been stored yet
-    deleteListeners.forEach(listener => listener(loc.id));
+    deleteListeners.forEach(h => h(loc.id));
+    changeListeners.forEach(h => h());
 }
 
 export function onDelete(handlerfn: (id: string) => void) {
@@ -70,6 +72,10 @@ export function onDelete(handlerfn: (id: string) => void) {
 
 export function offDelete(handlerfn: (id: string) => void) {
     deleteListeners.splice(deleteListeners.indexOf(handlerfn));
+}
+
+export function onChange(handlerfn: () => void) {
+    changeListeners.push(handlerfn);
 }
 
 function loadCustomLocations() {
