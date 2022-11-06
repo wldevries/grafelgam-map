@@ -11,16 +11,22 @@
 </div>
 
 <div class="toolbar">
-    <button class="btn-tool"
-            bind:this={addRegionButton}
-            on:click={selectRegionMode}>
-        add region
-    </button>
-    <button class="btn-tool"
-            bind:this={addLocationButton}
-            on:click={selectLocationMode}>
-        add location
-    </button>
+    <div class="button-container">
+        <button class="btn-tool"
+                title="add location"
+                bind:this={addLocationButton}
+                on:click={selectLocationMode}>
+            <Geo width="20" height="20" class="icon" />
+        </button>
+    </div>
+    <div class="button-container">
+        <button class="btn-tool"
+                title="Add region" 
+                bind:this={addRegionButton}
+                on:click={selectRegionMode}>
+            <Map width="20" height="20" class="icon" />
+        </button>
+    </div>
 </div>
 
 <script lang="ts">
@@ -32,6 +38,8 @@
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
     import { loadLocations, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
+    import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
     let map: L.Map;
     let addRegionButton: HTMLButtonElement;
@@ -327,10 +335,27 @@
         position: fixed;
         top: 200px;
         left: 80px;
-    }
-    .btn-tool {
+        display: flex;
+        flex: auto;
+        flex-direction: column;
+        gap: 0;
         border-radius: 4px;
-        border-width: 2px;
-        /* width: 100p; */
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+    }
+
+    .btn-tool {
+        margin: 0px;
+        padding: 0px !important;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .btn-tool:enabled {
+        cursor: pointer;
     }
 </style>
