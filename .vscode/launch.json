@@ -17,14 +17,14 @@
             "name": "Firefox",
             "reAttach": true,
             "url": "http://localhost:5000",
-            "webRoot": "${workspaceFolder}/scr",
+            "webRoot": "${workspaceFolder}/src",
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Edge",
             "url": "http://localhost:5000",
-            "webRoot": "${workspaceFolder}/scr",
+            "webRoot": "${workspaceFolder}/src",
         }
     ]
 }
