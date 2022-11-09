@@ -1,10 +1,12 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     import { addArea, deleteArea, MapArea } from './AreaStore';
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
+    import { ArrowsMove } from 'svelte-bootstrap-icons';
 	
 	export let area: MapArea;
+    export let polygon: L.Polygon
 	
     let popup: L.Popup;
     let nameInput: HTMLInputElement;
@@ -21,7 +23,16 @@
             if (nameInput != undefined)
                 nameInput.focus();
         }, 10);
+
+        polygon.on("pm:edit", e => {
+            area.locs = polygon.getLatLngs().flat().flat();
+            addArea(area);
+        });
     });
+
+    onDestroy(() => {
+        polygon.off("pm:edit");
+    })
 
     export function setPopup(value: L.Popup) {
         popup = value;
@@ -51,6 +62,12 @@
             deleteArea(area);
         }
     }
+
+    function handleMove() {
+        polygon.pm.toggleEdit({
+            draggable: true,
+        })
+    }
 </script>
 
 <style>
@@ -73,7 +90,8 @@
     {/if}
 
     <div class="button-panel">
-        <button on:click={handleEdit}><Pencil /></button>        
-        <button on:click={handleDelete}><Trash /></button>        
+        <button on:click={handleMove}><ArrowsMove /></button>
+        <button on:click={handleEdit}><Pencil /></button>
+        <button on:click={handleDelete}><Trash /></button>
     </div>
 </div>

@@ -32,7 +32,7 @@
     import LocationEditPopup from "./LocationEditPopup.svelte";
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
-    import { addArea, addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
     import { MapArea } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
@@ -150,7 +150,7 @@
 
         if (areas.length > 0) {
             areas.forEach(a => {
-                const polygon = addArea(a);
+                const polygon = addAreaToMap(a);
 
                 if (areas.length == 1) {
                     polygon.openPopup();
@@ -190,7 +190,7 @@
         return marker;
     }
 
-    function addArea(area: MapArea): L.Polygon<any> {
+    function addAreaToMap(area: MapArea): L.Polygon<any> {
         const polygon = new L.Polygon(area.locs);
 
         openAreas.push({
@@ -206,6 +206,7 @@
                 target: m,
                 props: {
                     area,
+                    polygon
                 },
             }));
 
@@ -294,7 +295,7 @@
                     // if (locs instanceof L.LatLng[])
 
                     const area = MapArea.create(locs);
-                    const polygon = addArea(area);
+                    const polygon = addAreaToMap(area);
                     polygon.openPopup();
                 }
             });
