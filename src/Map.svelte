@@ -221,15 +221,20 @@
             polygon
         });
         
-        bindPopup(polygon, (m) =>
-            new AreaEditPopup({
-                target: m,
-                props: {
-                    area,
-                    polygon
-                },
-            }));
-            
+        if (area instanceof CustomMapArea) {
+            bindPopup(polygon, (m) =>
+                new AreaEditPopup({
+                    target: m,
+                    props: {
+                        area,
+                        polygon
+                    },
+                }));
+        }
+        else {
+            polygon.bindPopup(area.name);
+        }
+
         polygon.on("pm:edit", e => {
             area.locs = polygon.getLatLngs().flat().flat();
             addArea(area);
@@ -330,17 +335,17 @@
             });
 
             // Add Geoman toolbar
-            map.pm.addControls({  
-                position: 'topleft',
-                drawRectangle: false,
-                drawCircleMarker: false,
-                drawCircle: false,
-                drawText: false,
-                dragMode: false,
-                cutPolygon: false,
-                rotateMode: false,
-                removalMode: false,
-            });
+            // map.pm.addControls({  
+            //     position: 'topleft',
+            //     drawRectangle: false,
+            //     drawCircleMarker: false,
+            //     drawCircle: false,
+            //     drawText: false,
+            //     dragMode: false,
+            //     cutPolygon: false,
+            //     rotateMode: false,
+            //     removalMode: false,
+            // });
         }
     });
 
@@ -415,8 +420,8 @@
 
     .toolbar {
         position: fixed;
-        top: 200px;
-        left: 80px;
+        top: 150px;
+        left: 10px;
         display: flex;
         flex: auto;
         flex-direction: column;
@@ -430,8 +435,8 @@
     .btn-tool {
         margin: 0px;
         padding: 0px !important;
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         align-items: center;
         justify-content: center;
         display: flex;
