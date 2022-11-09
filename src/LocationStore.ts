@@ -1,7 +1,7 @@
 import type { LatLng } from "leaflet";
 import { v4 as uuid } from 'uuid';
 
-const StorageKey = "customLocations;"
+const StorageKey = "customLocations";
 
 let deleteListeners : ((id: string) => void)[] = [];
 let changeListeners : (() => void)[] = [];
@@ -50,6 +50,10 @@ export function addLocation(loc: CustomMapLocation) {
 
     localStorage.setItem(StorageKey, JSON.stringify(customLocations));
     changeListeners.forEach(h => h());
+}
+
+export function addArea(area: MapArea) {
+
 }
 
 export function deleteLocation(loc: CustomMapLocation) {

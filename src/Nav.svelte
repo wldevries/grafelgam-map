@@ -37,23 +37,15 @@
         });
     }
 
-    function goHome() {
-        locationMenuOpen = runeMenuOpen = false;
+    function showAreas(e: CustomEvent<{areas: Location[]}>) {
+        locationMenuOpen = false;
+        dispatch("showAreas", {
+            areas: e.detail.areas,
+        });
     }
 
-    onMount(() => {
-        loadLocations();
-    });
-
-    async function loadLocations() {
-        allLocations = await fetch("locations.json").then((response) =>
-            response.json()
-        );
-
-        allLocations.sort((a, b) => a.name.localeCompare(b.name));
-
-        countries.clear();
-        allLocations.forEach((loc) => countries.add(loc.country));
+    function goHome() {
+        locationMenuOpen = runeMenuOpen = false;
     }
 </script>
 
@@ -69,7 +61,7 @@
             class="navmenu navmenu-locations"
             transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
         >
-           <Locations on:showLocations={showLocations} />
+           <Locations on:showLocations={showLocations} on:showAreas={showAreas} />
         </div>
     {/if}
 

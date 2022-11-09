@@ -30,8 +30,10 @@
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
     import LocationEditPopup from "./LocationEditPopup.svelte";
+    import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
-    import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import { addArea, addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
+    import { MapArea } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
@@ -40,6 +42,7 @@
     let addLocationButton: HTMLButtonElement;
     let locAutoComplete: LocationAutoComplete;
     let locationLayer: L.FeatureGroup<any>;
+    let geomanLayer: L.FeatureGroup<any>;
 
     // coordinates of region selected by the user
     let regionCoords: L.LatLng[] = [];
@@ -53,7 +56,13 @@
         marker: L.Marker,
     }
 
+    interface AreaPolygon {
+        area: MapArea,
+        polygon: L.Polygon,
+    }
+
     let openLocations: LocationMarker[];
+    let openAreas: AreaPolygon[];
 
     enum EditMode{
         None,
@@ -92,9 +101,11 @@
     
     function selectRegionMode() {
         if (mode == EditMode.None){
-            mode = EditMode.Region;
-            addLocationButton.disabled = true;
-            addRegionButton.disabled = true;
+            // mode = EditMode.Region;
+            // addLocationButton.disabled = true;
+            // addRegionButton.disabled = true;
+
+            map.pm.enableDraw('Polygon');
         }
     }
 
@@ -123,33 +134,7 @@
 
         if (locations.length > 0) {
             locations.forEach(l => {
-                const marker = L.marker(l.loc)
-                    .addTo(locationLayer)
-                    .bindTooltip(popupText(l));
-
-                openLocations.push({
-                    location: l,
-                    marker: marker,
-                });
-
-                if (l instanceof CustomMapLocation) {
-                    bindPopup(marker, (m) =>
-                        new LocationEditPopup({
-                            target: m,
-                            props: {
-                                location: l,
-                            },
-                        }));
-                }
-                else {
-                    bindPopup(marker, (m) =>
-                        new LocationPopup({
-                            target: m,
-                            props: {
-                                location: l,
-                            },
-                        }));                
-                }
+                const marker = addLocationToMap(l);                
 
                 if (locations.length == 1) {
                     marker.openPopup();
@@ -158,6 +143,73 @@
             
             map.fitBounds(L.latLngBounds(locations.map(l => l.loc)));
         }
+    }    
+
+    export function showAreas(areas: MapArea[]) {
+        clearLocationLayer();
+
+        if (areas.length > 0) {
+            areas.forEach(a => {
+                const polygon = addArea(a);
+
+                if (areas.length == 1) {
+                    polygon.openPopup();
+                }
+            })
+        }
+    }
+
+    function addLocationToMap(location: MapLocation): L.Marker<any> {
+        const marker = L.marker(location.loc)
+            .addTo(locationLayer)
+            .bindTooltip(popupText(location));
+
+        openLocations.push({
+            location: location,
+            marker: marker,
+        });
+
+        if (location instanceof CustomMapLocation) {
+            bindPopup(marker, (m) =>
+                new LocationEditPopup({
+                    target: m,
+                    props: {
+                        location,
+                    },
+                }));
+        }
+        else {
+            bindPopup(marker, (m) =>
+                new LocationPopup({
+                    target: m,
+                    props: {
+                        location,
+                    },
+                }));                
+        }
+        return marker;
+    }
+
+    function addArea(area: MapArea): L.Polygon<any> {
+        const polygon = new L.Polygon(area.locs);
+
+        openAreas.push({
+            area,
+            polygon
+        });
+
+        clearLocationLayer();
+
+        polygon.addTo(locationLayer);
+        bindPopup(polygon, (m) =>
+            new AreaEditPopup({
+                target: m,
+                props: {
+                    area,
+                },
+            }));
+
+        return polygon;
     }
 
     onMount(async () => {
@@ -174,19 +226,10 @@
                 mouseMarker.remove();
                 mouseMarker = undefined;
 
-                const marker = L.marker(ev.latlng);
                 const loc = CustomMapLocation.create(ev.latlng);
+                const marker = addLocationToMap(loc);
+                marker.openPopup();
                 
-                addEditPopup(marker, loc);
-                marker
-                    .addTo(locationLayer)
-                    .openPopup();
-
-                openLocations.push({
-                    location: loc,
-                    marker: marker,
-                });
-
                 resetEditMode();
             }
             else if (mode == EditMode.Region) {                
@@ -228,7 +271,35 @@
 
             map.setView([0,0],3);
             
+            // Make sure the location layer exists
+            clearLocationLayer();
+
             // Configure Leaflet-Geoman
+            
+            // Let Geoman draw new markers on a very specific layer
+            geomanLayer = L.featureGroup().addTo(map);
+            map.pm.setGlobalOptions({
+                layerGroup: geomanLayer
+            });
+            
+            // Get a hold of new markers added by Geoman
+            map.on('pm:create', (e) => {
+                if (e.layer instanceof L.Polygon) {
+                    e.layer.remove();
+                    let locs = e.layer.getLatLngs();
+                    // let's assume it's a single dimension array and if it's not we mess it up..
+                    locs = locs.flat().flat();
+
+                    // The following type check does not work unfortunately
+                    // if (locs instanceof L.LatLng[])
+
+                    const area = MapArea.create(locs);
+                    const polygon = addArea(area);
+                    polygon.openPopup();
+                }
+            });
+
+            // Add Geoman toolbar
             map.pm.addControls({  
                 position: 'topleft',
                 drawRectangle: false,
@@ -239,16 +310,16 @@
                 cutPolygon: false,
                 rotateMode: false,
                 removalMode: false,
-            });        
+            });
         }
-
     });
 
     function clearLocationLayer() {
         if (locationLayer != undefined) {
             map.removeLayer(locationLayer);
         }
-        openLocations=[];
+        openLocations= [];
+        openAreas = [];
         locationLayer = new L.FeatureGroup().addTo(map);
         locationLayer.pm.enable({
             allowSelfIntersection: false,
@@ -256,7 +327,6 @@
 
         // Save changes when a marker is moved
         locationLayer.on('pm:edit', (e) => {
-            console.log(e);
             if (e.layer instanceof L.Marker) {
                 let mloc = openLocations.find(l => l.marker == e.layer);
                 if (mloc.location instanceof CustomMapLocation) {
@@ -267,19 +337,9 @@
         });
     }
 
-    function addEditPopup(marker: L.Marker, location: CustomMapLocation) {
-        bindPopup(marker, (m) =>
-            new LocationEditPopup({
-                target: m,
-                props: {
-                    location,
-                },
-            }));
-    }
-
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
-    function bindPopup(marker: L.Marker, createFn) {
+    function bindPopup(marker, createFn) {
         let popupComponent;
         let popup: L.Popup;
         marker.bindPopup(() => {

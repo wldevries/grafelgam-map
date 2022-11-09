@@ -2,11 +2,13 @@
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
     import { CustomMapLocation, loadLocations } from "./LocationStore.js"
+    import { loadAreas, MapArea } from "./AreaStore.js";
 
     const dispatch = createEventDispatcher();
 
-    export let allLocations: MapLocation[] = [];
-    export let countries: Set<string> = new Set();
+    let allLocations: MapLocation[] = [];
+    let countries: Set<string> = new Set();
+    let allAreas: MapArea[] = [];
 
     onMount(async () => {        
         allLocations = await loadLocations();
@@ -15,11 +17,20 @@
 
         countries.clear();
         allLocations.forEach((loc) => countries.add(loc.country));
+
+        allAreas = await loadAreas();
     });
 
     function showLocations(locations: MapLocation[]) {
         dispatch("showLocations", {
             locations: locations,
+        });
+    }
+
+    
+    function showAreas(areas: MapArea[]) {
+        dispatch("showAreas", {
+            areas: areas,
         });
     }
 
@@ -41,10 +52,24 @@
 </script>
 
 <div class="locations">
+    {#if allAreas.length > 0}        
+        <section class="country-list">
+            <h2 class="country-heading">Custom areas</h2>
+            <ul class="country-entries">
+            {#each allAreas as area}
+                <li class="country-entry custom-location">
+                    <button on:click={() => showAreas([area])}>
+                        <span>{area.name}</span>
+                    </button>
+                </li>
+            {/each}
+            </ul>
+        </section>
+    {/if}
+
     {#each getCountries() as country}
         <section class="country-list">
             <button
-                class="country-heading"
                 on:click={() =>
                     showLocations(
                         allLocations.filter((l) => l.country == country)
