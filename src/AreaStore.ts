@@ -6,7 +6,7 @@ const StorageKey = "customAreas"
 let deleteListeners : ((id: string) => void)[] = [];
 let changeListeners : (() => void)[] = [];
 
-export class MapArea {
+export class CustomMapArea {
     public id: string;
     public name: string;
     public locs: LatLng[];
@@ -18,21 +18,15 @@ export class MapArea {
     }
 
     static create(locs: LatLng[]) {
-        return new MapArea(uuid(), "", locs);
+        return new CustomMapArea(uuid(), "", locs);
     }
 }
 
 export async function loadAreas() : Promise<MapArea[]> {
-    // let locations = await (await fetch("locations.json")).json();
-
-    // let customLocations = loadCustomLocations();
-
-    // return locations.concat(customLocations)
-    //     .map(l => {
-    //         return l.id == undefined ? l : new MapArea(l.id, l.name, l.locs);
-    //     });
-
-    return loadCustomAreas();
+    const areaJson = await fetch("areas.json");
+    const areas = await areaJson.json();
+    const customAreas = loadCustomAreas();
+    return areas.concat(customAreas);
 }
 
 export function addArea(area: MapArea) {
@@ -76,15 +70,16 @@ export function onChange(handlerfn: () => void) {
     changeListeners.push(handlerfn);
 }
 
-function loadCustomAreas() {
+
+function loadCustomAreas(): CustomMapArea[] {
     let result: MapArea[];
-    let locsJson = localStorage.getItem(StorageKey);
-    if (locsJson == undefined || locsJson == "") {
+    let areaJson = localStorage.getItem(StorageKey);
+    if (areaJson == undefined || areaJson == "") {
         result = [];
     }
     else {
         // TODO: do type checking
-        result = JSON.parse(locsJson);
+        result = JSON.parse(areaJson);
     }
-    return result;
+    return result.map(a =>  new CustomMapArea(a.id, a.name, a.locs));
 }

@@ -33,7 +33,7 @@
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
-    import { addArea, MapArea } from "./AreaStore";
+    import { addArea, CustomMapArea } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
@@ -75,7 +75,7 @@
     export function showMap(locations: MapLocation[], areas: MapArea[]){
         clearLocations();
         if (locations != undefined) {
-            showLocations(locations);
+            showLocations(locations, areas == undefined || areas.length == 0);
         }
         if (areas != undefined) {
             showAreas(areas);
@@ -130,10 +130,10 @@
 
     function handleLocSelected(e: CustomEvent) {
         const location = e.detail.location;
-        showLocations(location == undefined ? [] : [location]);
+        showLocations(location == undefined ? [] : [location], true);
     }
 
-    function showLocations(locations: MapLocation[]) {
+    function showLocations(locations: MapLocation[], fitBounds: boolean) {
         if (locations.length == 1) {
             locAutoComplete.select(locations[0]);
         }        
@@ -145,12 +145,14 @@
             locations.forEach(l => {
                 const marker = addLocationToMap(l);                
 
-                if (locations.length == 1) {
+                if (locations.length == 1 && !fitBounds) {
                     marker.openPopup();
                 }
             });
             
-            map.fitBounds(L.latLngBounds(locations.map(l => l.loc)));
+            if (fitBounds) {
+                map.fitBounds(L.latLngBounds(locations.map(l => l.loc)));
+            }
         }
     }    
 
@@ -321,8 +323,8 @@
 
                     clearLocations();
 
-                    const area = MapArea.create(locs);
-                    const polygon = addAreaToMap(area);
+                    const area = CustomMapArea.create(locs);
+                    const polygon = addAreaToMap(area, "blue");
                     polygon.openPopup();
                 }
             });

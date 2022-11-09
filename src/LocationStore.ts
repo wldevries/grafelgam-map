@@ -27,14 +27,10 @@ export class CustomMapLocation implements MapLocation {
 }
 
 export async function loadLocations() : Promise<MapLocation[]> {
-    let locations = await (await fetch("locations.json")).json();
-
-    let customLocations = loadCustomLocations();
-
-    return locations.concat(customLocations)
-        .map(l => {
-            return l.id == undefined ? l : new CustomMapLocation(l.id, l.name, l.region, l.country, l.loc);
-        });
+    const locationJson = await fetch("locations.json");
+    const locations = await locationJson.json();
+    const customLocations = loadCustomLocations();
+    return locations.concat(customLocations);
 }
 
 export function addLocation(loc: CustomMapLocation) {
@@ -88,5 +84,5 @@ function loadCustomLocations() {
         // TODO: do type checking
         customLocations = JSON.parse(locsJson);
     }
-    return customLocations;
+    return customLocations.map(l => new CustomMapLocation(l.id, l.name, l.region, l.country, l.loc));
 }

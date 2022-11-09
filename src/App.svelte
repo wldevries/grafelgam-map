@@ -9,7 +9,6 @@
 
     import Map from "./Map.svelte";
     import Nav from "./Nav.svelte";
-    import type { MapArea } from './AreaStore';
 
     let map: Map;
 

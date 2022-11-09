@@ -2,13 +2,15 @@
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
     import { CustomMapLocation, loadLocations } from "./LocationStore.js"
-    import { loadAreas, MapArea } from "./AreaStore.js";
+    import { CustomMapArea, loadAreas } from "./AreaStore.js";
 
     const dispatch = createEventDispatcher();
 
     let allLocations: MapLocation[] = [];
     let countries: Set<string> = new Set();
+    let countriesSorted: string[] = [];
     let allAreas: MapArea[] = [];
+    let customAreas: MapArea[] = [];
 
     onMount(async () => {        
         allLocations = await loadLocations();
@@ -17,8 +19,10 @@
 
         countries.clear();
         allLocations.forEach((loc) => countries.add(loc.country));
+        countriesSorted = Array.from(countries).sort((a, b) => a.localeCompare(b));
 
         allAreas = await loadAreas();
+        customAreas = allAreas.filter(a => a instanceof CustomMapArea);
     });
 
     function showLocations(locations: MapLocation[]) {
@@ -35,16 +39,22 @@
     }
 
     function showCountry(country: string) {
+        const regions = getRegions(country);
         const locations = allLocations.filter((l) => l.country == country);
-        const areas = allAreas.filter(a => a.name == country);
+        const areas = allAreas.filter(a => a.name == country || regions.indexOf(a.name) != -1);
         dispatch("showMap", {
             locations: locations,
             areas: areas,
         })
     }
 
-    function getCountries() {
-        return Array.from(countries).sort((a, b) => a.localeCompare(b));
+    function showRegion(country: string, region: string) {
+        const locations = allLocations.filter(l => l.country == country && l.region == region);
+        const areas = allAreas.filter(a => a.name == region);
+        dispatch("showMap", {
+            locations: locations,
+            areas: areas,
+        })                  
     }
 
     function getRegions(country: string) {
@@ -61,13 +71,13 @@
 </script>
 
 <div class="locations">
-    {#if allAreas.length > 0}        
+    {#if customAreas.length > 0}        
         <section class="country-list">
-            <button class="country-heading" on:click={() => showAreas(allAreas)}>
+            <button class="country-heading" on:click={() => showAreas(customAreas)}>
                 <h2>Custom areas</h2>
             </button>
             <ul class="country-entries">
-            {#each allAreas as area}
+            {#each customAreas as area}
                 <li class="country-entry custom-location">
                     <button on:click={() => showAreas([area])}>
                         <span>{area.name}</span>
@@ -78,12 +88,11 @@
         </section>
     {/if}
 
-    {#each getCountries() as country}
+    {#each countriesSorted as country}
         <section class="country-list">
             <button
                 class="country-heading"
-                on:click={() => showCountry(country)}
-            >
+                on:click={() => showCountry(country)}>
                 <h2>{country}</h2>
             </button>
 
@@ -91,15 +100,7 @@
                 {#if region != undefined && region != ""}
                     <button
                         class="country-heading"
-                        on:click={() =>
-                            showLocations(
-                                allLocations.filter(
-                                    (l) =>
-                                        l.country == country &&
-                                        l.region == region
-                                )
-                            )}
-                    >
+                        on:click={() => showRegion(country, region)}>
                         <h3>{region}</h3>
                     </button>
                 {:else if getRegions(country).length > 1}

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { onDestroy, onMount } from 'svelte';
-    import { addArea, deleteArea, MapArea } from './AreaStore';
+    import { onMount } from 'svelte';
+    import { addArea, deleteArea } from './AreaStore';
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import { ArrowsMove } from 'svelte-bootstrap-icons';

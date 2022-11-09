@@ -7,6 +7,12 @@ interface MapLocation {
     loc: L.LatLng;
 }
 
+interface MapArea {
+    id: string;
+    name: string;
+    locs: L.LatLng[];    
+}
+
 interface Rune {
     name: string;
     translation: string;
