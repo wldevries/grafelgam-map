@@ -33,7 +33,7 @@
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
-    import { MapArea } from "./AreaStore";
+    import { addArea, MapArea } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
@@ -72,11 +72,22 @@
 
     let mode = EditMode.None;
 
-    function popupText(location: MapLocation) : string {
-        if (location.region == undefined) {
-            return `<h3>${location.name}</h3><p>${location.country}</p>`;
+    export function showMap(locations: MapLocation[], areas: MapArea[]){
+        clearLocations();
+        if (locations != undefined) {
+            showLocations(locations);
         }
-        return `<h3>${location.name}</h3><p>${location.country}  (${location.region})</p>`;
+        if (areas != undefined) {
+            showAreas(areas);
+        }
+    }
+
+    function popupText(location: MapLocation) : string {
+        return location.name;
+        // if (location.region == undefined) {
+        //     return `<h3>${location.name}</h3><p>${location.country}</p>`;
+        // }
+        // return `<h3>${location.name}</h3><p>${location.country}  (${location.region})</p>`;
     }
 
     function selectLocationMode() {
@@ -122,9 +133,7 @@
         showLocations(location == undefined ? [] : [location]);
     }
 
-    export function showLocations(locations: MapLocation[]) {
-        clearLocationLayer();
-
+    function showLocations(locations: MapLocation[]) {
         if (locations.length == 1) {
             locAutoComplete.select(locations[0]);
         }        
@@ -145,17 +154,26 @@
         }
     }    
 
-    export function showAreas(areas: MapArea[]) {
-        clearLocationLayer();
+    function showAreas(areas: MapArea[]) {
+        if (areas.length > 0) {            
+            const colors = [
+                "#ffb3ba",
+                "#ffdfba",
+                "#ffffba",
+                "#baffc9",
+                "#bae1ff",
+            ];
+            let colorIndex = 0;
 
-        if (areas.length > 0) {
             areas.forEach(a => {
-                const polygon = addAreaToMap(a);
+                const polygon = addAreaToMap(a, colors[colorIndex++ % colors.length]);
 
                 if (areas.length == 1) {
                     polygon.openPopup();
                 }
-            })
+            });
+
+            map.fitBounds(L.latLngBounds(areas.map(l => l.locs).flat()));
         }
     }
 
@@ -190,17 +208,17 @@
         return marker;
     }
 
-    function addAreaToMap(area: MapArea): L.Polygon<any> {
-        const polygon = new L.Polygon(area.locs);
+    function addAreaToMap(area: MapArea, color): L.Polygon<any> {
+        const polygon = new L.Polygon(area.locs, {
+            color: color ?? "blue"
+        });
+        polygon.bindTooltip(area.name);
 
         openAreas.push({
             area,
             polygon
         });
-
-        clearLocationLayer();
-
-        polygon.addTo(locationLayer);
+        
         bindPopup(polygon, (m) =>
             new AreaEditPopup({
                 target: m,
@@ -209,6 +227,13 @@
                     polygon
                 },
             }));
+            
+        polygon.on("pm:edit", e => {
+            area.locs = polygon.getLatLngs().flat().flat();
+            addArea(area);
+        });
+
+        polygon.addTo(locationLayer);        
 
         return polygon;
     }
@@ -222,7 +247,7 @@
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
             else if (mode == EditMode.Single) {
-                clearLocationLayer();
+                clearLocations();
 
                 mouseMarker.remove();
                 mouseMarker = undefined;
@@ -273,7 +298,7 @@
             map.setView([0,0],3);
             
             // Make sure the location layer exists
-            clearLocationLayer();
+            clearLocations();
 
             // Configure Leaflet-Geoman
             
@@ -293,6 +318,8 @@
 
                     // The following type check does not work unfortunately
                     // if (locs instanceof L.LatLng[])
+
+                    clearLocations();
 
                     const area = MapArea.create(locs);
                     const polygon = addAreaToMap(area);
@@ -315,7 +342,8 @@
         }
     });
 
-    function clearLocationLayer() {
+    // Clear all markers and polygons from the location layer
+    function clearLocations() {
         if (locationLayer != undefined) {
             map.removeLayer(locationLayer);
         }

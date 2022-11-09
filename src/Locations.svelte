@@ -22,16 +22,25 @@
     });
 
     function showLocations(locations: MapLocation[]) {
-        dispatch("showLocations", {
+        dispatch("showMap", {
             locations: locations,
         });
     }
 
     
     function showAreas(areas: MapArea[]) {
-        dispatch("showAreas", {
+        dispatch("showMap", {
             areas: areas,
         });
+    }
+
+    function showCountry(country: string) {
+        const locations = allLocations.filter((l) => l.country == country);
+        const areas = allAreas.filter(a => a.name == country);
+        dispatch("showMap", {
+            locations: locations,
+            areas: areas,
+        })
     }
 
     function getCountries() {
@@ -54,7 +63,9 @@
 <div class="locations">
     {#if allAreas.length > 0}        
         <section class="country-list">
-            <h2 class="country-heading">Custom areas</h2>
+            <button class="country-heading" on:click={() => showAreas(allAreas)}>
+                <h2>Custom areas</h2>
+            </button>
             <ul class="country-entries">
             {#each allAreas as area}
                 <li class="country-entry custom-location">
@@ -70,10 +81,8 @@
     {#each getCountries() as country}
         <section class="country-list">
             <button
-                on:click={() =>
-                    showLocations(
-                        allLocations.filter((l) => l.country == country)
-                    )}
+                class="country-heading"
+                on:click={() => showCountry(country)}
             >
                 <h2>{country}</h2>
             </button>

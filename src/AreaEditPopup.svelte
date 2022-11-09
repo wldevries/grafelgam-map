@@ -23,16 +23,7 @@
             if (nameInput != undefined)
                 nameInput.focus();
         }, 10);
-
-        polygon.on("pm:edit", e => {
-            area.locs = polygon.getLatLngs().flat().flat();
-            addArea(area);
-        });
     });
-
-    onDestroy(() => {
-        polygon.off("pm:edit");
-    })
 
     export function setPopup(value: L.Popup) {
         popup = value;

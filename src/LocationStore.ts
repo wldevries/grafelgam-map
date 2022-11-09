@@ -52,10 +52,6 @@ export function addLocation(loc: CustomMapLocation) {
     changeListeners.forEach(h => h());
 }
 
-export function addArea(area: MapArea) {
-
-}
-
 export function deleteLocation(loc: CustomMapLocation) {
     let customLocations: CustomMapLocation[] = loadCustomLocations();
     

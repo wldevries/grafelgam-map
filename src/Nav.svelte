@@ -1,20 +1,15 @@
 <script lang="ts">
-  import Locations from './Locations.svelte';
-
-    import { onMount } from "svelte";
     import { slide } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte";
-
+    
+    import Locations from './Locations.svelte';
     import Runes from "./Runes.svelte";
 
     const dispatch = createEventDispatcher();
 
     export let locationMenuOpen = false;
     export let runeMenuOpen = false;
-
-    export let allLocations: Location[] = [];
-    export let countries: Set<string> = new Set();
 
     function openLocations() {
         locationMenuOpen = !locationMenuOpen;
@@ -30,16 +25,10 @@
         }
     }
 
-    function showLocations(e: CustomEvent<{locations: Location[]}>) {
+    function showMap(e: CustomEvent<{locations: Location[], areas: Location[]}>) {
         locationMenuOpen = false;
-        dispatch("showLocations", {
+        dispatch("showMap", {
             locations: e.detail.locations,
-        });
-    }
-
-    function showAreas(e: CustomEvent<{areas: Location[]}>) {
-        locationMenuOpen = false;
-        dispatch("showAreas", {
             areas: e.detail.areas,
         });
     }
@@ -61,7 +50,7 @@
             class="navmenu navmenu-locations"
             transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
         >
-           <Locations on:showLocations={showLocations} on:showAreas={showAreas} />
+           <Locations on:showMap={showMap} />
         </div>
     {/if}
 

@@ -1,5 +1,5 @@
 <Modal show={$modal}>
-    <Nav on:showLocations={showLocations} on:showAreas={showAreas}/>
+    <Nav on:showMap={showMap}/>
     <Map bind:this={map}/>
 </Modal>
 
@@ -13,11 +13,7 @@
 
     let map: Map;
 
-    function showLocations(e: CustomEvent<{locations: MapLocation[]}>) {
-        map.showLocations(e.detail.locations);
-    }
-
-    function showAreas(e: CustomEvent<{areas: MapArea[]}>) {
-        map.showAreas(e.detail.areas);
-    }
+    function showMap(e: CustomEvent<{locations: MapLocation[], areas: MapArea[]}>) {
+        map.showMap(e.detail.locations, e.detail.areas);
+    }    
 </script>
