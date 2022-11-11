@@ -21,6 +21,28 @@
             <Map width="20" height="20" class="icon" />
         </button>
     </div>
+
+    <div class="button-container">
+        <button class="btn-tool"
+                title="to geojson" 
+                on:click={toGeojson2}>
+            export
+        </button>
+    </div>
+    <div class="button-container">
+        <button class="btn-tool"
+                title="to geojson2" 
+                on:click={showLocationGeoJson}>
+            locations
+        </button>
+    </div>
+    <div class="button-container">
+        <button class="btn-tool"
+                title="to geojson2" 
+                on:click={showAreaGeoJson}>
+            areas
+        </button>
+    </div>
 </div>
 
 <script lang="ts">
@@ -32,8 +54,8 @@
     import LocationEditPopup from "./LocationEditPopup.svelte";
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
-    import { addLocation, CustomMapLocation, onDelete } from "./LocationStore.js"
-    import { addArea, CustomMapArea } from "./AreaStore";
+    import { addLocation, CustomMapLocation, loadLocations, onDelete } from "./LocationStore.js"
+    import { addArea, CustomMapArea, loadAreas } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
 
@@ -120,6 +142,87 @@
         }
     }
 
+    async function toGeojson2() {
+        const locations = await loadLocations();
+        const areas = await loadAreas();
+
+        let geol: GeoJSON.GeoJsonObject[] = locations.map((l) => {
+            return {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [small(l.loc[1]), small(l.loc[0])]
+                },
+                properties: {
+                    name: l.name,
+                    country: l.country,
+                    region: l.region
+                }
+            };
+        });
+
+
+        let geoa: GeoJSON.GeoJsonObject[] = areas.map((a) => {
+            return {
+                type: "Feature",
+                id: a.id,
+                geometry: {
+                    type: "Polygon",
+                    coordinates: [a.locs.map(l =>[small(l.lng), small(l.lat)])]
+                },
+                properties: {
+                    name: a.name,
+                }
+            };
+        })
+
+        localStorage.setItem("geolocs", JSON.stringify(geol));
+        localStorage.setItem("geoareas", JSON.stringify(geoa));
+
+        displayGeo(geol, geoa);
+
+        function small(n: number) {
+             return Math.round(10 * n) / 10
+        }
+    }
+
+    async function showLocationGeoJson() {
+        const locationJson = await fetch("locations2.json");
+        const locations = await locationJson.json();
+    
+        displayGeo(locations, []);
+    }
+
+    
+    async function showAreaGeoJson() {
+        const areaJson = await fetch("areas2.json");
+        const areas = await areaJson.json();
+    
+        displayGeo([], areas);
+    }
+
+    function displayGeo(geol, geoa) {        
+        L.geoJSON(geol, {
+            onEachFeature: onEachFeature
+        }).addTo(map);
+        
+        L.geoJSON(geoa, {
+            onEachFeature: onEachFeature,
+            style: function(feature) {
+                if (feature.properties.color) {
+                    return {color: feature.properties.color };
+                }
+            }
+        }).addTo(map);
+
+        function onEachFeature(feature: GeoJSON.Feature, layer: L.Layer) {
+            if (feature.properties && feature.properties.name) {
+                layer.bindTooltip(feature.properties.name);
+            }
+        }
+    }
+
+    
     function resetEditMode(){
         mode = EditMode.None;
         addLocationButton.disabled = false;

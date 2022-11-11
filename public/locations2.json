@@ -1,0 +1,2345 @@
+[
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                72.642,
+                10.055
+            ]
+        },
+        "properties": {
+            "name": "Colwalt",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                69.302,
+                16.13
+            ]
+        },
+        "properties": {
+            "name": "Grindarmin",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                77.871,
+                20.015
+            ]
+        },
+        "properties": {
+            "name": "Moperhaaf",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                75.454,
+                13.325
+            ]
+        },
+        "properties": {
+            "name": "Sesthan",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                63.765,
+                10.488
+            ]
+        },
+        "properties": {
+            "name": "Wezefort",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                62.314,
+                6.883
+            ]
+        },
+        "properties": {
+            "name": "Wilbrol",
+            "country": "Aurum"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -65.31,
+                6.281
+            ]
+        },
+        "properties": {
+            "name": "Ardan",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -66.1,
+                5.361
+            ]
+        },
+        "properties": {
+            "name": "Cedhaaf",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -73.13,
+                9.201
+            ]
+        },
+        "properties": {
+            "name": "Lefswoude",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -57.79,
+                7.111
+            ]
+        },
+        "properties": {
+            "name": "Naderveer",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -78.62,
+                16.821
+            ]
+        },
+        "properties": {
+            "name": "Nederburg",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.95,
+                -1.089
+            ]
+        },
+        "properties": {
+            "name": "Odrie",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -68.78,
+                15.221
+            ]
+        },
+        "properties": {
+            "name": "Welfort",
+            "country": "Brodova"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -104.07,
+                45.321
+            ]
+        },
+        "properties": {
+            "name": "Calitin",
+            "country": "Contriari",
+            "region": "Canwin"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -86.836,
+                23.886
+            ]
+        },
+        "properties": {
+            "name": "Fellmire",
+            "country": "Contriari",
+            "region": "Sudcan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -50.361,
+                63.352
+            ]
+        },
+        "properties": {
+            "name": "Fridget",
+            "country": "Contriari",
+            "region": "Illdran"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -77.31,
+                33.111
+            ]
+        },
+        "properties": {
+            "name": "Lararym",
+            "country": "Contriari",
+            "region": "Sudcan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -59.29,
+                55.131
+            ]
+        },
+        "properties": {
+            "name": "Meerfort",
+            "country": "Contriari",
+            "region": "Illdran"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -75.2,
+                44.441
+            ]
+        },
+        "properties": {
+            "name": "Mithanhyr",
+            "country": "Contriari",
+            "region": "Tonner"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -89.61,
+                60.121
+            ]
+        },
+        "properties": {
+            "name": "Oloth",
+            "country": "Contriari",
+            "region": "Norcan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -101.43,
+                33.551
+            ]
+        },
+        "properties": {
+            "name": "Olrym",
+            "country": "Contriari",
+            "region": "Olrican"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -73.61,
+                62.821
+            ]
+        },
+        "properties": {
+            "name": "Rashaaf",
+            "country": "Contriari",
+            "region": "Galast"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -23.08,
+                48.331
+            ]
+        },
+        "properties": {
+            "name": "Wardeklok",
+            "country": "Contriari",
+            "region": "Hymerdan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -21.14,
+                58.651
+            ]
+        },
+        "properties": {
+            "name": "Yderder",
+            "country": "Contriari",
+            "region": "Derring"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -36.255,
+                -61.939
+            ]
+        },
+        "properties": {
+            "name": "Aranet",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -87.187,
+                -63.115
+            ]
+        },
+        "properties": {
+            "name": "Diepkan",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -69.785,
+                -65.238
+            ]
+        },
+        "properties": {
+            "name": "Eugval",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -89.429,
+                -51.645
+            ]
+        },
+        "properties": {
+            "name": "Grinbaai",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -64.116,
+                -66.999
+            ]
+        },
+        "properties": {
+            "name": "Halmoet",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -77.256,
+                -55.304
+            ]
+        },
+        "properties": {
+            "name": "Pranford",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -83.276,
+                -39.741
+            ]
+        },
+        "properties": {
+            "name": "Smogin",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -74.443,
+                -58.471
+            ]
+        },
+        "properties": {
+            "name": "Staalwoud",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -63.193,
+                -60.479
+            ]
+        },
+        "properties": {
+            "name": "Thornhaaf",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -89.297,
+                -67.17
+            ]
+        },
+        "properties": {
+            "name": "Urstrom",
+            "country": "Cord"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                25.972,
+                28.845
+            ]
+        },
+        "properties": {
+            "name": "Zander",
+            "country": "Duergar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                7.82,
+                24.081
+            ]
+        },
+        "properties": {
+            "name": "Alwam",
+            "country": "Felia",
+            "region": "Urling"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                59.15,
+                55.801
+            ]
+        },
+        "properties": {
+            "name": "Ashfell",
+            "country": "Felia",
+            "region": "Setmar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                10.36,
+                44.061
+            ]
+        },
+        "properties": {
+            "name": "Beurset",
+            "country": "Felia",
+            "region": "Setmond"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.08,
+                41.241
+            ]
+        },
+        "properties": {
+            "name": "Dahinset",
+            "country": "Felia",
+            "region": "Setmond"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                88.462,
+                50.931
+            ]
+        },
+        "properties": {
+            "name": "Dathpor",
+            "country": "Felia",
+            "region": "Espedath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                21.841,
+                70.7
+            ]
+        },
+        "properties": {
+            "name": "Dippo",
+            "country": "Felia",
+            "region": "Hopexi"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                32.51,
+                51.881
+            ]
+        },
+        "properties": {
+            "name": "Fearschan",
+            "country": "Felia",
+            "region": "Famoset"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -8.66,
+                25.631
+            ]
+        },
+        "properties": {
+            "name": "Sarclif",
+            "country": "Felia",
+            "region": "Urling"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                51.724,
+                57.184
+            ]
+        },
+        "properties": {
+            "name": "Shan Marnag",
+            "country": "Felia",
+            "region": "Setmar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                43.726,
+                63.115
+            ]
+        },
+        "properties": {
+            "name": "Shan Torl",
+            "country": "Felia",
+            "region": "Fearkhans embrace"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                46.8,
+                46.761
+            ]
+        },
+        "properties": {
+            "name": "Steverit",
+            "country": "Felia",
+            "region": "Famoset"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                55.459,
+                75.541
+            ]
+        },
+        "properties": {
+            "name": "Taxmari",
+            "country": "Felia",
+            "region": "Tabaxi"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                0.26,
+                52.821
+            ]
+        },
+        "properties": {
+            "name": "Waldraaf",
+            "country": "Felia",
+            "region": "Derring"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                9.93,
+                59.791
+            ]
+        },
+        "properties": {
+            "name": "Walhut",
+            "country": "Felia",
+            "region": "Valian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -35.25,
+                -57.729
+            ]
+        },
+        "properties": {
+            "name": "Abfoorde",
+            "country": "Hoaran",
+            "region": "Abrian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -5.54,
+                -16.409
+            ]
+        },
+        "properties": {
+            "name": "Alfjord",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -39.73,
+                -57.679
+            ]
+        },
+        "properties": {
+            "name": "Amirhaaf",
+            "country": "Hoaran",
+            "region": "Mehir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                113.291,
+                51.234
+            ]
+        },
+        "properties": {
+            "name": "Ansfort",
+            "country": "Hoaran",
+            "region": "Trillian Eilanden"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -3.516,
+                3.864
+            ]
+        },
+        "properties": {
+            "name": "Arendmijn",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -4.131,
+                -3.426
+            ]
+        },
+        "properties": {
+            "name": "Bluehig",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -21.23,
+                -56.759
+            ]
+        },
+        "properties": {
+            "name": "Bokhaven",
+            "country": "Hoaran",
+            "region": "Pastran"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                23.511,
+                5.835
+            ]
+        },
+        "properties": {
+            "name": "Codhaaf",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                18.149,
+                13.923
+            ]
+        },
+        "properties": {
+            "name": "Danswal",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -14.2,
+                -10.779
+            ]
+        },
+        "properties": {
+            "name": "Duomir",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.579,
+                4.784
+            ]
+        },
+        "properties": {
+            "name": "Fenmir",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                1.36,
+                -38.489
+            ]
+        },
+        "properties": {
+            "name": "Fit",
+            "country": "Hoaran",
+            "region": "Ooi eilanden"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                25.928,
+                13.154
+            ]
+        },
+        "properties": {
+            "name": "Gordemin",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                16.655,
+                10.358
+            ]
+        },
+        "properties": {
+            "name": "Idrahl",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -39.25,
+                -58.829
+            ]
+        },
+        "properties": {
+            "name": "Irdo",
+            "country": "Hoaran",
+            "region": "Abrian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                117.949,
+                -2.46
+            ]
+        },
+        "properties": {
+            "name": "Kaltar",
+            "country": "Hoaran",
+            "region": "Kathian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -6.064,
+                -0.703
+            ]
+        },
+        "properties": {
+            "name": "Lawfort",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.64,
+                -58.719
+            ]
+        },
+        "properties": {
+            "name": "Mehir",
+            "country": "Hoaran",
+            "region": "Mehir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -12.305,
+                -3.426
+            ]
+        },
+        "properties": {
+            "name": "Normir",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -40.7,
+                -60.289
+            ]
+        },
+        "properties": {
+            "name": "Rangwalt",
+            "country": "Hoaran",
+            "region": "Abrian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                88.418,
+                25.364
+            ]
+        },
+        "properties": {
+            "name": "Rantilhaaf",
+            "country": "Hoaran",
+            "region": "Surian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -41.01,
+                -54.619
+            ]
+        },
+        "properties": {
+            "name": "Selhaaf",
+            "country": "Hoaran",
+            "region": "Mehir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -28.18,
+                -42.319
+            ]
+        },
+        "properties": {
+            "name": "Selwyk",
+            "country": "Hoaran",
+            "region": "Lerian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                19.38,
+                9.319
+            ]
+        },
+        "properties": {
+            "name": "Sikdahl",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -39.78,
+                -51.309
+            ]
+        },
+        "properties": {
+            "name": "Skeeronrok",
+            "country": "Hoaran",
+            "region": "Lerian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                113.379,
+                49.21
+            ]
+        },
+        "properties": {
+            "name": "Sundel",
+            "country": "Hoaran",
+            "region": "Trillian Eilanden"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                82.09,
+                26.549
+            ]
+        },
+        "properties": {
+            "name": "Surlitte",
+            "country": "Hoaran",
+            "region": "Surian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                10.063,
+                11.437
+            ]
+        },
+        "properties": {
+            "name": "Urzig",
+            "country": "Hoaran",
+            "region": "Fendahl"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -23.91,
+                -34.619
+            ]
+        },
+        "properties": {
+            "name": "Wyksand",
+            "country": "Hoaran",
+            "region": "Lerian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -10.16,
+                -15.049
+            ]
+        },
+        "properties": {
+            "name": "Zagermond",
+            "country": "Hoaran",
+            "region": "Duomir"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                114.829,
+                25.245
+            ]
+        },
+        "properties": {
+            "name": "Daarhim",
+            "country": "Irkath",
+            "region": "Rilkath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                49.043,
+                19.062
+            ]
+        },
+        "properties": {
+            "name": "Fardewalm",
+            "country": "Irkath",
+            "region": "Ravian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                93.604,
+                -7.101
+            ]
+        },
+        "properties": {
+            "name": "Hoggejar",
+            "country": "Irkath",
+            "region": "Mezikath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                77.432,
+                -2.285
+            ]
+        },
+        "properties": {
+            "name": "Iftilrun",
+            "country": "Irkath",
+            "region": "Ranskar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                91.055,
+                -18.021
+            ]
+        },
+        "properties": {
+            "name": "Jirreton",
+            "country": "Irkath",
+            "region": "Mezikath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                115.4,
+                21.207
+            ]
+        },
+        "properties": {
+            "name": "Minril",
+            "country": "Irkath",
+            "region": "Rilkath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                56.689,
+                11.351
+            ]
+        },
+        "properties": {
+            "name": "Morhalm",
+            "country": "Irkath",
+            "region": "Ravian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                115.4,
+                14.35
+            ]
+        },
+        "properties": {
+            "name": "Pordille",
+            "country": "Irkath",
+            "region": "Rilkath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                100.898,
+                7.624
+            ]
+        },
+        "properties": {
+            "name": "Porgador",
+            "country": "Irkath",
+            "region": "Rundor"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                61.084,
+                -4.127
+            ]
+        },
+        "properties": {
+            "name": "Porjaf",
+            "country": "Irkath",
+            "region": "Omeliath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                81.65,
+                -2.811
+            ]
+        },
+        "properties": {
+            "name": "Ranskar",
+            "country": "Irkath",
+            "region": "Ranskar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                46.934,
+                15.961
+            ]
+        },
+        "properties": {
+            "name": "Ranwold",
+            "country": "Irkath",
+            "region": "Ravian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                73.125,
+                -30.562
+            ]
+        },
+        "properties": {
+            "name": "Rederhaaf",
+            "country": "Irkath",
+            "region": "Estafar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                92.373,
+                0.264
+            ]
+        },
+        "properties": {
+            "name": "Scaril",
+            "country": "Irkath",
+            "region": "Rundor"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                69.346,
+                -36.067
+            ]
+        },
+        "properties": {
+            "name": "Storkil",
+            "country": "Irkath",
+            "region": "Estafar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                94.131,
+                -16.552
+            ]
+        },
+        "properties": {
+            "name": "Winmeez",
+            "country": "Irkath",
+            "region": "Mezikath"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                41.66,
+                17.644
+            ]
+        },
+        "properties": {
+            "name": "Zerbrug",
+            "country": "Irkath",
+            "region": "Ravian"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -34.98,
+                -30.751
+            ]
+        },
+        "properties": {
+            "name": "Baaldyk",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -66.27,
+                -52.429
+            ]
+        },
+        "properties": {
+            "name": "Clodmoor",
+            "country": "Karn",
+            "region": "Ardoa"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -44.473,
+                -32.176
+            ]
+        },
+        "properties": {
+            "name": "Daghelder",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -52.35,
+                -13.609
+            ]
+        },
+        "properties": {
+            "name": "Demerhoek",
+            "country": "Karn",
+            "region": "Demerhoek"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -28.96,
+                -17.099
+            ]
+        },
+        "properties": {
+            "name": "Denderyk",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -32.563,
+                -17.015
+            ]
+        },
+        "properties": {
+            "name": "Draakhil",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -39.902,
+                -20.509
+            ]
+        },
+        "properties": {
+            "name": "Dreizwik",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -73.92,
+                -43.919
+            ]
+        },
+        "properties": {
+            "name": "Drufhaaf",
+            "country": "Karn",
+            "region": "Ardoa"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -32.432,
+                -37.09
+            ]
+        },
+        "properties": {
+            "name": "Drysford",
+            "country": "Karn",
+            "region": "Grimmbar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -20.566,
+                -26.195
+            ]
+        },
+        "properties": {
+            "name": "Eldehaaf",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -24.17,
+                -29.152
+            ]
+        },
+        "properties": {
+            "name": "Flogmenfort",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -21.797,
+                -9.406
+            ]
+        },
+        "properties": {
+            "name": "Fort Mirzicht",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -22.588,
+                -22.025
+            ]
+        },
+        "properties": {
+            "name": "Fulsmijn",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -31.025,
+                -22.553
+            ]
+        },
+        "properties": {
+            "name": "Gildeharm",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -78.4,
+                -47.669
+            ]
+        },
+        "properties": {
+            "name": "Gipmond",
+            "country": "Karn",
+            "region": "Ardoa"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -24,
+                -13.909
+            ]
+        },
+        "properties": {
+            "name": "Glearmaz",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -50.63,
+                -52.469
+            ]
+        },
+        "properties": {
+            "name": "Graanhym",
+            "country": "Karn",
+            "region": "Karmel"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -39.639,
+                -34.307
+            ]
+        },
+        "properties": {
+            "name": "Greefort",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -45.05,
+                -49.779
+            ]
+        },
+        "properties": {
+            "name": "Gytmotte",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -35.508,
+                -5.966
+            ]
+        },
+        "properties": {
+            "name": "Hoogsfort",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -50.02,
+                -56.379
+            ]
+        },
+        "properties": {
+            "name": "Hornmir",
+            "country": "Karn",
+            "region": "Karmel"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -40.66,
+                -36.899
+            ]
+        },
+        "properties": {
+            "name": "Ielem",
+            "country": "Karn",
+            "region": "Grimmbar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -32.959,
+                -32.473
+            ]
+        },
+        "properties": {
+            "name": "Inderwoud",
+            "country": "Karn",
+            "region": "Grimmbar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -28.037,
+                -29.764
+            ]
+        },
+        "properties": {
+            "name": "Kletl",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -49.746,
+                -49.21
+            ]
+        },
+        "properties": {
+            "name": "Klinkerhaard",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -46.45,
+                -48.019
+            ]
+        },
+        "properties": {
+            "name": "Lensbrug",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -26.455,
+                -24.046
+            ]
+        },
+        "properties": {
+            "name": "Moetbrug",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -29.18,
+                -10.185
+            ]
+        },
+        "properties": {
+            "name": "Moton",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -45.01,
+                -44.829
+            ]
+        },
+        "properties": {
+            "name": "Muddam",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -34.761,
+                -43.229
+            ]
+        },
+        "properties": {
+            "name": "Muilbron",
+            "country": "Karn",
+            "region": "Grimmbar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -41.177,
+                -39.198
+            ]
+        },
+        "properties": {
+            "name": "Muilstein",
+            "country": "Karn",
+            "region": "Grimmbar"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.07,
+                -48.079
+            ]
+        },
+        "properties": {
+            "name": "Niveld",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -37.31,
+                -12.94
+            ]
+        },
+        "properties": {
+            "name": "Odracht",
+            "country": "Karn",
+            "region": "Demerhoek"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -30.146,
+                -25.404
+            ]
+        },
+        "properties": {
+            "name": "Ooiveld",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -45.97,
+                -38.759
+            ]
+        },
+        "properties": {
+            "name": "Oxgon",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.637,
+                -43.835
+            ]
+        },
+        "properties": {
+            "name": "Oxmoor",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -27.598,
+                -28.498
+            ]
+        },
+        "properties": {
+            "name": "Pluimhaaf",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -43.77,
+                -41.64
+            ]
+        },
+        "properties": {
+            "name": "Riesmoor",
+            "country": "Karn",
+            "region": "Warg"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -32.08,
+                -22.958
+            ]
+        },
+        "properties": {
+            "name": "Rodveld",
+            "country": "Karn",
+            "region": "Bondsland"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -45.439,
+                -19.684
+            ]
+        },
+        "properties": {
+            "name": "Roodfort",
+            "country": "Karn",
+            "region": "Demerhoek"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -36.035,
+                -26.195
+            ]
+        },
+        "properties": {
+            "name": "Sansmills",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -61.05,
+                -49.519
+            ]
+        },
+        "properties": {
+            "name": "Stendepunt",
+            "country": "Karn",
+            "region": "Karmel"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -42.627,
+                -30.069
+            ]
+        },
+        "properties": {
+            "name": "Swynhaaf",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -76.6,
+                -45.599
+            ]
+        },
+        "properties": {
+            "name": "Wynfort",
+            "country": "Karn",
+            "region": "Ardoa"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -42.891,
+                -25.721
+            ]
+        },
+        "properties": {
+            "name": "Zeisveld",
+            "country": "Karn",
+            "region": "Alvelde"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -22.061,
+                34.162
+            ]
+        },
+        "properties": {
+            "name": "Hirbrun",
+            "country": "Odris"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.73,
+                10.931
+            ]
+        },
+        "properties": {
+            "name": "Esserpas",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -29.76,
+                17.241
+            ]
+        },
+        "properties": {
+            "name": "Gizig",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -20.62,
+                12.741
+            ]
+        },
+        "properties": {
+            "name": "Kallan",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -59.42,
+                16.231
+            ]
+        },
+        "properties": {
+            "name": "Koperzicht",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -54.63,
+                12.051
+            ]
+        },
+        "properties": {
+            "name": "Marker Tunnel",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -34.64,
+                10.671
+            ]
+        },
+        "properties": {
+            "name": "Nieuwlijn",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -29.27,
+                -5.249
+            ]
+        },
+        "properties": {
+            "name": "Odrisval",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -65.48,
+                19.251
+            ]
+        },
+        "properties": {
+            "name": "Ordemar",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -24.35,
+                3.041
+            ]
+        },
+        "properties": {
+            "name": "Otry",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -40.35,
+                5.411
+            ]
+        },
+        "properties": {
+            "name": "Runnelfort",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -32.61,
+                0.011
+            ]
+        },
+        "properties": {
+            "name": "Skif",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -21.36,
+                -1.619
+            ]
+        },
+        "properties": {
+            "name": "Woudmill",
+            "country": "Ordent"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -62.842,
+                -72.945
+            ]
+        },
+        "properties": {
+            "name": "Padren",
+            "country": "Quatlan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -47.021,
+                -72.047
+            ]
+        },
+        "properties": {
+            "name": "Rodglop",
+            "country": "Quatlan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -72.861,
+                -73.922
+            ]
+        },
+        "properties": {
+            "name": "Woohlsbellow",
+            "country": "Quatlan"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                95.757,
+                33.211
+            ]
+        },
+        "properties": {
+            "name": "Boiling Bay",
+            "country": "Sutrill"
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -97.471,
+                -6.752
+            ]
+        },
+        "properties": {
+            "name": "Gloardal",
+            "country": "Wyvernia"
+        }
+    }
+]
