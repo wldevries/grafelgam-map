@@ -290,14 +290,15 @@
 
         function configureMap() {
             var moptions: L.MapOptions={
-                zoomSnap: 0.5,
+                zoomSnap: 0.1,
                 zoomDelta: 0.5,
             };
             map=L.map("map",moptions);
 
             var options: L.TileLayerOptions={
                 minZoom: 1,
-                maxZoom: 5,
+                maxZoom: 6,
+                maxNativeZoom: 5,
                 noWrap: true,
             };
             L.tileLayer("tiles/{z}/{x}/{y}.png",options).addTo(map);
