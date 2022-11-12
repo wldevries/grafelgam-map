@@ -17,11 +17,11 @@ export class MapLocation {
         this.loc = loc;
     }
 
-    isCustom() {
-        return (this.custom && this.custom == true)
+    public isCustom() {
+        return (this.custom && this.custom == true);
     }
 
-    setCustom() {
+    public setCustom() {
         this.custom = true;
     }
 

@@ -10,7 +10,7 @@
                 title="add location"
                 bind:this={addLocationButton}
                 on:click={selectLocationMode}>
-            <Geo width="20" height="20" class="icon" />
+            <GeoIcon width="20" height="20" class="icon" />
         </button>
     </div>
     <div class="button-container">
@@ -18,36 +18,13 @@
                 title="Add region" 
                 bind:this={addRegionButton}
                 on:click={selectRegionMode}>
-            <Map width="20" height="20" class="icon" />
-        </button>
-    </div>
-
-    <div class="button-container">
-        <button class="btn-tool"
-                title="to geojson" 
-                on:click={toGeojson2}>
-            export
-        </button>
-    </div>
-    <div class="button-container">
-        <button class="btn-tool"
-                title="to geojson2" 
-                on:click={showLocationGeoJson}>
-            locations
-        </button>
-    </div>
-    <div class="button-container">
-        <button class="btn-tool"
-                title="to geojson2" 
-                on:click={showAreaGeoJson}>
-            areas
+            <MapIcon width="20" height="20" class="icon" />
         </button>
     </div>
 </div>
 
 <script lang="ts">
     import { onMount } from "svelte";
-    import * as L from "leaflet";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
@@ -55,12 +32,15 @@
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { MapLocation } from "./MapLocation";
-    import { addLocation, loadLocations, onDelete } from "./LocationStore.js"
-    import { addArea, CustomMapArea, loadAreas } from "./AreaStore";
-    import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
-    import Map from "svelte-bootstrap-icons/lib/Map.svelte";
+    import { MapArea } from "./MapArea";
+    import { addLocation, onDelete } from "./LocationStore.js"
+    import { addArea } from "./AreaStore";
+    import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
+    import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
+    import { Map, Marker, Polygon, LatLngBounds, latLngBounds } from "leaflet";
+    import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
 
-    let map: L.Map;
+    let mapDiv: Map;
     let addRegionButton: HTMLButtonElement;
     let addLocationButton: HTMLButtonElement;
     let locAutoComplete: LocationAutoComplete;
@@ -120,14 +100,14 @@
             addRegionButton.disabled = true;
 
             // disable mouse temporarily
-            map.getContainer().style.cursor = 'none';
-            map.on('mousemove', updateMouseMoveMarker);
+            mapDiv.getContainer().style.cursor = 'none';
+            mapDiv.on('mousemove', updateMouseMoveMarker);
         }
     }
 
     function updateMouseMoveMarker(ev: L.LeafletMouseEvent) {
         if (mouseMarker == null) {
-            mouseMarker = new L.Marker(ev.latlng).addTo(map);
+            mouseMarker = new Marker(ev.latlng).addTo(mapDiv);
         } else {
             mouseMarker.setLatLng(ev.latlng);
         }
@@ -139,82 +119,23 @@
             // addLocationButton.disabled = true;
             // addRegionButton.disabled = true;
 
-            map.pm.enableDraw('Polygon');
+            mapDiv.pm.enableDraw('Polygon');
         }
-    }
-
-    async function toGeojson2() {
-        const locations = await loadLocations();
-        const areas = await loadAreas();
-
-        let geol: GeoJSON.GeoJsonObject[] = locations.map((l) => {
-            return {
-                type: "Feature",
-                geometry: {
-                    type: "Point",
-                    coordinates: [small(l.loc[1]), small(l.loc[0])]
-                },
-                properties: {
-                    name: l.name,
-                    country: l.country,
-                    region: l.region
-                }
-            };
-        });
-
-
-        let geoa: GeoJSON.GeoJsonObject[] = areas.map((a) => {
-            return {
-                type: "Feature",
-                id: a.id,
-                geometry: {
-                    type: "Polygon",
-                    coordinates: [a.locs.map(l =>[small(l.lng), small(l.lat)])]
-                },
-                properties: {
-                    name: a.name,
-                }
-            };
-        })
-
-        localStorage.setItem("geolocs", JSON.stringify(geol));
-        localStorage.setItem("geoareas", JSON.stringify(geoa));
-
-        displayGeo(geol, geoa);
-
-        function small(n: number) {
-             return Math.round(10 * n) / 10
-        }
-    }
-
-    async function showLocationGeoJson() {
-        const locationJson = await fetch("locations2.json");
-        const locations = await locationJson.json();
-    
-        displayGeo(locations, []);
-    }
-
-    
-    async function showAreaGeoJson() {
-        const areaJson = await fetch("areas2.json");
-        const areas = await areaJson.json();
-    
-        displayGeo([], areas);
     }
 
     function displayGeo(geol, geoa) {        
-        L.geoJSON(geol, {
+        geoJSON(geol, {
             onEachFeature: onEachFeature
-        }).addTo(map);
+        }).addTo(mapDiv);
         
-        L.geoJSON(geoa, {
+        geoJSON(geoa, {
             onEachFeature: onEachFeature,
             style: function(feature) {
                 if (feature.properties.color) {
                     return {color: feature.properties.color };
                 }
             }
-        }).addTo(map);
+        }).addTo(mapDiv);
 
         function onEachFeature(feature: GeoJSON.Feature, layer: L.Layer) {
             if (feature.properties && feature.properties.name) {
@@ -222,14 +143,13 @@
             }
         }
     }
-
     
     function resetEditMode(){
         mode = EditMode.None;
         addLocationButton.disabled = false;
         addRegionButton.disabled = false;
-        map.off('mousemove', updateMouseMoveMarker);
-        map.getContainer().style.cursor = '';
+        mapDiv.off('mousemove', updateMouseMoveMarker);
+        mapDiv.getContainer().style.cursor = '';
     }
 
     function handleLocSelected(e: CustomEvent) {
@@ -255,36 +175,33 @@
             });
             
             if (fitBounds) {
-                map.fitBounds(L.latLngBounds(locations.map(l => l.loc)));
+                mapDiv.fitBounds(latLngBounds(locations.map(l => l.loc)));
             }
         }
     }    
 
     function showAreas(areas: MapArea[]) {
-        if (areas.length > 0) {            
-            const colors = [
-                "#ffb3ba",
-                "#ffdfba",
-                "#ffffba",
-                "#baffc9",
-                "#bae1ff",
-            ];
-            let colorIndex = 0;
+        if (areas.length > 0) {                        
 
             areas.forEach(a => {
-                const polygon = addAreaToMap(a, colors[colorIndex++ % colors.length]);
+                const polygon = addAreaToMap(a, a.color);
 
                 if (areas.length == 1) {
                     polygon.openPopup();
                 }
             });
 
-            map.fitBounds(L.latLngBounds(areas.map(l => l.locs).flat()));
+            let allBounds = areas.map(a => a.getBounds());
+            let bounds: LatLngBounds;
+            allBounds.forEach(a => {
+                bounds = bounds == undefined ? a : a.extend(bounds);
+            })
+            mapDiv.fitBounds(bounds);
         }
     }
 
-    function addLocationToMap(location: MapLocation): L.Marker<any> {
-        const marker = L.marker(location.loc)
+    function addLocationToMap(location: MapLocation): Marker<any> {
+        const marker = new Marker(location.loc)
             .addTo(locationLayer)
             .bindTooltip(popupText(location));
 
@@ -314,8 +231,8 @@
         return marker;
     }
 
-    function addAreaToMap(area: MapArea, color): L.Polygon<any> {
-        const polygon = new L.Polygon(area.locs, {
+    function addAreaToMap(area: MapArea, color: string | undefined): Polygon<any> {
+        const polygon = new Polygon(area.locs, {
             color: color ?? "blue"
         });
         polygon.bindTooltip(area.name);
@@ -325,7 +242,7 @@
             polygon
         });
         
-        if (area instanceof CustomMapArea) {
+        if (area.isCustom()) {
             bindPopup(polygon, (m) =>
                 new AreaEditPopup({
                     target: m,
@@ -340,7 +257,7 @@
         }
 
         polygon.on("pm:edit", e => {
-            area.locs = polygon.getLatLngs().flat().flat();
+            area.setPolygonLocs(polygon.getLatLngs());
             addArea(area);
         });
 
@@ -353,7 +270,7 @@
         configureMap();
 
         // Debug out for location
-        map.on("click", function (ev: L.LeafletMouseEvent) {
+        mapDiv.on("click", function (ev: LeafletMouseEvent) {
             if (mode == EditMode.None) {
                 console.log(ev.latlng.lat + ", " + ev.latlng.lng);
             }
@@ -373,10 +290,10 @@
             else if (mode == EditMode.Region) {                
                 regionCoords.push(ev.latlng);
                 if (editRegion != null) {
-                    map.removeLayer(editRegion);
+                    mapDiv.removeLayer(editRegion);
                 }
-                editRegion = L.polygon(regionCoords);
-                editRegion.addTo(map);
+                editRegion = new Polygon(regionCoords);
+                editRegion.addTo(mapDiv);
             }
         });
 
@@ -398,7 +315,7 @@
                 zoomSnap: 0.1,
                 zoomDelta: 0.5,
             };
-            map=L.map("map",moptions);
+            mapDiv = new Map("map", moptions);
 
             var options: L.TileLayerOptions={
                 minZoom: 1,
@@ -406,9 +323,9 @@
                 maxNativeZoom: 5,
                 noWrap: true,
             };
-            L.tileLayer("tiles/{z}/{x}/{y}.png",options).addTo(map);
+            tileLayer("tiles/{z}/{x}/{y}.png",options).addTo(mapDiv);
 
-            map.setView([0,0],3);
+            mapDiv.setView([0,0],3);
             
             // Make sure the location layer exists
             clearLocations();
@@ -416,14 +333,14 @@
             // Configure Leaflet-Geoman
             
             // Let Geoman draw new markers on a very specific layer
-            geomanLayer = L.featureGroup().addTo(map);
-            map.pm.setGlobalOptions({
+            geomanLayer = new FeatureGroup().addTo(mapDiv);
+            mapDiv.pm.setGlobalOptions({
                 layerGroup: geomanLayer
             });
             
             // Get a hold of new markers added by Geoman
-            map.on('pm:create', (e) => {
-                if (e.layer instanceof L.Polygon) {
+            mapDiv.on('pm:create', (e) => {
+                if (e.layer instanceof Polygon) {
                     e.layer.remove();
                     let locs = e.layer.getLatLngs();
                     // let's assume it's a single dimension array and if it's not we mess it up..
@@ -434,7 +351,8 @@
 
                     clearLocations();
 
-                    const area = CustomMapArea.create(locs);
+                    const area = MapArea.create(locs);
+                    area.setCustom();
                     const polygon = addAreaToMap(area, "blue");
                     polygon.openPopup();
                 }
@@ -458,18 +376,18 @@
     // Clear all markers and polygons from the location layer
     function clearLocations() {
         if (locationLayer != undefined) {
-            map.removeLayer(locationLayer);
+            mapDiv.removeLayer(locationLayer);
         }
         openLocations= [];
         openAreas = [];
-        locationLayer = new L.FeatureGroup().addTo(map);
+        locationLayer = new FeatureGroup().addTo(mapDiv);
         locationLayer.pm.enable({
             allowSelfIntersection: false,
         });
 
         // Save changes when a marker is moved
         locationLayer.on('pm:edit', (e) => {
-            if (e.layer instanceof L.Marker) {
+            if (e.layer instanceof Marker) {
                 let mloc = openLocations.find(l => l.marker == e.layer);
                 if (mloc.location.isCustom()) {
                     mloc.location.loc = e.layer.getLatLng();
@@ -485,9 +403,9 @@
         let popupComponent;
         let popup: L.Popup;
         marker.bindPopup(() => {
-            let container = L.DomUtil.create('div');
+            let container = DomUtil.create('div');
             popupComponent = createFn(container);
-            if (popup instanceof L.Popup) {
+            if (popup instanceof Popup) {
                 popupComponent.setPopup(popup);
             }
             return container;

@@ -2,8 +2,9 @@
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
     import { loadLocations } from "./LocationStore.js"
-    import { CustomMapArea, loadAreas } from "./AreaStore.js";
+    import { loadAreas } from "./AreaStore.js";
     import type { MapLocation } from "./MapLocation.js";
+    import type { MapArea } from "./MapArea.js";
 
     const dispatch = createEventDispatcher();
 
@@ -23,7 +24,7 @@
         countriesSorted = Array.from(countries).sort((a, b) => a.localeCompare(b));
 
         allAreas = await loadAreas();
-        customAreas = allAreas.filter(a => a instanceof CustomMapArea);
+        customAreas = allAreas.filter(a => a.isCustom());
     });
 
     function showLocations(locations: MapLocation[]) {

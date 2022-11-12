@@ -1,43 +1,35 @@
-import type { LatLng } from "leaflet";
-import { v4 as uuid } from 'uuid';
+import { MapArea } from "./MapArea";
 
 const StorageKey = "customAreas"
 
-let deleteListeners : ((id: string) => void)[] = [];
+let deleteListeners : ((id: string | number) => void)[] = [];
 let changeListeners : (() => void)[] = [];
 
-export class CustomMapArea {
-    public id: string;
-    public name: string;
-    public locs: LatLng[];
-
-    constructor(id: string, name: string, locs: LatLng[]) {
-        this.id = id;
-        this.name = name;
-        this.locs = locs;
-    }
-
-    static create(locs: LatLng[]) {
-        return new CustomMapArea(uuid(), "", locs);
-    }
-}
+const colors = [
+    "#ffb3ba",
+    "#ffdfba",
+    "#ffffba",
+    "#baffc9",
+    "#bae1ff",
+];
+let colorIndex = 0;
 
 export async function loadAreas() : Promise<MapArea[]> {
-    const areaJson = await fetch("areas.json");
+    const areaJson = await fetch("areas2.json");
     const areas = await areaJson.json();
     const customAreas = loadCustomAreas();
-    return areas.concat(customAreas);
+    return areas.concat(customAreas).map(f => MapArea.fromFeature(f));
 }
 
 export function addArea(area: MapArea) {
-    let areas: MapArea[] = loadCustomAreas();
+    let areas: GeoJSON.Feature<GeoJSON.Polygon>[] = loadCustomAreas();
     
     let matchIndex = areas.findIndex(item => item.id == area.id);
     if (matchIndex == -1) {
-        areas.push(area);
+        areas.push(area.toFeature());
     }
     else {
-        areas[matchIndex] = area;
+        areas[matchIndex] = area.toFeature();
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(areas));
@@ -45,7 +37,7 @@ export function addArea(area: MapArea) {
 }
 
 export function deleteArea(loc: MapArea) {
-    let areas: MapArea[] = loadCustomAreas();
+    let areas: GeoJSON.Feature<GeoJSON.Polygon>[] = loadCustomAreas();
     
     let matchIndex = areas.findIndex(item => item.id == loc.id);
     if (matchIndex != -1) {
@@ -70,9 +62,8 @@ export function onChange(handlerfn: () => void) {
     changeListeners.push(handlerfn);
 }
 
-
-function loadCustomAreas(): CustomMapArea[] {
-    let result: MapArea[];
+function loadCustomAreas(): GeoJSON.Feature<GeoJSON.Polygon>[] {
+    let result: GeoJSON.Feature<GeoJSON.Polygon>[];
     let areaJson = localStorage.getItem(StorageKey);
     if (areaJson == undefined || areaJson == "") {
         result = [];
@@ -81,5 +72,10 @@ function loadCustomAreas(): CustomMapArea[] {
         // TODO: do type checking
         result = JSON.parse(areaJson);
     }
-    return result.map(a =>  new CustomMapArea(a.id, a.name, a.locs));
+    // Make sure the custom property is set
+    result.forEach(a => {
+        a.properties.custom = true;
+        a.properties.color = colors[colorIndex++ % colors.length];
+    });
+    return result;
 }
