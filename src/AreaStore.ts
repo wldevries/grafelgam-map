@@ -14,14 +14,22 @@ let colorIndex = 0;
 
 export class AreaStore {
     private readonly onDelete = new LiteEvent<string | number>();
-    private readonly onChange = new LiteEvent<void>();
+    private readonly onChange = new LiteEvent<string | number>();
     public static readonly instance = new AreaStore();
 
     public get Deleted() { return this.onDelete.expose(); } 
     public get Changed() { return this.onChange.expose(); }
 
-    sendChange() {
-        this.onChange.trigger();
+    public Load() {
+        return loadAreas();
+    }
+
+    public Update(loc: MapArea) {
+        addArea(loc);
+    }
+
+    sendChange(id: string | number) {
+        this.onChange.trigger(id);
     }
 
     sendDelete(id: string | number) {
@@ -48,21 +56,20 @@ export function addArea(area: MapArea) {
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(areas));
-    AreaStore.instance.sendChange();
+    AreaStore.instance.sendChange(area.id);
 }
 
-export function deleteArea(loc: MapArea) {
+export function deleteArea(area: MapArea) {
     let areas: GeoJSON.Feature<GeoJSON.Polygon>[] = loadCustomAreas();
     
-    let matchIndex = areas.findIndex(item => item.id == loc.id);
+    let matchIndex = areas.findIndex(item => item.id == area.id);
     if (matchIndex != -1) {
         areas.splice(matchIndex, matchIndex + 1);
         localStorage.setItem(StorageKey, JSON.stringify(areas));
     }
 
     // publish anyway, the location may not have been stored yet
-    AreaStore.instance.sendDelete(loc.id);
-    AreaStore.instance.sendChange();
+    AreaStore.instance.sendDelete(area.id);
 }
 
 function loadCustomAreas(): GeoJSON.Feature<GeoJSON.Polygon>[] {

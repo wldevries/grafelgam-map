@@ -22,6 +22,8 @@
     let skipDispatch: boolean;
 
     export function select(location: MapLocation) {
+        // Skip even dispatch if selection was made from the outside
+        skipDispatch = true;
         selectedLocation = location;
     }
 

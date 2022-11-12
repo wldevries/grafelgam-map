@@ -5,14 +5,22 @@ const StorageKey = "customLocations";
 
 export class LocationStore {
     private readonly onDelete = new LiteEvent<string | number>();
-    private readonly onChange = new LiteEvent<void>();
+    private readonly onChange = new LiteEvent<string | number>();
     public static readonly instance = new LocationStore();
 
     public get Deleted() { return this.onDelete.expose(); } 
     public get Changed() { return this.onChange.expose(); }
 
-    sendChange() {
-        this.onChange.trigger();
+    public Load() {
+        return loadLocations();
+    }
+
+    public Update(loc: MapLocation) {
+        addLocation(loc);
+    }
+
+    sendChange(id: string | number) {
+        this.onChange.trigger(id);
     }
 
     sendDelete(id: string | number) {
@@ -39,7 +47,7 @@ export function addLocation(loc: MapLocation) {
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(customLocations));
-    LocationStore.instance.sendChange();
+    LocationStore.instance.sendChange(loc.id);
 }
 
 export function deleteLocation(loc: MapLocation) {
@@ -53,7 +61,6 @@ export function deleteLocation(loc: MapLocation) {
 
     // publish anyway, the location may not have been stored yet
     LocationStore.instance.sendDelete(loc.id);
-    LocationStore.instance.sendChange();
 }
 
 function loadCustomLocations() : GeoJSON.Feature<GeoJSON.Point>[] {

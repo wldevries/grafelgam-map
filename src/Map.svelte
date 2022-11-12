@@ -40,6 +40,9 @@
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
 
+    const locationStore = LocationStore.instance;
+    const areaStore = AreaStore.instance;
+
     let mapDiv: Map;
     let addRegionButton: HTMLButtonElement;
     let addLocationButton: HTMLButtonElement;
@@ -228,14 +231,20 @@
                     },
                 }));                
         }
+
+        marker.on("pm:edit", e => {
+            location.loc = marker.getLatLng();
+            addLocation(location);
+        });
         return marker;
     }
 
     function addAreaToMap(area: MapArea, color: string | undefined): Polygon<any> {
         const polygon = new Polygon(area.locs, {
             color: color ?? "blue"
-        });
-        polygon.bindTooltip(area.name);
+        })
+        .bindTooltip(area.name)
+        .addTo(locationLayer);
 
         openAreas.push({
             area,
@@ -260,8 +269,6 @@
             area.setPolygonLocs(polygon.getLatLngs());
             addArea(area);
         });
-
-        polygon.addTo(locationLayer);        
 
         return polygon;
     }
@@ -297,7 +304,8 @@
             }
         });
 
-        LocationStore.instance.Deleted.on(id => {
+
+        locationStore.Deleted.on(id => {
             const markerIndex = openLocations.findIndex(l => {
                 if (l.location.isCustom()) {
                     return l.location.id == id;
@@ -310,7 +318,26 @@
             }
         });
 
-        AreaStore.instance.Deleted.on(id => {
+        locationStore.Changed.on(async id => {
+            const markerIndex = openLocations.findIndex(l => {
+                if (l.location.isCustom()) {
+                    return l.location.id == id;
+                }
+                return false;
+            });
+            if (markerIndex != -1) {
+                const openLocation = openLocations[markerIndex];
+                const marker = openLocation.marker;
+                const allLocations = await locationStore.Load();
+                const updatedLocation = allLocations.find(l => l.id == id);
+                openLocation.location = updatedLocation;
+
+                // Update marker
+                marker.setTooltipContent(popupText(updatedLocation));
+            }
+        })
+
+        areaStore.Deleted.on(id => {
             const markerIndex = openAreas.findIndex(l => {
                 if (l.area.isCustom()) {
                     return l.area.id == id;
@@ -320,6 +347,28 @@
             if (markerIndex != -1) {
                 openAreas[markerIndex].polygon.remove();
                 openAreas.slice(markerIndex, markerIndex + 1);
+            }
+        })
+
+        areaStore.Changed.on(async id => {
+            const markerIndex = openAreas.findIndex(l => {
+                if (l.area.isCustom()) {
+                    return l.area.id == id;
+                }
+                return false;
+            });
+            if (markerIndex != -1) {
+                const openArea = openAreas[markerIndex];
+                const polygon = openArea.polygon;
+                const allAreas = await areaStore.Load();
+                const updatedArea = allAreas.find(l => l.id == id);
+                openArea.area = updatedArea;
+
+                // Update polygon
+                polygon.setStyle({
+                    color: updatedArea.color ?? "blue"
+                });
+                polygon.setTooltipContent(updatedArea.name);
             }
         })
 

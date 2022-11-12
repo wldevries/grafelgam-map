@@ -36,7 +36,7 @@
     function updateArea() {
         if (area != undefined) {
             area.name = name.trim();
-            area.color = color.trim();
+            area.color = color == undefined ? "" : color.trim();
 
             if (area.name.length > 0) {
                 addArea(area);
