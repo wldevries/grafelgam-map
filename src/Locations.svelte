@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
-    import { MapLocation, loadLocations } from "./LocationStore.js"
+    import { loadLocations } from "./LocationStore.js"
     import { CustomMapArea, loadAreas } from "./AreaStore.js";
+    import type { MapLocation } from "./MapLocation.js";
 
     const dispatch = createEventDispatcher();
 

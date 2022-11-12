@@ -11,7 +11,8 @@
 <script lang="ts">
     import AutoComplete from "simple-svelte-autocomplete";
     import { onMount } from "svelte";
-    import { MapLocation, loadLocations, onChange } from "./LocationStore.js"
+    import { MapLocation } from "./MapLocation.js";
+    import { loadLocations, onChange } from "./LocationStore.js"
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();

@@ -54,7 +54,8 @@
     import LocationEditPopup from "./LocationEditPopup.svelte";
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
-    import { addLocation, MapLocation, loadLocations, onDelete } from "./LocationStore.js"
+    import { MapLocation } from "./MapLocation";
+    import { addLocation, loadLocations, onDelete } from "./LocationStore.js"
     import { addArea, CustomMapArea, loadAreas } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";

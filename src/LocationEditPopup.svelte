@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { addLocation, MapLocation } from './LocationStore';
-    import { deleteLocation } from "./LocationStore"
+    import type { MapLocation } from './MapLocation';
+    import { addLocation, deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
 	
