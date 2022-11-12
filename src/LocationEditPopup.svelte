@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { addLocation, CustomMapLocation } from './LocationStore';
+    import { addLocation, MapLocation } from './LocationStore';
     import { deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
 	
-	export let location: CustomMapLocation;
+	export let location: MapLocation;
 	
     let popup: L.Popup;
     let nameInput: HTMLInputElement;

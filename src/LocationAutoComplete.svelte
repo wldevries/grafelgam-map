@@ -11,7 +11,7 @@
 <script lang="ts">
     import AutoComplete from "simple-svelte-autocomplete";
     import { onMount } from "svelte";
-    import { CustomMapLocation, loadLocations, onChange } from "./LocationStore.js"
+    import { MapLocation, loadLocations, onChange } from "./LocationStore.js"
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -35,9 +35,9 @@
         allLocations = await loadLocations();
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
-        if (selectedLocation instanceof CustomMapLocation) {
+        if (selectedLocation instanceof MapLocation) {
             let selectedId = selectedLocation.id;
-            let newSelection = allLocations.find(l => l instanceof CustomMapLocation && l.id == selectedId);
+            let newSelection = allLocations.find(l => l.isCustom() && l.id == selectedId);
             // Fore some reason setting undefined does not clear the selection in AutoComplete
             selectedLocation = newSelection;
         

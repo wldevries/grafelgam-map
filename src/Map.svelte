@@ -54,7 +54,7 @@
     import LocationEditPopup from "./LocationEditPopup.svelte";
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
-    import { addLocation, CustomMapLocation, loadLocations, onDelete } from "./LocationStore.js"
+    import { addLocation, MapLocation, loadLocations, onDelete } from "./LocationStore.js"
     import { addArea, CustomMapArea, loadAreas } from "./AreaStore";
     import Geo from "svelte-bootstrap-icons/lib/Geo.svelte";
     import Map from "svelte-bootstrap-icons/lib/Map.svelte";
@@ -292,7 +292,7 @@
             marker: marker,
         });
 
-        if (location instanceof CustomMapLocation) {
+        if (location.isCustom()) {
             bindPopup(marker, (m) =>
                 new LocationEditPopup({
                     target: m,
@@ -362,7 +362,8 @@
                 mouseMarker.remove();
                 mouseMarker = undefined;
 
-                const loc = CustomMapLocation.create(ev.latlng);
+                const loc = MapLocation.create(ev.latlng);
+                loc.setCustom();
                 const marker = addLocationToMap(loc);
                 marker.openPopup();
                 
@@ -380,7 +381,7 @@
 
         onDelete(id => {
             const markerIndex = openLocations.findIndex(l => {
-                if (l.location instanceof CustomMapLocation) {
+                if (l.location.isCustom()) {
                     return l.location.id == id;
                 }
                 return false;
@@ -469,7 +470,7 @@
         locationLayer.on('pm:edit', (e) => {
             if (e.layer instanceof L.Marker) {
                 let mloc = openLocations.find(l => l.marker == e.layer);
-                if (mloc.location instanceof CustomMapLocation) {
+                if (mloc.location.isCustom()) {
                     mloc.location.loc = e.layer.getLatLng();
                     addLocation(mloc.location);
                 }

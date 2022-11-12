@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
-    import { CustomMapLocation, loadLocations } from "./LocationStore.js"
+    import { MapLocation, loadLocations } from "./LocationStore.js"
     import { CustomMapArea, loadAreas } from "./AreaStore.js";
 
     const dispatch = createEventDispatcher();
@@ -109,7 +109,7 @@
 
                 <ul class="country-entries">
                     {#each getLocations(country, region) as location}
-                        <li class="country-entry {location instanceof CustomMapLocation ? 'custom-location' : ''}">
+                        <li class="country-entry {location.isCustom() ? 'custom-location' : ''}">
                             <button on:click={() => showLocations([location])}>
                                 <span>{location.name}</span>
                             </button>
