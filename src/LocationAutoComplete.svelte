@@ -12,7 +12,7 @@
     import AutoComplete from "simple-svelte-autocomplete";
     import { onMount } from "svelte";
     import { MapLocation } from "./MapLocation.js";
-    import { loadLocations, onChange } from "./LocationStore.js"
+    import { loadLocations, LocationStore } from "./LocationStore.js"
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -26,7 +26,7 @@
     }
 
     onMount(async () => {                
-        onChange(async () => {
+        LocationStore.instance.Changed.on(async () => {
             await refresh();
         });
         await refresh();

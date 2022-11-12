@@ -1,9 +1,7 @@
+import { LiteEvent } from "./LiteEvents";
 import { MapArea } from "./MapArea";
 
 const StorageKey = "customAreas"
-
-let deleteListeners : ((id: string | number) => void)[] = [];
-let changeListeners : (() => void)[] = [];
 
 const colors = [
     "#ffb3ba",
@@ -13,6 +11,23 @@ const colors = [
     "#bae1ff",
 ];
 let colorIndex = 0;
+
+export class AreaStore {
+    private readonly onDelete = new LiteEvent<string | number>();
+    private readonly onChange = new LiteEvent<void>();
+    public static readonly instance = new AreaStore();
+
+    public get Deleted() { return this.onDelete.expose(); } 
+    public get Changed() { return this.onChange.expose(); }
+
+    sendChange() {
+        this.onChange.trigger();
+    }
+
+    sendDelete(id: string | number) {
+        this.onDelete.trigger(id);
+    }
+}
 
 export async function loadAreas() : Promise<MapArea[]> {
     const areaJson = await fetch("areas2.json");
@@ -33,7 +48,7 @@ export function addArea(area: MapArea) {
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(areas));
-    changeListeners.forEach(h => h());
+    AreaStore.instance.sendChange();
 }
 
 export function deleteArea(loc: MapArea) {
@@ -46,20 +61,8 @@ export function deleteArea(loc: MapArea) {
     }
 
     // publish anyway, the location may not have been stored yet
-    deleteListeners.forEach(h => h(loc.id));
-    changeListeners.forEach(h => h());
-}
-
-export function onDelete(handlerfn: (id: string) => void) {
-    deleteListeners.push(handlerfn);
-}
-
-export function offDelete(handlerfn: (id: string) => void) {
-    deleteListeners.splice(deleteListeners.indexOf(handlerfn));
-}
-
-export function onChange(handlerfn: () => void) {
-    changeListeners.push(handlerfn);
+    AreaStore.instance.sendDelete(loc.id);
+    AreaStore.instance.sendChange();
 }
 
 function loadCustomAreas(): GeoJSON.Feature<GeoJSON.Polygon>[] {

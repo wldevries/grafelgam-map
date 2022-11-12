@@ -1,9 +1,24 @@
+import { LiteEvent } from "./LiteEvents";
 import { MapLocation } from "./MapLocation";
 
 const StorageKey = "customLocations";
 
-let deleteListeners : ((id: string | number) => void)[] = [];
-let changeListeners : (() => void)[] = [];
+export class LocationStore {
+    private readonly onDelete = new LiteEvent<string | number>();
+    private readonly onChange = new LiteEvent<void>();
+    public static readonly instance = new LocationStore();
+
+    public get Deleted() { return this.onDelete.expose(); } 
+    public get Changed() { return this.onChange.expose(); }
+
+    sendChange() {
+        this.onChange.trigger();
+    }
+
+    sendDelete(id: string | number) {
+        this.onDelete.trigger(id);
+    }
+}
 
 export async function loadLocations() : Promise<MapLocation[]> {
     const locationJson = await fetch("locations2.json");
@@ -24,7 +39,7 @@ export function addLocation(loc: MapLocation) {
     }
 
     localStorage.setItem(StorageKey, JSON.stringify(customLocations));
-    changeListeners.forEach(h => h());
+    LocationStore.instance.sendChange();
 }
 
 export function deleteLocation(loc: MapLocation) {
@@ -37,20 +52,8 @@ export function deleteLocation(loc: MapLocation) {
     }
 
     // publish anyway, the location may not have been stored yet
-    deleteListeners.forEach(h => h(loc.id));
-    changeListeners.forEach(h => h());
-}
-
-export function onDelete(handlerfn: (id: string | number) => void) {
-    deleteListeners.push(handlerfn);
-}
-
-export function offDelete(handlerfn: (id: string | number) => void) {
-    deleteListeners.splice(deleteListeners.indexOf(handlerfn));
-}
-
-export function onChange(handlerfn: () => void) {
-    changeListeners.push(handlerfn);
+    LocationStore.instance.sendDelete(loc.id);
+    LocationStore.instance.sendChange();
 }
 
 function loadCustomLocations() : GeoJSON.Feature<GeoJSON.Point>[] {

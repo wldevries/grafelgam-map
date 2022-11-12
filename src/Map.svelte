@@ -33,8 +33,8 @@
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { MapLocation } from "./MapLocation";
     import { MapArea } from "./MapArea";
-    import { addLocation, onDelete } from "./LocationStore.js"
-    import { addArea } from "./AreaStore";
+    import { addLocation, LocationStore } from "./LocationStore.js"
+    import { addArea, AreaStore } from "./AreaStore";
     import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds } from "leaflet";
@@ -297,7 +297,7 @@
             }
         });
 
-        onDelete(id => {
+        LocationStore.instance.Deleted.on(id => {
             const markerIndex = openLocations.findIndex(l => {
                 if (l.location.isCustom()) {
                     return l.location.id == id;
@@ -309,6 +309,19 @@
                 openLocations.slice(markerIndex, markerIndex + 1);
             }
         });
+
+        AreaStore.instance.Deleted.on(id => {
+            const markerIndex = openAreas.findIndex(l => {
+                if (l.area.isCustom()) {
+                    return l.area.id == id;
+                }
+                return false;
+            });
+            if (markerIndex != -1) {
+                openAreas[markerIndex].polygon.remove();
+                openAreas.slice(markerIndex, markerIndex + 1);
+            }
+        })
 
         function configureMap() {
             var moptions: L.MapOptions={
