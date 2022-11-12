@@ -4,19 +4,23 @@
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import { ArrowsMove } from 'svelte-bootstrap-icons';
+    import type { Polygon } from 'leaflet';
+    import type { MapArea } from './MapArea';
 	
 	export let area: MapArea;
-    export let polygon: L.Polygon
+    export let polygon: Polygon
 	
     let popup: L.Popup;
     let nameInput: HTMLInputElement;
 
     let name: string = "";
+    let color: string = "";
     let editing: boolean = true;
     
     onMount(() => {
         if (area != undefined) {
             name = area.name;
+            color = area.color;
         }
         editing = name == undefined || name.trim() == "";
         setTimeout(() => {
@@ -32,6 +36,7 @@
     function updateArea() {
         if (area != undefined) {
             area.name = name.trim();
+            area.color = color.trim();
 
             if (area.name.length > 0) {
                 addArea(area);
@@ -76,6 +81,7 @@
     {#if editing}
         <div class="label">Name</div>
         <input bind:this={nameInput} bind:value={name} on:change="{updateArea}"/>
+        <input bind:value={color} on:change="{updateArea}"/>
     {:else}
         <h3>{area.name}</h3>
     {/if}

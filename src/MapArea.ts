@@ -84,6 +84,7 @@ export class MapArea {
             },
             properties: {
                 name: this.name,
+                color: this.color,
                 custom: this.custom,
             },
         };

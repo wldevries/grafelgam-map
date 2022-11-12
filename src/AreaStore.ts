@@ -75,7 +75,9 @@ function loadCustomAreas(): GeoJSON.Feature<GeoJSON.Polygon>[] {
     // Make sure the custom property is set
     result.forEach(a => {
         a.properties.custom = true;
-        a.properties.color = colors[colorIndex++ % colors.length];
+        if (!a.properties.color || a.properties.color.trim() == "") {
+            a.properties.color = colors[colorIndex++ % colors.length];
+        }
     });
     return result;
 }
