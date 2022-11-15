@@ -24,7 +24,7 @@
 </div>
 
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, SvelteComponent } from "svelte";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
     import LocationPopup from "./LocationPopup.svelte";
@@ -461,13 +461,13 @@
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
-    function bindPopup(marker, createFn) {
-        let popupComponent;
-        let popup: L.Popup;
+    function bindPopup(marker: Marker, createFn: { (container: HTMLDivElement): SvelteComponent; }) {
+        let popupComponent: SvelteComponent;
+        let popup: Popup;
         marker.bindPopup(() => {
             let container = DomUtil.create('div');
             popupComponent = createFn(container);
-            if (popup instanceof Popup) {
+            if (popup instanceof Popup && popupComponent.setPopup != undefined) {
                 popupComponent.setPopup(popup);
             }
             return container;

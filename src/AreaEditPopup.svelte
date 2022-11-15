@@ -4,13 +4,13 @@
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import { ArrowsMove } from 'svelte-bootstrap-icons';
-    import type { Polygon } from 'leaflet';
+    import type { Polygon, Popup } from 'leaflet';
     import type { MapArea } from './MapArea';
 	
 	export let area: MapArea;
     export let polygon: Polygon
 	
-    let popup: L.Popup;
+    let popup: Popup;
     let nameInput: HTMLInputElement;
 
     let name: string = "";
@@ -29,7 +29,7 @@
         }, 10);
     });
 
-    export function setPopup(value: L.Popup) {
+    export function setPopup(value: Popup) {
         popup = value;
     }
 

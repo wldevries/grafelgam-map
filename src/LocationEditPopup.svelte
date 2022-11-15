@@ -4,10 +4,11 @@
     import { addLocation, deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
+    import type { Popup } from 'leaflet';
 	
 	export let location: MapLocation;
 	
-    let popup: L.Popup;
+    let popup: Popup;
     let nameInput: HTMLInputElement;
 
     let name: string = "";
@@ -28,7 +29,7 @@
         }, 10);
     });
 
-    export function setPopup(value: L.Popup) {
+    export function setPopup(value: Popup) {
         popup = value;
     }
 
