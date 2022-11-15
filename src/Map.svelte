@@ -40,6 +40,7 @@
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
     import { BoxArrowInDownLeft } from "svelte-bootstrap-icons";
+    import { loadIcons, MapIcon as MapIconT } from "./IconStore";
 
     const locationStore = LocationStore.instance;
     const areaStore = AreaStore.instance;
@@ -196,28 +197,15 @@
         }
     }
 
-    function randomIcon() {
-        const icons = [
-            "castle.png",
-            "castle(1).png",
-            "castle(2).png",
-            "castle(3).png",
-            "castle(4).png",
-            "castle(5).png",
-            "castle(6).png",
-            "gate.png",
-            "house.png",
-            "village.png",
-            "tower.png",
-            "stump-house.png",
-        ]
-        return 'icons/' + icons[Math.floor(Math.random() * icons.length)]
+    function randomIcon(): MapIconT {
+        const icons = loadIcons()
+        return icons[Math.floor(Math.random() * icons.length)]
     }
 
     function addLocationToMap(location: MapLocation): Marker {
 
         var greenIcon = icon({            
-            iconUrl: location.name == "Lensbrug" ? "icons/tower-bridge.png" : randomIcon(),
+            iconUrl: location.name == "Lensbrug" ? "icons/tower-bridge.png" : randomIcon().uri,
             iconSize:     [32, 32], // size of the icon
             // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
             // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
