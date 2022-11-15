@@ -37,7 +37,7 @@
     import { addArea, AreaStore } from "./AreaStore";
     import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
-    import { Map, Marker, Polygon, LatLngBounds, latLngBounds } from "leaflet";
+    import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
 
     const locationStore = LocationStore.instance;
@@ -461,7 +461,7 @@
 
     // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
     // `createFn` will be called whenever the popup is being created, and should create and return the component.
-    function bindPopup(marker: Marker, createFn: { (container: HTMLDivElement): SvelteComponent; }) {
+    function bindPopup(marker: Layer, createFn: { (container: HTMLDivElement): SvelteComponent; }) {
         let popupComponent: SvelteComponent;
         let popup: Popup;
         marker.bindPopup(() => {
