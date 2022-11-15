@@ -5,6 +5,7 @@
     import { loadAreas } from "./AreaStore.js";
     import type { MapLocation } from "./MapLocation.js";
     import type { MapArea } from "./MapArea.js";
+    import { TropicalStorm } from "svelte-bootstrap-icons";
 
     const dispatch = createEventDispatcher();
 
@@ -73,7 +74,7 @@
 </script>
 
 <div class="locations">
-    {#if customAreas.length > 0}        
+    {#if customAreas.length > 0}
         <section class="country-list">
             <button class="country-heading" on:click={() => showAreas(customAreas)}>
                 <h2>Custom areas</h2>
@@ -91,11 +92,15 @@
     {/if}
 
     {#each countriesSorted as country}
-        <section class="country-list">
+        <section class="country-list">            
             <button
                 class="country-heading"
                 on:click={() => showCountry(country)}>
-                <h2>{country}</h2>
+                {#if country == undefined || country.trim() == ""}
+                    <h2>Custom</h2>
+                {:else}
+                    <h2>{country}</h2>
+                {/if}
             </button>
 
             {#each getRegions(country) as region}
