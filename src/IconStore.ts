@@ -23,5 +23,11 @@ export function loadIcons(): MapIcon[] {
         "tower.png",
         "stump-house.png",
     ]
-    return names.map(n => new MapIcon(n, 'icons/' + n));
+    return names.map(n => loadIcon(n));
+}
+
+export function loadIcon(name: string): MapIcon | undefined {
+    return name == undefined || name.trim() == ""
+        ? undefined
+        : new MapIcon(name, 'icons/' + name);
 }

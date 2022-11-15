@@ -8,6 +8,7 @@
     import { loadIcons, MapIcon } from './IconStore';
 	
 	export let location: MapLocation;
+    export let updateIcon: { (): void };
 	
     let popup: Popup;
     let nameInput: HTMLInputElement;
@@ -27,6 +28,7 @@
             name = location.name;
             country = location.country;
             region = location.region;
+            locicon = location.icon;
         }
         editing = name == undefined || name.trim() == "";
         setTimeout(() => {
@@ -44,6 +46,7 @@
             location.name = name.trim();
             location.country = country.trim();
             location.region = region.trim();
+            location.icon = locicon.trim();
 
             if (location.name.length > 0) {
                 addLocation(location);
@@ -63,6 +66,14 @@
     function handleDelete() {
         if (location != undefined) {
             deleteLocation(location);
+        }
+    }
+
+    function selectIcon(icon: MapIcon) {
+        locicon = icon.name;
+        updateLocation();
+        if (updateIcon != undefined) { 
+            updateIcon();
         }
     }
 </script>
@@ -99,7 +110,7 @@
         <input bind:value={country} on:change="{updateLocation}"/>
 
         {#each icons as icon}
-        <button class={icon.name == locicon ? 'selected-icon' : ''} on:click={() => locicon = icon.name}>
+        <button class={icon.name == locicon ? 'selected-icon' : ''} on:click={() => selectIcon(icon)}>
             <img src="{icon.uri}" alt="{icon.name}">
         </button>
         {/each}

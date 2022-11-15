@@ -40,7 +40,7 @@
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
     import { BoxArrowInDownLeft } from "svelte-bootstrap-icons";
-    import { loadIcons, MapIcon as MapIconT } from "./IconStore";
+    import { loadIcon, loadIcons, MapIcon as MapIconT } from "./IconStore";
 
     const locationStore = LocationStore.instance;
     const areaStore = AreaStore.instance;
@@ -197,20 +197,23 @@
         }
     }
 
-    function randomIcon(): MapIconT {
-        const icons = loadIcons()
-        return icons[Math.floor(Math.random() * icons.length)]
-    }
-
     function addLocationToMap(location: MapLocation): Marker {
+        const marker = new Marker(location.loc);
 
-        var greenIcon = icon({            
-            iconUrl: location.name == "Lensbrug" ? "icons/tower-bridge.png" : randomIcon().uri,
-            iconSize:     [32, 32], // size of the icon
-            // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-            // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-        });
-        const marker = new Marker(location.loc, {icon: greenIcon});
+        function setLocationIcon() {
+            const iconUri = location.name == "Lensbrug"
+            ? "icons/tower-bridge.png"
+            : loadIcon(location.icon)?.uri;
+            if (iconUri != undefined) {
+                marker.setIcon(icon({
+                    iconUrl: iconUri,
+                    iconSize: [32, 32],
+                    // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                }));
+            }
+        };
+        setLocationIcon();        
 
         openLocations.push({
             location: location,
@@ -223,6 +226,7 @@
                     target: m,
                     props: {
                         location,
+                        updateIcon: setLocationIcon,
                     },
                 }));
         }
