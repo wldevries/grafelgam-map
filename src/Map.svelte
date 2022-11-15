@@ -39,6 +39,7 @@
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
+    import { BoxArrowInDownLeft } from "svelte-bootstrap-icons";
 
     const locationStore = LocationStore.instance;
     const areaStore = AreaStore.instance;
@@ -86,14 +87,6 @@
         if (areas != undefined) {
             showAreas(areas);
         }
-    }
-
-    function popupText(location: MapLocation) : string {
-        return location.name;
-        // if (location.region == undefined) {
-        //     return `<h3>${location.name}</h3><p>${location.country}</p>`;
-        // }
-        // return `<h3>${location.name}</h3><p>${location.country}  (${location.region})</p>`;
     }
 
     function selectLocationMode() {
@@ -204,9 +197,7 @@
     }
 
     function addLocationToMap(location: MapLocation): Marker<any> {
-        const marker = new Marker(location.loc)
-            .addTo(locationLayer)
-            .bindTooltip(popupText(location));
+        const marker = new Marker(location.loc);
 
         openLocations.push({
             location: location,
@@ -232,10 +223,28 @@
                 }));                
         }
 
-        marker.on("pm:edit", e => {
+        // Only have tooltip available when popup is not open        
+        function bindTooltip() { 
+            const content = location.popupText();
+            if (content != undefined && content != "") {            
+                marker.bindTooltip(content);
+            }
+        };
+        bindTooltip();
+        marker.on("popupclose", () => {
+            bindTooltip();
+        })
+        marker.on("popupopen", () => {
+            marker.unbindTooltip();
+        })
+
+        // Save maker location when moved via Geoman
+        marker.on("pm:edit", () => {
             location.loc = marker.getLatLng();
             addLocation(location);
         });
+
+        marker.addTo(locationLayer)
         return marker;
     }
 
@@ -243,8 +252,6 @@
         const polygon = new Polygon(area.locs, {
             color: color ?? "blue"
         })
-        .bindTooltip(area.name)
-        .addTo(locationLayer);
 
         openAreas.push({
             area,
@@ -261,14 +268,28 @@
                     },
                 }));
         }
-        else {
-            polygon.bindPopup(area.name);
+
+        // Only have tooltip available when popup is not open
+        function bindTooltip() {
+            const content = area.name;
+            if (content != undefined && content != "") {            
+                polygon.bindTooltip(content);
+            }
         }
+        bindTooltip();
+        polygon.on("popupclose", () => {
+            bindTooltip();
+        })
+        polygon.on("popupopen", () => {
+            polygon.unbindTooltip();
+        })
 
         polygon.on("pm:edit", e => {
             area.setPolygonLocs(polygon.getLatLngs());
             addArea(area);
         });
+
+        polygon.addTo(locationLayer);
 
         return polygon;
     }
@@ -333,7 +354,7 @@
                 openLocation.location = updatedLocation;
 
                 // Update marker
-                marker.setTooltipContent(popupText(updatedLocation));
+                marker.setTooltipContent(updatedLocation.popupText());
             }
         })
 

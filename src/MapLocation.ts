@@ -29,6 +29,14 @@ export class MapLocation {
         return new MapLocation(uuid(), "", "", "", loc);
     }
 
+    public popupText() {
+        return this.name;
+        // if (this.region == undefined) {
+        //     return `<h3>${this.name}</h3><p>${this.country}</p>`;
+        // }
+        // return `<h3>${this.name}</h3><p>${this.country}  (${this.region})</p>`;        
+    }
+
     static fromFeature(feature: GeoJSON.Feature<GeoJSON.Point>) {
         var loc = new MapLocation(
             feature.id,
