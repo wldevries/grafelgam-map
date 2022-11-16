@@ -12,6 +12,8 @@
 	
     let popup: Popup;
     let nameInput: HTMLInputElement;
+    let avatar;
+    let fileinput;
 
     let icons: MapIcon[] = [];
 
@@ -40,6 +42,28 @@
     export function setPopup(value: Popup) {
         popup = value;
     }
+
+	const onFileSelected = async e => {
+        let image = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = async el => {
+            avatar = el.target.result
+        }
+
+        
+        const uploadData = new FormData();
+            uploadData.append('icon', "fakename.png");
+            uploadData.append('file', image, image.name);
+            
+            const res = await fetch('http://localhost:7295/api/PostIcon', {
+                method: 'POST',
+                body: uploadData
+            });
+            
+            const json = await res.json()
+            alert(json.message);
+    };
 
     function updateLocation() {
         if (location != undefined) {
@@ -114,6 +138,12 @@
             <img src="{icon.uri}" alt="{icon.name}">
         </button>
         {/each}
+
+        {#if avatar}
+            <img src="{avatar}" alt="d" />
+        {/if}
+        <button on:click={()=>{fileinput.click();}}>Choose Image</button>
+        <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
     {:else}
         <h3>{location.name}</h3>
         <p>{location.country}
