@@ -39,8 +39,7 @@
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
-    import { BoxArrowInDownLeft } from "svelte-bootstrap-icons";
-    import { loadIcon, loadIcons, MapIcon as MapIconT } from "./IconStore";
+    import { IconStore } from "./IconStore";
 
     const locationStore = LocationStore.instance;
     const areaStore = AreaStore.instance;
@@ -163,8 +162,8 @@
         }
 
         if (locations.length > 0) {
-            locations.forEach(l => {
-                const marker = addLocationToMap(l);                
+            locations.forEach(async l => {
+                const marker = await addLocationToMap(l);                
 
                 if (locations.length == 1 && !fitBounds) {
                     marker.openPopup();
@@ -197,13 +196,13 @@
         }
     }
 
-    function addLocationToMap(location: MapLocation): Marker {
+    async function addLocationToMap(location: MapLocation): Promise<Marker<any>> {
         const marker = new Marker(location.loc);
 
-        function setLocationIcon() {
+        async function setLocationIcon() {
             const iconUri = location.name == "Lensbrug"
             ? "icons/tower-bridge.png"
-            : loadIcon(location.icon)?.uri;
+            : (await IconStore.nameToIcon(location.icon))?.uri;
             if (iconUri != undefined) {
                 marker.setIcon(icon({
                     iconUrl: iconUri,
@@ -213,7 +212,7 @@
                 }));
             }
         };
-        setLocationIcon();        
+        await setLocationIcon();        
 
         openLocations.push({
             location: location,

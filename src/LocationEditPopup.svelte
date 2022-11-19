@@ -5,16 +5,15 @@
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import type { Popup } from 'leaflet';
-    import { loadIcons, MapIcon } from './IconStore';
-    import { uploadIcon } from './Api';
+    import { IconStore, MapIcon } from './IconStore';
+    import { Api } from './Api';
 	
 	export let location: MapLocation;
     export let updateIcon: { (): void };
 	
     let popup: Popup;
     let nameInput: HTMLInputElement;
-    let avatar;
-    let fileinput;
+    let fileinput: HTMLInputElement;
 
     let icons: MapIcon[] = [];
 
@@ -24,9 +23,7 @@
     let locicon: string = "";
     let editing: boolean = true;
     
-    onMount(() => {
-        icons = loadIcons();
-
+    onMount(async () => {
         if (location != undefined) {
             name = location.name;
             country = location.country;
@@ -34,10 +31,13 @@
             locicon = location.icon;
         }
         editing = name == undefined || name.trim() == "";
+
         setTimeout(() => {
             if (nameInput != undefined)
             nameInput.focus()
         }, 10);
+
+        icons = await IconStore.loadIcons();
     });
 
     export function setPopup(value: Popup) {
@@ -46,13 +46,8 @@
 
 	const onFileSelected = async e => {
         let image = e.target.files[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onload = async el => {
-            avatar = el.target.result
-        }
-
-        uploadIcon(image);
+        await Api.uploadIcon(image);
+        icons = await IconStore.loadIcons();
     };
 
     function updateLocation() {
@@ -129,9 +124,6 @@
         </button>
         {/each}
 
-        {#if avatar}
-            <img src="{avatar}" alt="d" />
-        {/if}
         <button on:click={()=>{fileinput.click();}}>Choose Image</button>
         <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
     {:else}

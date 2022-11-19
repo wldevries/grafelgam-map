@@ -1,3 +1,5 @@
+import { Api } from "./Api";
+
 export class MapIcon {
     public name: string;
     public uri: string;
@@ -8,26 +10,17 @@ export class MapIcon {
     }
 }
 
-export function loadIcons(): MapIcon[] {
-    const names = [
-        "castle.png",
-        "castle(1).png",
-        "castle(2).png",
-        "castle(3).png",
-        "castle(4).png",
-        "castle(5).png",
-        "castle(6).png",
-        "gate.png",
-        "house.png",
-        "village.png",
-        "tower.png",
-        "stump-house.png",
-    ]
-    return names.map(n => loadIcon(n));
-}
-
-export function loadIcon(name: string): MapIcon | undefined {
-    return name == undefined || name.trim() == ""
+export class IconStore{
+    public static async loadIcons(): Promise<MapIcon[]> {
+        const icons = await Api.getIcons();
+        return icons.map((icon: { name: string; url: string; }) => {
+            return new MapIcon(icon.name, icon.url);
+        });
+    }
+    
+    public static async nameToIcon(name: string): Promise<MapIcon | undefined> {
+        return name == undefined || name.trim() == ""
         ? undefined
-        : new MapIcon(name, 'icons/' + name);
+        : new MapIcon(name, await Api.getBaseAddress() + '/icons/' + name);
+    }
 }
