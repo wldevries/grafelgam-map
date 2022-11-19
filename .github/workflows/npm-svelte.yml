@@ -28,6 +28,7 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
 
     - name: Build
+      working-directory: ./app
       run: |
         npm install
         npm run build
@@ -36,7 +37,7 @@ jobs:
       uses: actions/upload-pages-artifact@v1.0.4
       with:
         # Path of the directory containing the static assets.
-        path: public/ # default is _site/
+        path: app/public/ # default is _site/
         # Duration after which artifact will expire in days.
         retention-days: 1 # optional, default is 1
       
