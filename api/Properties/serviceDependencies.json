@@ -6,6 +6,10 @@
     "storage1": {
       "type": "storage",
       "connectionId": "mapstorage"
+    },
+    "storage2": {
+      "type": "storage",
+      "connectionId": "AzureWebJobsStorage"
     }
   }
 }
