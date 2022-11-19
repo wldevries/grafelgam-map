@@ -26,8 +26,19 @@ public class PostIcon
         //var icon = parser.GetParameterValue("icon");
 
         var file = parser.Files[0];
-        string filename = file.FileName;
 
+        if (file.Data.Length > 1_000_000)
+        {
+            var response = req.CreateResponse(HttpStatusCode.Forbidden);
+            await response.WriteAsJsonAsync(new
+            {
+                status = "fail",
+                message = $"Image is too large"
+            });
+            return response;
+        }
+
+        string filename = file.FileName;
         string extension = Path.GetExtension(filename).ToLowerInvariant();
         string? mime = extension switch
         {
