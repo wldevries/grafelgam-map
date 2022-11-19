@@ -37,7 +37,7 @@
     import { addArea, AreaStore } from "./AreaStore";
     import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
-    import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon } from "leaflet";
+    import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon, LatLng, MapOptions, TileLayerOptions } from "leaflet";
     import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
     import { IconStore } from "./IconStore";
 
@@ -48,24 +48,24 @@
     let addRegionButton: HTMLButtonElement;
     let addLocationButton: HTMLButtonElement;
     let locAutoComplete: LocationAutoComplete;
-    let locationLayer: L.FeatureGroup<any>;
-    let geomanLayer: L.FeatureGroup<any>;
+    let locationLayer: FeatureGroup<any>;
+    let geomanLayer: FeatureGroup<any>;
 
     // coordinates of region selected by the user
-    let regionCoords: L.LatLng[] = [];
-    let editRegion: L.Polygon;
+    let regionCoords: LatLng[] = [];
+    let editRegion: Polygon;
 
     // Temporary marker mouse
-    let mouseMarker: L.Marker;
+    let mouseMarker: Marker;
 
     interface LocationMarker {
         location: MapLocation,
-        marker: L.Marker,
+        marker: Marker,
     }
 
     interface AreaPolygon {
         area: MapArea,
-        polygon: L.Polygon,
+        polygon: Polygon,
     }
 
     let openLocations: LocationMarker[];
@@ -101,7 +101,7 @@
         }
     }
 
-    function updateMouseMoveMarker(ev: L.LeafletMouseEvent) {
+    function updateMouseMoveMarker(ev: LeafletMouseEvent) {
         if (mouseMarker == null) {
             mouseMarker = new Marker(ev.latlng).addTo(mapDiv);
         } else {
@@ -133,7 +133,7 @@
             }
         }).addTo(mapDiv);
 
-        function onEachFeature(feature: GeoJSON.Feature, layer: L.Layer) {
+        function onEachFeature(feature: GeoJSON.Feature, layer: Layer) {
             if (feature.properties && feature.properties.name) {
                 layer.bindTooltip(feature.properties.name);
             }
@@ -319,11 +319,8 @@
         configureMap();
 
         // Debug out for location
-        mapDiv.on("click", function (ev: LeafletMouseEvent) {
-            if (mode == EditMode.None) {
-                console.log(ev.latlng.lat + ", " + ev.latlng.lng);
-            }
-            else if (mode == EditMode.Single) {
+        mapDiv.on("click", async function (ev: LeafletMouseEvent) {
+            if (mode == EditMode.Single) {
                 clearLocations();
 
                 mouseMarker.remove();
@@ -331,7 +328,7 @@
 
                 const loc = MapLocation.create(ev.latlng);
                 loc.setCustom();
-                const marker = addLocationToMap(loc);
+                const marker = await addLocationToMap(loc);
                 marker.openPopup();
                 
                 resetEditMode();
@@ -415,13 +412,13 @@
         })
 
         function configureMap() {
-            var moptions: L.MapOptions={
+            var moptions: MapOptions={
                 zoomSnap: 0.1,
                 zoomDelta: 0.5,
             };
             mapDiv = new Map("map", moptions);
 
-            var options: L.TileLayerOptions={
+            var options: TileLayerOptions={
                 minZoom: 1,
                 maxZoom: 6,
                 maxNativeZoom: 5,
@@ -451,7 +448,7 @@
                     locs = locs.flat().flat();
 
                     // The following type check does not work unfortunately
-                    // if (locs instanceof L.LatLng[])
+                    // if (locs instanceof LatLng[])
 
                     clearLocations();
 
