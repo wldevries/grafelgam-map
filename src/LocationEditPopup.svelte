@@ -6,6 +6,7 @@
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import type { Popup } from 'leaflet';
     import { loadIcons, MapIcon } from './IconStore';
+    import { uploadIcon } from './Api';
 	
 	export let location: MapLocation;
     export let updateIcon: { (): void };
@@ -51,18 +52,7 @@
             avatar = el.target.result
         }
 
-        
-        const uploadData = new FormData();
-            uploadData.append('icon', "fakename.png");
-            uploadData.append('file', image, image.name);
-            
-            const res = await fetch('http://localhost:7295/api/PostIcon', {
-                method: 'POST',
-                body: uploadData
-            });
-            
-            const json = await res.json()
-            alert(json.message);
+        uploadIcon(image);
     };
 
     function updateLocation() {
