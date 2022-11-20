@@ -1,11 +1,10 @@
-
-const api = "http://localhost:7295/api";
-// const api = "https://grafelgam-api.azurewebsites.net/api";
-
 const endpoints = {
-    getBaseAddress: '/GetBaseAddress',
-    uploadIcon: '/PostIcon',
-    getIcons: '/GetIcons',
+    // @ts-ignore
+    getBaseAddress: API + '/GetBaseAddress?code=' + API_CODE,
+    // @ts-ignore
+    uploadIcon: API + '/PostIcon?code=' + API_CODE,
+    // @ts-ignore
+    getIcons: API + '/GetIcons?code=' + API_CODE,
 };
 
 export class Api {
@@ -13,7 +12,7 @@ export class Api {
 
     public static async getBaseAddress() {
         if (this.baseAddress == undefined) {
-            const res = await fetch(api + endpoints.getBaseAddress, {
+            const res = await fetch(endpoints.getBaseAddress, {
                 method: "GET"
             });
             
@@ -32,7 +31,7 @@ export class Api {
         // TODO: should we allow adding custom names?
         // uploadData.append('icon', "fakename.png");
             
-        const res = await fetch(api + endpoints.uploadIcon, {
+        const res = await fetch(endpoints.uploadIcon, {
             method: 'POST',
             body: uploadData
         });
@@ -44,7 +43,7 @@ export class Api {
     }
 
     public static async getIcons() {    
-        const res = await fetch(api + endpoints.getIcons, {
+        const res = await fetch(endpoints.getIcons, {
             method: "GET"
         });
         
