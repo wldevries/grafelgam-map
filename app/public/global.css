@@ -69,11 +69,6 @@ button:focus {
     background-clip: padding-box;
 }
 
-.leaflet-popup-content {
-    width: auto !important;
-    min-width: 138px;
-}
-
 .transparent-tooltip {
     color: #E5E5E5;
     background: #333;

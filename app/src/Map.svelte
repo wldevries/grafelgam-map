@@ -24,11 +24,9 @@
 </div>
 
 <script lang="ts">
-    import { onMount, SvelteComponent } from "svelte";
+    import { onMount } from "svelte";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
-    import LocationPopup from "./LocationPopup.svelte";
-    import LocationEditPopup from "./LocationEditPopup.svelte";
     import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { MapLocation } from "./MapLocation";
@@ -37,9 +35,10 @@
     import { addArea, AreaStore } from "./AreaStore";
     import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
-    import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, icon, LatLng, MapOptions, TileLayerOptions } from "leaflet";
-    import { DomUtil, Popup, tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
-    import { IconStore } from "./IconStore";
+    import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, LatLng, MapOptions, TileLayerOptions } from "leaflet";
+    import { tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
+    import { bindLocationPopup, bindPopup } from "./MapPopup";
+    import { setLocationIcon } from "./IconAssigner";
 
     const locationStore = LocationStore.instance;
     const areaStore = AreaStore.instance;
@@ -199,45 +198,14 @@
     async function addLocationToMap(location: MapLocation): Promise<Marker<any>> {
         const marker = new Marker(location.loc);
 
-        async function setLocationIcon() {
-            const iconUri = location.name == "Lensbrug"
-            ? "icons/tower-bridge.png"
-            : (await IconStore.nameToIcon(location.icon))?.uri;
-            if (iconUri != undefined) {
-                marker.setIcon(icon({
-                    iconUrl: iconUri,
-                    iconSize: [32, 32],
-                    // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-                }));
-            }
-        };
-        await setLocationIcon();        
+        await setLocationIcon(marker, location);
 
         openLocations.push({
             location: location,
             marker: marker,
         });
 
-        if (location.isCustom()) {
-            bindPopup(marker, (m) =>
-                new LocationEditPopup({
-                    target: m,
-                    props: {
-                        location,
-                        updateIcon: setLocationIcon,
-                    },
-                }));
-        }
-        else {
-            bindPopup(marker, (m) =>
-                new LocationPopup({
-                    target: m,
-                    props: {
-                        location,
-                    },
-                }));                
-        }
+        bindLocationPopup(marker, location);
 
         // Only have tooltip available when popup is not open        
         function bindTooltip() { 
@@ -498,38 +466,6 @@
         });
     }
 
-    // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
-    // `createFn` will be called whenever the popup is being created, and should create and return the component.
-    function bindPopup(marker: Layer, createFn: { (container: HTMLDivElement): SvelteComponent; }) {
-        let popupComponent: SvelteComponent;
-        let popup: Popup;
-        marker.bindPopup(() => {
-            let container = DomUtil.create('div');
-            popupComponent = createFn(container);
-            if (popup instanceof Popup && popupComponent.setPopup != undefined) {
-                popupComponent.setPopup(popup);
-            }
-            return container;
-        });
-
-        marker.on('popupopen', c => {
-            popup = c.popup;
-            if (popupComponent.setPopup != undefined) {
-                popupComponent.setPopup(popup);
-            }
-        });
-
-        marker.on('popupclose', () => {
-            if (popupComponent) {
-                let old = popupComponent;
-                popupComponent = null;
-                // Wait to destroy until after the fadeout completes.
-                setTimeout(() => {
-                    old.$destroy();
-                }, 500);
-            }
-        });
-    }
 </script>
 
 <style>

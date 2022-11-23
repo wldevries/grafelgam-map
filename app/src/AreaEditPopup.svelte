@@ -4,7 +4,7 @@
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import { ArrowsMove } from 'svelte-bootstrap-icons';
-    import type { Polygon, Popup } from 'leaflet';
+    import type { Polygon, Popup, Layer } from 'leaflet';
     import type { MapArea } from './MapArea';
 	
 	export let area: MapArea;
@@ -29,8 +29,8 @@
         }, 10);
     });
 
-    export function setPopup(value: Popup) {
-        popup = value;
+    export function setPopup(options: { popup: Popup; layer: Layer }) {
+        popup = options.popup;
     }
 
     function updateArea() {

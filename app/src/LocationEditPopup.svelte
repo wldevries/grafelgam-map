@@ -1,17 +1,19 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import type { MapLocation } from './MapLocation';
-    import { addLocation, deleteLocation, loadLocations } from "./LocationStore"
+    import { addLocation, deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
-    import type { Popup } from 'leaflet';
+    import type { Popup, Marker } from 'leaflet';
     import { IconStore, MapIcon } from './IconStore';
     import { Api } from './Api';
+    import { bindLocationViewPopup } from './MapPopup';
+    import { setLocationIcon } from './IconAssigner';
 	
 	export let location: MapLocation;
-    export let updateIcon: { (): void };
 	
     let popup: Popup;
+    let marker: Marker;
     let nameInput: HTMLInputElement;
     let fileinput: HTMLInputElement;
 
@@ -21,7 +23,6 @@
     let country: string = "";
     let region: string = "";
     let locicon: string = "";
-    let editing: boolean = true;
     
     onMount(async () => {
         if (location != undefined) {
@@ -30,7 +31,6 @@
             region = location.region;
             locicon = location.icon;
         }
-        editing = name == undefined || name.trim() == "";
 
         setTimeout(() => {
             if (nameInput != undefined)
@@ -40,8 +40,9 @@
         icons = await IconStore.loadIcons();
     });
 
-    export function setPopup(value: Popup) {
-        popup = value;
+    export function setPopup(options: { popup: Popup; layer: Marker; }) {
+        popup = options.popup;
+        marker = options.layer;
     }
 
 	const onFileSelected = async e => {
@@ -63,13 +64,11 @@
         }
     }
     
+    // Switch to not editing mode
     function handleEdit() {
-        editing = !editing;
-        if (popup != undefined) {
-            ///This closes the popup for some reason. Width is now overridden in
-            // global.css to make sure in edit mode the popup is wide enough
-            // popup.update();
-        }
+        marker.unbindPopup();
+        bindLocationViewPopup(marker, location);
+        marker.openPopup();
     }
 
     function handleDelete() {
@@ -81,9 +80,7 @@
     function selectIcon(icon: MapIcon) {
         locicon = icon.name;
         updateLocation();
-        if (updateIcon != undefined) { 
-            updateIcon();
-        }
+        setLocationIcon(marker, location);
     }
 </script>
 
@@ -108,32 +105,25 @@
 </style>
 
 <div>
-    {#if editing}
-        <div class="label">Name</div>
-        <input bind:this={nameInput} bind:value={name} on:change="{updateLocation}"/>
+    <div class="label">Name</div>
+    <input bind:this={nameInput} bind:value={name} on:change="{updateLocation}"/>
 
-        <div class="label">Region</div>
-        <input bind:value={region} on:change="{updateLocation}"/>
+    <div class="label">Region</div>
+    <input bind:value={region} on:change="{updateLocation}"/>
 
-        <div class="label">Country</div>
-        <input bind:value={country} on:change="{updateLocation}"/>
+    <div class="label">Country</div>
+    <input bind:value={country} on:change="{updateLocation}"/>
 
+    <div>
         {#each icons as icon}
         <button class={icon.name == locicon ? 'selected-icon' : ''} on:click={() => selectIcon(icon)}>
             <img src="{icon.uri}" alt="{icon.name}">
         </button>
         {/each}
+    </div>
 
-        <button on:click={()=>{fileinput.click();}}>Choose Image</button>
-        <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-    {:else}
-        <h3>{location.name}</h3>
-        <p>{location.country}
-        {#if location.region != undefined && location.region != ""}
-            <span>({location.region})</span>
-        {/if}
-        </p>
-    {/if}
+    <button on:click={()=>{fileinput.click();}}>Choose Image</button>
+    <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
 
     <div class="button-panel">
         <button on:click={handleEdit}><Pencil /></button>        
