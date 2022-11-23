@@ -2,6 +2,7 @@ import type { SvelteComponent } from "svelte";
 import { DomUtil, Popup, Layer, PopupOptions, Marker, Polygon } from "leaflet";
 import LocationViewPopup from "./LocationViewPopup.svelte";
 import LocationEditPopup from "./LocationEditPopup.svelte";
+import AreaViewPopup from "./AreaViewPopup.svelte";
 import AreaEditPopup from "./AreaEditPopup.svelte";
 import type { MapLocation } from "./MapLocation";
 import type { MapArea } from "./MapArea";
@@ -72,16 +73,37 @@ export function bindLocationViewPopup(marker: Marker, location: MapLocation) {
             }));
 }
 
-
 export function bindAreaPopup(polygon: Polygon, area: MapArea) {
     if (area.isCustom()) {
-        bindPopup(polygon, (m) =>
-            new AreaEditPopup({
-                target: m,
-                props: {
-                    area,
-                    polygon
-                },
-            }));
+        if (area.name && area.name.trim() != "") {
+            bindAreaViewPopup(polygon, area);
+        }
+        else {
+            bindAreaEditPopup(polygon, area);
+        }
     }
+}
+
+
+export function bindAreaEditPopup(polygon: Polygon, area: MapArea) {
+    bindPopup(polygon, (m) =>
+        new AreaEditPopup({
+            target: m,
+            props: {
+                area,
+                polygon
+            },
+        }));
+}
+
+
+export function bindAreaViewPopup(polygon: Polygon, area: MapArea) {
+    bindPopup(polygon, (m) =>
+        new AreaViewPopup({
+            target: m,
+            props: {
+                area,
+                polygon
+            },
+        }));
 }

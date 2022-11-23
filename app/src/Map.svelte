@@ -236,7 +236,7 @@
         return marker;
     }
 
-    function addAreaToMap(area: MapArea, color: string | undefined): Polygon<any> {
+    function addAreaToMap(area: MapArea, color?: string): Polygon<any> {
         const polygon = new Polygon(area.locs, {
             color: color ?? "blue"
         })
@@ -412,7 +412,7 @@
 
                     const area = MapArea.create(locs);
                     area.setCustom();
-                    const polygon = addAreaToMap(area, "blue");
+                    const polygon = addAreaToMap(area);
                     polygon.openPopup();
                 }
             });

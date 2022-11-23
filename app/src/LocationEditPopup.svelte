@@ -102,6 +102,10 @@
         flex: auto;
         text-align: right;
     }
+
+    .active {
+        background-color: bisque;
+    }
 </style>
 
 <div>
@@ -126,7 +130,7 @@
     <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
 
     <div class="button-panel">
-        <button on:click={handleEdit}><Pencil /></button>        
+        <button on:click={handleEdit} class="active"><Pencil /></button>        
         <button on:click={handleDelete}><Trash /></button>        
     </div>
 </div>
