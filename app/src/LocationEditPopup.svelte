@@ -51,7 +51,7 @@
         icons = await IconStore.loadIcons();
     };
 
-    function updateLocation() {
+    async function updateLocation() {
         if (location != undefined) {
             location.name = name.trim();
             location.country = country.trim();
@@ -59,7 +59,7 @@
             location.icon = locicon.trim();
 
             if (location.name.length > 0) {
-                addLocation(location);
+                await addLocation(location);
             }
         }
     }
@@ -77,9 +77,9 @@
         }
     }
 
-    function selectIcon(icon: MapIcon) {
+    async function selectIcon(icon: MapIcon) {
         locicon = icon.name;
-        updateLocation();
+        await updateLocation();
         setLocationIcon(marker, location);
     }
 </script>

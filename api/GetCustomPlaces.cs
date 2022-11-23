@@ -1,44 +1,48 @@
-using Microsoft.Extensions.Configuration;
+using GeoJSON.Text.Feature;
+using System.Text.Json;
 
 namespace GrafelgamFunctions;
 
-public class GetIcons
+public class GetCustomPlaces
 {
     private readonly ILogger _logger;
     private readonly BlobServiceClient _serviceClient;
-    private readonly string _baseAddress;
 
-    public GetIcons(
+    public GetCustomPlaces(
         ILoggerFactory loggerFactory,
-        IConfiguration configuration,
         BlobServiceClient serviceClient)
     {
-        _logger = loggerFactory.CreateLogger<GetIcons>();
-        _baseAddress = configuration["static_uri"] ?? throw new ArgumentException("Base address not set");
+        _logger = loggerFactory.CreateLogger<GetCustomPlaces>();
         _serviceClient = serviceClient;
     }
 
-    [Function("GetIcons")]
+    [Function("GetCustomPlaces")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
         BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
+        BlobClient placeBlob = container.GetBlobClient("customLocations.json");
 
-        List<BlobItem> blobs = await container.ListBlobsAsync("icons");
+        string json = await placeBlob.DownloadTextAsync();
+        var places = JsonSerializer.Deserialize<List<Feature>>(json);
+
+        if (places is null)
+        {
+            return req.CreateResponse(HttpStatusCode.NotFound);
+        }
+
+        FeatureCollection fcol = new()
+        {
+            Features = places,
+        };
 
         HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
         await response.WriteAsJsonAsync(new
         {
             status = "success",
-            data = blobs.Select(b => new 
-            {
-                name = b.Name["icons/".Length..],
-                url = _baseAddress + b.Name,
-            }),
+            data = fcol
         });
-
-        _logger.LogInformation("Returned {count} icons on {address}", blobs.Count, _baseAddress);
 
         return response;
     }

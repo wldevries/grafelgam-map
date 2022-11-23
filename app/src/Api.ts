@@ -1,3 +1,5 @@
+import type { Feature, Point } from "geojson";
+
 const endpoints = {
     // @ts-ignore
     getBaseAddress: API + '/GetBaseAddress?code=' + API_CODE,
@@ -5,6 +7,12 @@ const endpoints = {
     uploadIcon: API + '/PostIcon?code=' + API_CODE,
     // @ts-ignore
     getIcons: API + '/GetIcons?code=' + API_CODE,
+    // @ts-ignore
+    getPlaces: API + '/GetPlaces?code=' + API_CODE,
+    // @ts-ignore
+    getCustomPlaces: API + '/GetCustomPlaces?code=' + API_CODE,
+    // @ts-ignore
+    addPlace: API + '/AddPlace?code=' + API_CODE,
 };
 
 export class Api {
@@ -53,5 +61,43 @@ export class Api {
         } else {
             alert(`${json.status}: ${json.message}`);
         }
+    }
+    
+    public static async getPlaces() {    
+        const res = await fetch(endpoints.getPlaces, {
+            method: "GET"
+        });
+        
+        const json = await res.json()
+        if (json.status == "success"){
+            return json.data;
+        } else {
+            alert(`${json.status}: ${json.message}`);
+        }
+    }
+
+    public static async getCustomPlaces() {    
+        const res = await fetch(endpoints.getCustomPlaces, {
+            method: "GET"
+        });
+        
+        const json = await res.json()
+        if (json.status == "success"){
+            return json.data;
+        } else {
+            alert(`${json.status}: ${json.message}`);
+        }
+    }
+    
+    public static async addPlace(feature: Feature<Point>) {
+        const res = await fetch(endpoints.addPlace, {
+            method: 'POST',
+            body: JSON.stringify(feature)
+        });
+        
+        const json = await res.json()
+        if (json.status != "success") {
+            alert(`${json.status}: ${json.message}`);
+        }       
     }
 }

@@ -1,3 +1,4 @@
+import { Api } from "./Api";
 import { LiteEvent } from "./LiteEvents";
 import { MapLocation } from "./MapLocation";
 
@@ -15,8 +16,8 @@ export class LocationStore {
         return loadLocations();
     }
 
-    public Update(loc: MapLocation) {
-        addLocation(loc);
+    public async Update(loc: MapLocation) {
+        await addLocation(loc);
     }
 
     sendChange(id: string | number) {
@@ -29,24 +30,41 @@ export class LocationStore {
 }
 
 export async function loadLocations() : Promise<MapLocation[]> {
-    const locationJson = await fetch("locations2.json");
-    const locations: GeoJSON.Feature<GeoJSON.Point>[] = await locationJson.json();
+    const locations: GeoJSON.Feature<GeoJSON.Point>[] = await loadLocationsWeb();
+
+    // const locationCollection: GeoJSON.FeatureCollection<GeoJSON.Point> = await Api.getPlaces();
+    // const locations = locationCollection.features;
+
+    const clocationCollection: GeoJSON.FeatureCollection<GeoJSON.Point> = await Api.getCustomPlaces();
+    const clocations = clocationCollection.features;
+
     const customLocations = loadCustomLocations();
-    return locations.concat(customLocations).map(f => MapLocation.fromFeature(f));
+    return locations
+        .concat(customLocations)
+        .concat(clocations)
+        .map(f => MapLocation.fromFeature(f));
 }
 
-export function addLocation(loc: MapLocation) {
-    let customLocations = loadCustomLocations();
-    
-    let matchIndex = customLocations.findIndex(item => item.id == loc.id);
-    if (matchIndex == -1) {
-        customLocations.push(loc.toFeature());
-    }
-    else {
-        customLocations[matchIndex] = loc.toFeature();
-    }
+async function loadLocationsWeb() : Promise<GeoJSON.Feature<GeoJSON.Point>[]> {
+    const locationJson = await fetch("locations2.json");
+    return await locationJson.json();
+}
 
-    localStorage.setItem(StorageKey, JSON.stringify(customLocations));
+export async function addLocation(loc: MapLocation) {
+    // let customLocations = loadCustomLocations();
+    
+    // let matchIndex = customLocations.findIndex(item => item.id == loc.id);
+    // if (matchIndex == -1) {
+    //     customLocations.push(loc.toFeature());
+    // }
+    // else {
+    //     customLocations[matchIndex] = loc.toFeature();
+    // }
+
+    // localStorage.setItem(StorageKey, JSON.stringify(customLocations));
+
+    await Api.addPlace(loc.toFeature());
+
     LocationStore.instance.sendChange(loc.id);
 }
 
