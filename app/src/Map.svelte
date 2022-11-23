@@ -27,7 +27,6 @@
     import { onMount } from "svelte";
     import '@geoman-io/leaflet-geoman-free';  
     import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
-    import AreaEditPopup from "./AreaEditPopup.svelte";
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { MapLocation } from "./MapLocation";
     import { MapArea } from "./MapArea";
@@ -37,7 +36,7 @@
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, LatLng, MapOptions, TileLayerOptions } from "leaflet";
     import { tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
-    import { bindLocationPopup, bindPopup } from "./MapPopup";
+    import { bindAreaPopup, bindLocationPopup } from "./MapPopup";
     import { setLocationIcon } from "./IconAssigner";
 
     const locationStore = LocationStore.instance;
@@ -246,17 +245,8 @@
             area,
             polygon
         });
-        
-        if (area.isCustom()) {
-            bindPopup(polygon, (m) =>
-                new AreaEditPopup({
-                    target: m,
-                    props: {
-                        area,
-                        polygon
-                    },
-                }));
-        }
+
+        bindAreaPopup(polygon, area);
 
         // Only have tooltip available when popup is not open
         function bindTooltip() {
@@ -465,7 +455,6 @@
             }
         });
     }
-
 </script>
 
 <style>

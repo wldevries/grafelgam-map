@@ -1,8 +1,10 @@
 import type { SvelteComponent } from "svelte";
-import { DomUtil, Popup, Layer, PopupOptions, Marker } from "leaflet";
+import { DomUtil, Popup, Layer, PopupOptions, Marker, Polygon } from "leaflet";
 import LocationViewPopup from "./LocationViewPopup.svelte";
 import LocationEditPopup from "./LocationEditPopup.svelte";
+import AreaEditPopup from "./AreaEditPopup.svelte";
 import type { MapLocation } from "./MapLocation";
+import type { MapArea } from "./MapArea";
     
 // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
 // `createFn` will be called whenever the popup is being created, and should create and return the component.
@@ -68,4 +70,18 @@ export function bindLocationViewPopup(marker: Marker, location: MapLocation) {
                     location,
                 },
             }));
+}
+
+
+export function bindAreaPopup(polygon: Polygon, area: MapArea) {
+    if (area.isCustom()) {
+        bindPopup(polygon, (m) =>
+            new AreaEditPopup({
+                target: m,
+                props: {
+                    area,
+                    polygon
+                },
+            }));
+    }
 }
