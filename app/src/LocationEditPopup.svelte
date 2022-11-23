@@ -90,10 +90,6 @@
         height: 30px;
     }
 
-    .selected-icon {
-        background-color: bisque;
-    }
-
     .label {
         margin-top: 4px;
     }
@@ -118,9 +114,10 @@
     <div class="label">Country</div>
     <input bind:value={country} on:change="{updateLocation}"/>
 
+    <div class="label">Marker icon</div>
     <div>
         {#each icons as icon}
-        <button class={icon.name == locicon ? 'selected-icon' : ''} on:click={() => selectIcon(icon)}>
+        <button class={icon.name == locicon ? 'active' : ''} on:click={() => selectIcon(icon)}>
             <img src="{icon.uri}" alt="{icon.name}">
         </button>
         {/each}
