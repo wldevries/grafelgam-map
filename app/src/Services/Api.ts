@@ -1,4 +1,4 @@
-import type { Feature, Point } from "geojson";
+import type { Feature } from "geojson";
 
 const endpoints = {
     // @ts-ignore
@@ -10,11 +10,13 @@ const endpoints = {
     // @ts-ignore
     getPlaces: API + '/GetPlaces?code=' + API_CODE,
     // @ts-ignore
-    getCustomPlaces: API + '/GetCustomPlaces?code=' + API_CODE,
-    // @ts-ignore
-    addPlace: API + '/AddPlace?code=' + API_CODE,
-    // @ts-ignore
     getAreas: API + '/GetAreas?code=' + API_CODE,
+    // @ts-ignore
+    getFeatures: API + '/GetFeatures?code=' + API_CODE,
+    // @ts-ignore
+    addFeature: API + '/AddFeature?code=' + API_CODE,
+    // @ts-ignore
+    deleteFeature: API + '/DeleteFeature?code=' + API_CODE,
 };
 
 export class Api {
@@ -77,31 +79,6 @@ export class Api {
             throw json;
         }
     }
-
-    public static async getCustomPlaces(): Promise<GeoJSON.FeatureCollection<GeoJSON.Point>> {
-        const res = await fetch(endpoints.getCustomPlaces, {
-            method: "GET"
-        });
-        
-        const json = await res.json()
-        if (json.status == "success"){
-            return json.data;
-        } else {
-            throw json;
-        }
-    }
-    
-    public static async addPlace(feature: Feature<Point>) {
-        const res = await fetch(endpoints.addPlace, {
-            method: 'POST',
-            body: JSON.stringify(feature)
-        });
-        
-        const json = await res.json()
-        if (json.status != "success") {
-            alert(`${json.status}: ${json.message}`);
-        }       
-    }
     
     public static async getAreas(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
         const res = await fetch(endpoints.getAreas, {
@@ -115,5 +92,40 @@ export class Api {
             throw json;
         }
     }
+    
+    public static async getFeatures(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
+        const res = await fetch(endpoints.getFeatures, {
+            method: "GET"
+        });
+        
+        const json = await res.json()
+        if (json.status == "success"){
+            return json.data;
+        } else {
+            throw json;
+        }
+    }
 
+    public static async addFeature(feature: Feature) {
+        const res = await fetch(endpoints.addFeature, {
+            method: 'POST',
+            body: JSON.stringify(feature)
+        });
+        
+        const json = await res.json()
+        if (json.status != "success") {
+            alert(`${json.status}: ${json.message}`);
+        }       
+    }
+
+    public static async deleteFeature(featureId: string) {
+        const res = await fetch(endpoints.deleteFeature + '&featureId=' + featureId, {
+            method: 'POST',
+        });
+        
+        const json = await res.json()
+        if (json.status != "success") {
+            alert(`${json.status}: ${json.message}`);
+        }       
+    }
 }

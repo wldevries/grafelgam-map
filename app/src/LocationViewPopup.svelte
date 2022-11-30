@@ -19,7 +19,7 @@
 <div>
     <h3>{location.name}</h3>
     <p>{location.country}
-    {#if location.region != undefined && location.region != ""}
+    {#if location.region && location.region.trim() != ""}
         <span>({location.region})</span>
     {/if}
     </p>

@@ -1,7 +1,7 @@
 import { LatLng } from "leaflet";
 import { v4 as uuid } from 'uuid';
 
-export class MapLocation {
+export class MapLocation implements MapItem {
     public id: string | number;
     public name: string;
     public region: string;

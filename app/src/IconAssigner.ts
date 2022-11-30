@@ -1,12 +1,12 @@
 import { icon, Marker } from "leaflet";
-import { IconStore } from "./IconStore";
+import { IconStore } from "./Services/IconStore";
 import type { MapLocation } from "./MapLocation";
 
 export async function setLocationIcon(marker: Marker, location: MapLocation) {
     const iconUri = location.name == "Lensbrug"
     ? "icons/tower-bridge.png"
     : (await IconStore.nameToIcon(location.icon))?.uri;
-    if (iconUri != undefined) {
+    if (iconUri && iconUri != "") {
         marker.setIcon(icon({
             iconUrl: iconUri,
             iconSize: [32, 32],

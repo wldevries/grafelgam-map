@@ -1,38 +1,42 @@
 using GeoJSON.Text.Feature;
-using System.Text.Json;
+using GeoJSON.Text.Geometry;
 
 namespace GrafelgamFunctions;
 
 public class GetPlaces
 {
     private readonly ILogger _logger;
-    private readonly BlobServiceClient _serviceClient;
+    private readonly IFeatureLoader _featureLoader;
 
     public GetPlaces(
         ILoggerFactory loggerFactory,
-        BlobServiceClient serviceClient)
+        IFeatureLoader featureLoader)
     {
         _logger = loggerFactory.CreateLogger<GetPlaces>();
-        _serviceClient = serviceClient;
+        _featureLoader = featureLoader;
     }
 
     [Function("GetPlaces")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req,
+        bool? custom,
         string? name,
         string? country,
         string? region)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
-        BlobClient placeBlob = container.GetBlobClient(Constants.Locations);
+        var places = await _featureLoader.LoadPlaces();
 
-        string json = await placeBlob.DownloadTextAsync();
-        var places = JsonSerializer.Deserialize<List<Feature>>(json);
-
-        if (places is null)
+        if (custom == true)
         {
-            return req.CreateResponse(HttpStatusCode.NotFound);
+            var customFeatures = await _featureLoader.LoadCustom();
+            foreach (var c in customFeatures)
+            {
+                c.Properties["custom"] = true;
+            }
+            places = places
+                .Concat(customFeatures.Where(f => f.Geometry is Point))
+                .ToList();
         }
 
         FeatureCollection fcol = new()
@@ -54,4 +58,3 @@ public class GetPlaces
         return response;
     }
 }
-

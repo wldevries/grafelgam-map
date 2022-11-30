@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { createEventDispatcher } from "svelte";
-    import { loadLocations } from "./LocationStore.js"
-    import { loadAreas } from "./AreaStore.js";
-    import type { MapLocation } from "./MapLocation.js";
-    import type { MapArea } from "./MapArea.js";
-    import { TropicalStorm } from "svelte-bootstrap-icons";
+    import { MapLocation } from "./MapLocation";
+    import { MapArea } from "./MapArea";
+    import { loadAreasWeb, loadPlacesWeb } from "./Services/WebLoader";
+    import { featureIsArea, featureIsPlace } from "./GeoJSONHelper";
+    import { featureStore } from "./Services/Stores";
 
     const dispatch = createEventDispatcher();
 
@@ -15,16 +15,25 @@
     let allAreas: MapArea[] = [];
     let customAreas: MapArea[] = [];
 
-    onMount(async () => {        
-        allLocations = await loadLocations();
-
+    onMount(async () => {
+        const places = await loadPlacesWeb();
+        const areas = await loadAreasWeb();
+        const features = await featureStore.load();
+        const placeFeatures = features.filter(featureIsPlace);
+        const areaFeatures = features.filter(featureIsArea);
+        
+        allLocations = places
+            .concat(placeFeatures)
+            .map(MapLocation.fromFeature);
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
         countries.clear();
         allLocations.forEach((loc) => countries.add(loc.country));
         countriesSorted = Array.from(countries).sort((a, b) => a.localeCompare(b));
 
-        allAreas = await loadAreas();
+        allAreas = areas
+            .concat(areaFeatures)
+            .map(MapArea.fromFeature);
         customAreas = allAreas.filter(a => a.isCustom());
     });
 
@@ -33,7 +42,6 @@
             locations: locations,
         });
     }
-
     
     function showAreas(areas: MapArea[]) {
         dispatch("showMap", {
@@ -96,15 +104,15 @@
             <button
                 class="country-heading"
                 on:click={() => showCountry(country)}>
-                {#if country == undefined || country.trim() == ""}
-                    <h2>Custom</h2>
-                {:else}
+                {#if country && country.trim() != ""}
                     <h2>{country}</h2>
+                {:else}
+                    <h2>Custom</h2>
                 {/if}
             </button>
 
             {#each getRegions(country) as region}
-                {#if region != undefined && region != ""}
+                {#if region && region.trim() != ""}
                     <button
                         class="country-heading"
                         on:click={() => showRegion(country, region)}>

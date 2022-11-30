@@ -5,7 +5,7 @@ const hasAtLeastOneDimension = (x: unknown): x is readonly unknown[] => Array.is
 const hasAtLeastTwoDimensions = (x: unknown): x is readonly unknown[][] => Array.isArray(x) && x.every(hasAtLeastOneDimension)
 const hasAtLeastThreeDimensions = (x: unknown): x is readonly unknown[][][] => Array.isArray(x) && x.every(hasAtLeastTwoDimensions)
 
-export class MapArea {
+export class MapArea implements MapItem {
     public id: string | number;
     public name: string;
     public locs: LatLng[][] | LatLng[][][];

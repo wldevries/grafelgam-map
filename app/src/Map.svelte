@@ -30,17 +30,14 @@
     import LocationAutoComplete from "./LocationAutoComplete.svelte";
     import { MapLocation } from "./MapLocation";
     import { MapArea } from "./MapArea";
-    import { addLocation, LocationStore } from "./LocationStore.js"
-    import { addArea, AreaStore } from "./AreaStore";
+    import { featureIsArea, featureIsPlace } from "./GeoJSONHelper"
     import GeoIcon from "svelte-bootstrap-icons/lib/Geo.svelte";
     import MapIcon from "svelte-bootstrap-icons/lib/Map.svelte";
     import { Map, Marker, Polygon, LatLngBounds, latLngBounds, Layer, LatLng, MapOptions, TileLayerOptions } from "leaflet";
     import { tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
     import { bindAreaPopup, bindLocationPopup } from "./MapPopup";
     import { setLocationIcon } from "./IconAssigner";
-
-    const locationStore = LocationStore.instance;
-    const areaStore = AreaStore.instance;
+    import { featureStore } from "./Services/Stores";
 
     let mapDiv: Map;
     let addRegionButton: HTMLButtonElement;
@@ -79,10 +76,10 @@
 
     export function showMap(locations: MapLocation[], areas: MapArea[]){
         clearLocations();
-        if (locations != undefined) {
+        if (locations) {
             showLocations(locations, areas == undefined || areas.length == 0);
         }
-        if (areas != undefined) {
+        if (areas) {
             showAreas(areas);
         }
     }
@@ -209,7 +206,7 @@
         // Only have tooltip available when popup is not open        
         function bindTooltip() { 
             const content = location.popupText();
-            if (content != undefined && content != "") {            
+            if (content && content != "") {            
                 marker.bindTooltip(content,{
                     // permanent: true,
                     direction: 'top',
@@ -229,7 +226,7 @@
         // Save maker location when moved via Geoman
         marker.on("pm:edit", () => {
             location.loc = marker.getLatLng();
-            addLocation(location);
+            featureStore.update(location);
         });
 
         marker.addTo(locationLayer)
@@ -251,7 +248,7 @@
         // Only have tooltip available when popup is not open
         function bindTooltip() {
             const content = area.name;
-            if (content != undefined && content != "") {            
+            if (content && content != "") {            
                 polygon.bindTooltip(content);
             }
         }
@@ -265,7 +262,7 @@
 
         polygon.on("pm:edit", e => {
             area.setPolygonLocs(polygon.getLatLngs());
-            addArea(area);
+            featureStore.update(area);
         });
 
         polygon.addTo(locationLayer);
@@ -302,63 +299,59 @@
         });
 
 
-        locationStore.Deleted.on(id => {
-            const markerIndex = openLocations.findIndex(l => {
+        featureStore.Deleted.on(id => {
+            const placeIndex = openLocations.findIndex(l => {
                 if (l.location.isCustom()) {
                     return l.location.id == id;
                 }
                 return false;
             });
-            if (markerIndex != -1) {
-                openLocations[markerIndex].marker.remove();
-                openLocations.slice(markerIndex, markerIndex + 1);
+            if (placeIndex != -1) {
+                openLocations[placeIndex].marker.remove();
+                openLocations.slice(placeIndex, placeIndex + 1);
+            }
+            
+            const areaIndex = openAreas.findIndex(l => {
+                if (l.area.isCustom()) {
+                    return l.area.id == id;
+                }
+                return false;
+            });
+            if (areaIndex != -1) {
+                openAreas[areaIndex].polygon.remove();
+                openAreas.slice(areaIndex, areaIndex + 1);
             }
         });
 
-        locationStore.Changed.on(async id => {
-            const markerIndex = openLocations.findIndex(l => {
+        featureStore.Changed.on(async id => {
+            const placeIndex = openLocations.findIndex(l => {
                 if (l.location.isCustom()) {
                     return l.location.id == id;
                 }
                 return false;
             });
-            if (markerIndex != -1) {
-                const openLocation = openLocations[markerIndex];
+            if (placeIndex != -1) {
+                const openLocation = openLocations[placeIndex];
                 const marker = openLocation.marker;
-                const allLocations = await locationStore.Load();
-                const updatedLocation = allLocations.find(l => l.id == id);
+                const allLocations = (await featureStore.load()).filter(featureIsPlace);
+                const updatedLocation = MapLocation.fromFeature(allLocations.find(l => l.id == id));
                 openLocation.location = updatedLocation;
 
                 // Update marker
                 marker.setTooltipContent(updatedLocation.popupText());
             }
-        })
-
-        areaStore.Deleted.on(id => {
-            const markerIndex = openAreas.findIndex(l => {
+            
+            const areaIndex = openAreas.findIndex(l => {
                 if (l.area.isCustom()) {
                     return l.area.id == id;
                 }
                 return false;
             });
-            if (markerIndex != -1) {
-                openAreas[markerIndex].polygon.remove();
-                openAreas.slice(markerIndex, markerIndex + 1);
-            }
-        })
-
-        areaStore.Changed.on(async id => {
-            const markerIndex = openAreas.findIndex(l => {
-                if (l.area.isCustom()) {
-                    return l.area.id == id;
-                }
-                return false;
-            });
-            if (markerIndex != -1) {
-                const openArea = openAreas[markerIndex];
+            if (areaIndex != -1) {
+                const openArea = openAreas[areaIndex];
                 const polygon = openArea.polygon;
-                const allAreas = await areaStore.Load();
-                const updatedArea = allAreas.find(l => l.id == id);
+                const allAreas = (await featureStore.load()).filter(featureIsArea);
+                const updatedArea = MapArea.fromFeature(allAreas.find(l => l.id == id));
                 openArea.area = updatedArea;
 
                 // Update polygon
@@ -434,7 +427,7 @@
 
     // Clear all markers and polygons from the location layer
     function clearLocations() {
-        if (locationLayer != undefined) {
+        if (locationLayer) {
             mapDiv.removeLayer(locationLayer);
         }
         openLocations= [];
@@ -450,7 +443,7 @@
                 let mloc = openLocations.find(l => l.marker == e.layer);
                 if (mloc.location.isCustom()) {
                     mloc.location.loc = e.layer.getLatLng();
-                    addLocation(mloc.location);
+                    featureStore.update(mloc.location);
                 }
             }
         });

@@ -3,36 +3,36 @@ using System.Text.Json;
 
 namespace GrafelgamFunctions;
 
-public class AddArea
+public class AddFeature
 {
     private readonly ILogger _logger;
     private readonly BlobServiceClient _serviceClient;
 
-    public AddArea(
+    public AddFeature(
         ILoggerFactory loggerFactory,
         BlobServiceClient serviceClient)
     {
-        _logger = loggerFactory.CreateLogger<AddArea>();
+        _logger = loggerFactory.CreateLogger<AddFeature>();
         _serviceClient = serviceClient;
     }
 
-    [Function("AddArea")]
+    [Function("AddFeature")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
         BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
-        BlobClient placeBlob = container.GetBlobClient(Constants.CustomAreas);
+        BlobClient placeBlob = container.GetBlobClient(Constants.CustomFeatures);
 
-        // Parse place to add
-        Feature? areaToAdd;
+        // Parse feature to add
+        Feature? featureToAdd;
         try
         {
             using StreamReader sr = new(req.Body);
             string json = await sr.ReadToEndAsync();
-            areaToAdd = JsonSerializer.Deserialize<Feature>(json);
+            featureToAdd = JsonSerializer.Deserialize<Feature>(json);
 
-            if (areaToAdd == null)
+            if (featureToAdd == null)
             {
                 return req.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -42,21 +42,21 @@ public class AddArea
             return req.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        IList<Feature> areas;
+        IList<Feature> places;
         if (await placeBlob.ExistsAsync())
         {
             string blobJson = await placeBlob.DownloadTextAsync();
-            areas = JsonSerializer.Deserialize<IList<Feature>>(blobJson) ?? Array.Empty<Feature>();
+            places = JsonSerializer.Deserialize<IList<Feature>>(blobJson) ?? Array.Empty<Feature>();
         }
         else
         {
-            areas = Array.Empty<Feature>();
+            places = Array.Empty<Feature>();
         }
 
-        areas = areas.Where(p => p.Id != areaToAdd.Id).ToList();
-        areas.Add(areaToAdd);
+        places = places.Where(p => p.Id != featureToAdd.Id).ToList();
+        places.Add(featureToAdd);
 
-        string placesJson = JsonSerializer.Serialize(areas);
+        string placesJson = JsonSerializer.Serialize(places);
         using var writeStream = await placeBlob.OpenWriteAsync(overwrite: true);
         using var sw = new StreamWriter(writeStream);
         sw.Write(placesJson);
@@ -64,3 +64,4 @@ public class AddArea
         return req.CreateResponse(HttpStatusCode.OK);
     }
 }
+

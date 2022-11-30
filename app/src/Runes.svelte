@@ -70,7 +70,7 @@
         if (Array.isArray(names)) {
             names.forEach(n => {
                 const rune = runes.find(r => r.name === n);
-                if (rune != undefined) {
+                if (rune) {
                     let runeid = RuneWithId.fromRune(rune);
                     selectedRunes = [...selectedRunes, runeid];
                 }

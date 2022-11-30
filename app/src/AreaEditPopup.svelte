@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { addArea, deleteArea } from './AreaStore';
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import { ArrowsMove } from 'svelte-bootstrap-icons';
     import type { Polygon } from 'leaflet';
     import type { MapArea } from './MapArea';
+    import { featureStore } from './Services/Stores';
 	
 	export let area: MapArea;
     export let polygon: Polygon;
@@ -18,13 +18,13 @@
     let moving: boolean;
 
     onMount(() => {
-        if (area != undefined) {
+        if (area) {
             name = area.name;
             color = area.color;
         }
         
         setTimeout(() => {
-            if (nameInput != undefined)
+            if (nameInput)
                 nameInput.focus();
         }, 10);
 
@@ -32,12 +32,12 @@
     });
 
     function updateArea() {
-        if (area != undefined) {
+        if (area) {
             area.name = name.trim();
             area.color = color == undefined ? "" : color.trim();
 
             if (area.name.length > 0) {
-                addArea(area);
+                featureStore.update(area);
             }
         }
     }
@@ -49,8 +49,8 @@
     }
 
     function handleDelete() {
-        if (area != undefined) {
-            deleteArea(area);
+        if (area) {
+            featureStore.delete(area);
         }
     }
 

@@ -11,9 +11,10 @@
 <script lang="ts">
     import AutoComplete from "simple-svelte-autocomplete";
     import { onMount } from "svelte";
-    import { MapLocation } from "./MapLocation.js";
-    import { loadLocations, LocationStore } from "./LocationStore.js"
+    import { MapLocation } from "./MapLocation";
 	import { createEventDispatcher } from 'svelte';
+    import { loadPlacesWeb } from "./Services/WebLoader"
+    import { featureStore } from "./Services/Stores";
 
 	const dispatch = createEventDispatcher();
 
@@ -28,14 +29,14 @@
     }
 
     onMount(async () => {                
-        LocationStore.instance.Changed.on(async () => {
+        featureStore.Changed.on(async () => {
             await refresh();
         });
         await refresh();
     });
 
     async function refresh() {
-        allLocations = await loadLocations();
+        allLocations = (await loadPlacesWeb()).map(f => MapLocation.fromFeature(f));
         allLocations.sort((a, b) => a.name.localeCompare(b.name));
 
         if (selectedLocation instanceof MapLocation) {

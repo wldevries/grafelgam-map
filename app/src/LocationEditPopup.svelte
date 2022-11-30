@@ -1,18 +1,18 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import type { MapLocation } from './MapLocation';
-    import { addLocation, deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
     import type { Marker } from 'leaflet';
-    import { IconStore, MapIcon } from './IconStore';
-    import { Api } from './Api';
+    import { IconStore, MapIcon } from './Services/IconStore';
+    import { Api } from './Services/Api';
     import { setLocationIcon } from './IconAssigner';
+    import { featureStore } from './Services/Stores';
 	
 	export let location: MapLocation;
     export let marker: Marker;
     export let bindViewPopup: (marker: Marker, location: MapLocation) => void;
-	
+
     let nameInput: HTMLInputElement;
     let fileinput: HTMLInputElement;
 
@@ -24,7 +24,7 @@
     let locicon: string = "";
     
     onMount(async () => {
-        if (location != undefined) {
+        if (location) {
             name = location.name;
             country = location.country;
             region = location.region;
@@ -32,9 +32,9 @@
         }
 
         setTimeout(() => {
-            if (nameInput != undefined)
-            nameInput.focus()
-        }, 10);
+            if (nameInput)
+                nameInput.focus()
+            }, 10);
 
         icons = await IconStore.loadIcons();
     });
@@ -46,14 +46,14 @@
     };
 
     async function updateLocation() {
-        if (location != undefined) {
+        if (location) {
             location.name = name.trim();
             location.country = country.trim();
             location.region = region.trim();
             location.icon = locicon.trim();
 
             if (location.name.length > 0) {
-                await addLocation(location);
+                await featureStore.update(location);
             }
         }
     }
@@ -66,8 +66,8 @@
     }
 
     function handleDelete() {
-        if (location != undefined) {
-            deleteLocation(location);
+        if (location) {
+            featureStore.delete(location);
         }
     }
 

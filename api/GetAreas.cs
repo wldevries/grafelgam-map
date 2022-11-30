@@ -1,36 +1,39 @@
 using GeoJSON.Text.Feature;
-using System.Text.Json;
+using GeoJSON.Text.Geometry;
 
 namespace GrafelgamFunctions;
 
 public class GetAreas
 {
     private readonly ILogger _logger;
-    private readonly BlobServiceClient _serviceClient;
+    private readonly IFeatureLoader _featureLoader;
 
     public GetAreas(
         ILoggerFactory loggerFactory,
-        BlobServiceClient serviceClient)
+        IFeatureLoader featureLoader)
     {
         _logger = loggerFactory.CreateLogger<GetAreas>();
-        _serviceClient = serviceClient;
+        _featureLoader = featureLoader;
     }
 
     [Function("GetAreas")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req,
+        bool? custom,
         string? name)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
-        BlobClient areaBlob = container.GetBlobClient(Constants.Areas);
-
-        string json = await areaBlob.DownloadTextAsync();
-        var areas = JsonSerializer.Deserialize<List<Feature>>(json);
-        
-        if (areas is null)
+        var areas = await _featureLoader.LoadAreas();
+        if (custom == true)
         {
-            return req.CreateResponse(HttpStatusCode.NotFound);
+            var customFeatures = await _featureLoader.LoadCustom();
+            foreach (var c in customFeatures)
+            {
+                c.Properties["custom"] = true;
+            }
+            areas = areas
+                .Concat(customFeatures.Where(f => f.Geometry is Polygon))
+                .ToList();
         }
 
         FeatureCollection fcol = new()
