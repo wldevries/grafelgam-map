@@ -10,9 +10,9 @@ export class MapArea implements MapItem {
     public name: string;
     public locs: LatLng[][] | LatLng[][][];
     public color: string | undefined;
-    private custom: boolean;
+    private custom: boolean | undefined;
 
-    constructor(id: string | number, name: string, color: string, locs: LatLng[][] | LatLng[][][]) {
+    constructor(id: string | number, name: string, color: string | undefined, locs: LatLng[][] | LatLng[][][]) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -64,23 +64,31 @@ export class MapArea implements MapItem {
     
     static fromFeature(feature: GeoJSON.Feature<GeoJSON.Polygon>) {
         var loc = new MapArea(
-            feature.id,
-            feature.properties.name,
-            feature.properties.color,
+            feature.id ?? uuid(),
+            feature.properties?.name,
+            feature.properties?.color,
             // TODO: allow more polygons with holes and multiple areas
             feature.geometry.coordinates.map(a => a.map(l => new LatLng(l[1], l[0]))),
         );
-        loc.custom = feature.properties.custom;
+        loc.custom = feature.properties?.custom;
         return loc;
     }
 
     toFeature(): GeoJSON.Feature<GeoJSON.Polygon> {
+        let coordinates: number[][][] | number[][][][];
+        if (hasAtLeastThreeDimensions(this.locs)) {
+            throw "three dimensions not expected";
+        }
+        else {
+            coordinates = this.locs.map(a => a.map(l => [l.lng, l.lat]));
+        }
+
         return {
             type: "Feature",
             id: this.id,
             geometry: {
                 type: "Polygon",
-                coordinates: this.locs.map(a => a.map(l => [l.lng, l.lat]))
+                coordinates: coordinates
             },
             properties: {
                 name: this.name,

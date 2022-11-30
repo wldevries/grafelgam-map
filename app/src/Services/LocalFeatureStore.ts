@@ -30,6 +30,10 @@ export class LocalFeatureStore implements FeatureStore {
         }
         // Make sure the custom property is set
         result.forEach(a => {
+            if (!a.properties) {
+                a.properties = { };
+            }
+            
             a.properties.custom = true;
             if (!a.properties.color || a.properties.color.trim() == "") {
                 a.properties.color = colors[colorIndex++ % colors.length];

@@ -10,7 +10,7 @@ import type { MapArea } from "./MapArea";
 // Create a popup with a Svelte component inside it and handle removal when the popup is torn down.
 // `createFn` will be called whenever the popup is being created, and should create and return the component.
 export function bindPopup(marker: Layer, createFn: { (container: HTMLDivElement): SvelteComponent; }, options?: PopupOptions) {
-    let popupComponent: SvelteComponent;
+    let popupComponent: SvelteComponent | null;
 
     marker.bindPopup(() => {
         let container = DomUtil.create('div');

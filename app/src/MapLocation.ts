@@ -8,7 +8,7 @@ export class MapLocation implements MapItem {
     public country: string;
     public icon: string;
     public loc: LatLng;
-    private custom: boolean;
+    private custom: boolean | undefined;
 
     constructor(id: string | number, name: string, region: string, country: string, icon: string, loc: LatLng) {
         this.id = id;
@@ -41,14 +41,14 @@ export class MapLocation implements MapItem {
 
     static fromFeature(feature: GeoJSON.Feature<GeoJSON.Point>) {
         var loc = new MapLocation(
-            feature.id,
-            feature.properties.name,
-            feature.properties.region,
-            feature.properties.country,
-            feature.properties.icon,
+            feature.id ?? uuid(),
+            feature.properties?.name,
+            feature.properties?.region,
+            feature.properties?.country,
+            feature.properties?.icon,
             new LatLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
         );
-        loc.custom = feature.properties.custom;
+        loc.custom = feature.properties?.custom;
         return loc;
     }
 
