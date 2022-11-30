@@ -50,7 +50,7 @@ export class Api {
         }
     }
 
-    public static async getIcons() {    
+    public static async getIcons(): Promise<{name: string, url: string}[]>  {
         const res = await fetch(endpoints.getIcons, {
             method: "GET"
         });
@@ -59,11 +59,11 @@ export class Api {
         if (json.status == "success"){
             return json.data;
         } else {
-            alert(`${json.status}: ${json.message}`);
+            throw json;
         }
     }
     
-    public static async getPlaces() {    
+    public static async getPlaces(): Promise<GeoJSON.FeatureCollection<GeoJSON.Point>> {    
         const res = await fetch(endpoints.getPlaces, {
             method: "GET"
         });
@@ -72,11 +72,11 @@ export class Api {
         if (json.status == "success"){
             return json.data;
         } else {
-            alert(`${json.status}: ${json.message}`);
+            throw json;
         }
     }
 
-    public static async getCustomPlaces() {    
+    public static async getCustomPlaces(): Promise<GeoJSON.FeatureCollection<GeoJSON.Point>> {
         const res = await fetch(endpoints.getCustomPlaces, {
             method: "GET"
         });
@@ -85,7 +85,7 @@ export class Api {
         if (json.status == "success"){
             return json.data;
         } else {
-            alert(`${json.status}: ${json.message}`);
+            throw json;
         }
     }
     

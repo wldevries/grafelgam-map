@@ -13,7 +13,7 @@ export class MapIcon {
 export class IconStore{
     public static async loadIcons(): Promise<MapIcon[]> {
         const icons = await Api.getIcons();
-        return icons.map((icon: { name: string; url: string; }) => {
+        return icons.map((icon) => {
             return new MapIcon(icon.name, icon.url);
         });
     }
