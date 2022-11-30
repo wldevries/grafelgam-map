@@ -36,14 +36,18 @@ function serve() {
 
 export default {
 	input: 'src/main.ts',
-    external: ["leaflet"],
+    external: [
+        'leaflet',
+        'google-one-tap'
+    ],
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
 		file: 'public/build/bundle.js',
         globals: {
-            leaflet: 'L'
+            leaflet: 'L',
+            google: 'google'
         }
 	},
 	plugins: [
@@ -51,6 +55,7 @@ export default {
             preventAssignment: true,
             API: JSON.stringify(process.env.API),
             API_CODE: JSON.stringify(process.env.API_CODE),
+            GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
         }),
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),

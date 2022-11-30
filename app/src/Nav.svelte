@@ -1,4 +1,5 @@
 <script lang="ts">
+    import GoogleButton from "./GoogleButton.svelte"
     import { slide } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte";
@@ -43,6 +44,7 @@
         <button on:click={goHome}><h2>Grafelgam</h2></button>
         <button on:click={openLocations}>Locations</button>
         <button on:click={openRunes}>Runes</button>
+        <GoogleButton />
     </div>
 
     {#if locationMenuOpen}
