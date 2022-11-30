@@ -48,6 +48,7 @@ export default {
 	},
 	plugins: [
         replace({
+            preventAssignment: true,
             API: JSON.stringify(process.env.API),
             API_CODE: JSON.stringify(process.env.API_CODE),
         }),
