@@ -41,7 +41,11 @@ public class GetAreas
         };
 
         HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(fcol);
+        await response.WriteAsJsonAsync(new
+        {
+            status = "success",
+            data = fcol
+        });
         return response;
     }
 }

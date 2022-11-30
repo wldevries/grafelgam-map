@@ -13,6 +13,8 @@ const endpoints = {
     getCustomPlaces: API + '/GetCustomPlaces?code=' + API_CODE,
     // @ts-ignore
     addPlace: API + '/AddPlace?code=' + API_CODE,
+    // @ts-ignore
+    getAreas: API + '/GetAreas?code=' + API_CODE,
 };
 
 export class Api {
@@ -100,4 +102,18 @@ export class Api {
             alert(`${json.status}: ${json.message}`);
         }       
     }
+    
+    public static async getAreas(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
+        const res = await fetch(endpoints.getAreas, {
+            method: "GET"
+        });
+        
+        const json = await res.json()
+        if (json.status == "success"){
+            return json.data;
+        } else {
+            throw json;
+        }
+    }
+
 }

@@ -1,3 +1,4 @@
+import { Api } from "./Api";
 import { LiteEvent } from "./LiteEvents";
 import { MapArea } from "./MapArea";
 
@@ -38,10 +39,18 @@ export class AreaStore {
 }
 
 export async function loadAreas() : Promise<MapArea[]> {
-    const areaJson = await fetch("areas2.json");
-    const areas = await areaJson.json();
+    // const areas = await loadAreasWeb();
+
+    const areaCollection = await Api.getAreas();
+    const areas = areaCollection.features;
+
     const customAreas = loadCustomAreas();
     return areas.concat(customAreas).map(f => MapArea.fromFeature(f));
+}
+
+async function loadAreasWeb() : Promise<GeoJSON.Feature<GeoJSON.Polygon>[]> {
+    const areaJson = await fetch("areas2.json");
+    return await areaJson.json();
 }
 
 export function addArea(area: MapArea) {
