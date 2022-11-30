@@ -95,7 +95,7 @@
         height: 100%;
     }
     .navbar button:hover {
-        background-color: #333;
+        background-color: #404040;
     }
     .navbar button:active {
         background-color: #303030;
