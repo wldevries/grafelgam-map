@@ -1,5 +1,5 @@
 import type { SvelteComponent } from "svelte";
-import { DomUtil, Popup, Layer, PopupOptions, Marker, Polygon } from "leaflet";
+import { DomUtil, Layer, PopupOptions, Marker, Polygon } from "leaflet";
 import LocationViewPopup from "./LocationViewPopup.svelte";
 import LocationEditPopup from "./LocationEditPopup.svelte";
 import AreaViewPopup from "./AreaViewPopup.svelte";
@@ -11,23 +11,12 @@ import type { MapArea } from "./MapArea";
 // `createFn` will be called whenever the popup is being created, and should create and return the component.
 export function bindPopup(marker: Layer, createFn: { (container: HTMLDivElement): SvelteComponent; }, options?: PopupOptions) {
     let popupComponent: SvelteComponent;
-    let popup: Popup;
 
     marker.bindPopup(() => {
         let container = DomUtil.create('div');
         popupComponent = createFn(container);
-        if (popup && popupComponent.setPopup) {
-            popupComponent.setPopup({popup: popup, layer: marker});
-        }
         return container;
     }, options);
-
-    marker.on('popupopen', c => {
-        popup = c.popup;
-        if (popupComponent && popupComponent.setPopup) {
-            popupComponent.setPopup({popup: popup, layer: marker});
-        }
-    });
 
     marker.on('popupclose', () => {
         if (popupComponent) {
@@ -56,6 +45,7 @@ export function bindLocationEditPopup(marker: Marker, location: MapLocation) {
             target: m,
             props: {
                 location,
+                marker,
                 bindViewPopup: bindLocationViewPopup,
             },
         }),
@@ -66,13 +56,14 @@ export function bindLocationEditPopup(marker: Marker, location: MapLocation) {
 
 export function bindLocationViewPopup(marker: Marker, location: MapLocation) {
     bindPopup(marker, (m) =>
-            new LocationViewPopup({
-                target: m,
-                props: {
-                    location,
-                    bindEditPopup: bindLocationEditPopup,
-                },
-            }));
+        new LocationViewPopup({
+            target: m,
+            props: {
+                location,
+                marker,
+                bindEditPopup: bindLocationEditPopup,
+            },
+        }));
 }
 
 export function bindAreaPopup(polygon: Polygon, area: MapArea) {
@@ -86,7 +77,6 @@ export function bindAreaPopup(polygon: Polygon, area: MapArea) {
     }
 }
 
-
 export function bindAreaEditPopup(polygon: Polygon, area: MapArea) {
     bindPopup(polygon, (m) =>
         new AreaEditPopup({
@@ -98,7 +88,6 @@ export function bindAreaEditPopup(polygon: Polygon, area: MapArea) {
             },
         }));
 }
-
 
 export function bindAreaViewPopup(polygon: Polygon, area: MapArea) {
     bindPopup(polygon, (m) =>

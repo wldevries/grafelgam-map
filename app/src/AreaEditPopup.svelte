@@ -8,10 +8,9 @@
     import type { MapArea } from './MapArea';
 	
 	export let area: MapArea;
-    export let polygon: Polygon
-    export let bindViewPopup: (marker: Polygon, area: MapArea) => void;
+    export let polygon: Polygon;
+    export let bindViewPopup: (polygon: Polygon, area: MapArea) => void;
 
-	
     let nameInput: HTMLInputElement;
 
     let name: string = "";

@@ -4,16 +4,15 @@
     import { addLocation, deleteLocation } from "./LocationStore"
     import Trash from "svelte-bootstrap-icons/lib/Trash.svelte";
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
-    import type { Popup, Marker } from 'leaflet';
+    import type { Marker } from 'leaflet';
     import { IconStore, MapIcon } from './IconStore';
     import { Api } from './Api';
     import { setLocationIcon } from './IconAssigner';
 	
 	export let location: MapLocation;
+    export let marker: Marker;
     export let bindViewPopup: (marker: Marker, location: MapLocation) => void;
 	
-    let popup: Popup;
-    let marker: Marker;
     let nameInput: HTMLInputElement;
     let fileinput: HTMLInputElement;
 
@@ -39,11 +38,6 @@
 
         icons = await IconStore.loadIcons();
     });
-
-    export function setPopup(options: { popup: Popup; layer: Marker; }) {
-        popup = options.popup;
-        marker = options.layer;
-    }
 
 	const onFileSelected = async e => {
         let image = e.target.files[0];

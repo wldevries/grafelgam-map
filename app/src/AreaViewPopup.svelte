@@ -8,8 +8,8 @@
     import type { MapArea } from './MapArea';
     
 	export let area: MapArea;
-    export let polygon: Polygon
-    export let bindEditPopup: (marker: Polygon, area: MapArea) => void;
+    export let polygon: Polygon;
+    export let bindEditPopup: (polygon: Polygon, area: MapArea) => void;
 	
     let moving: boolean;
 
