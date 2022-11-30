@@ -51,7 +51,7 @@
     let editRegion: Polygon;
 
     // Temporary marker mouse
-    let mouseMarker: Marker;
+    let mouseMarker: Marker | undefined;
 
     interface LocationMarker {
         location: MapLocation,
@@ -114,17 +114,18 @@
         }
     }
 
-    function displayGeo(geol, geoa) {        
+    function displayGeo(geol: GeoJSON.Feature<GeoJSON.Point>[], geoa: GeoJSON.Feature<GeoJSON.Polygon>[]) {        
         geoJSON(geol, {
             onEachFeature: onEachFeature
         }).addTo(mapDiv);
         
         geoJSON(geoa, {
             onEachFeature: onEachFeature,
-            style: function(feature) {
-                if (feature.properties.color) {
-                    return {color: feature.properties.color };
+            style: (feature) => {
+                if (feature && feature.properties && feature.properties.color) {
+                    return { color: feature.properties.color };
                 }
+                return { };
             }
         }).addTo(mapDiv);
 
@@ -149,11 +150,13 @@
     }
 
     function showLocations(locations: MapLocation[], fitBounds: boolean) {
-        if (locations.length == 1) {
-            locAutoComplete.select(locations[0]);
-        }        
-        else {
-            locAutoComplete.select(undefined);
+        if (locAutoComplete.select) {
+            if (locations.length == 1) {
+                locAutoComplete.select(locations[0]);
+            }        
+            else {
+                locAutoComplete.select(undefined);
+            }
         }
 
         if (locations.length > 0) {
@@ -183,11 +186,13 @@
             });
 
             let allBounds = areas.map(a => a.getBounds());
-            let bounds: LatLngBounds;
+            let bounds: LatLngBounds | undefined;
             allBounds.forEach(a => {
                 bounds = bounds == undefined ? a : a.extend(bounds);
             })
-            mapDiv.fitBounds(bounds);
+            if (bounds) {
+                mapDiv.fitBounds(bounds);
+            }
         }
     }
 
@@ -278,7 +283,9 @@
             if (mode == EditMode.Single) {
                 clearLocations();
 
-                mouseMarker.remove();
+                if (mouseMarker) {
+                    mouseMarker.remove();
+                }
                 mouseMarker = undefined;
 
                 const loc = MapLocation.create(ev.latlng);
@@ -334,11 +341,14 @@
                 const openLocation = openLocations[placeIndex];
                 const marker = openLocation.marker;
                 const allLocations = (await featureStore.load()).filter(featureIsPlace);
-                const updatedLocation = MapLocation.fromFeature(allLocations.find(l => l.id == id));
-                openLocation.location = updatedLocation;
+                const feature = allLocations.find(l => l.id == id);
+                if (feature) {
+                    const updatedLocation = MapLocation.fromFeature(feature);
+                    openLocation.location = updatedLocation;
 
-                // Update marker
-                marker.setTooltipContent(updatedLocation.popupText());
+                    // Update marker
+                    marker.setTooltipContent(updatedLocation.popupText());
+                }
             }
             
             const areaIndex = openAreas.findIndex(l => {
@@ -351,14 +361,17 @@
                 const openArea = openAreas[areaIndex];
                 const polygon = openArea.polygon;
                 const allAreas = (await featureStore.load()).filter(featureIsArea);
-                const updatedArea = MapArea.fromFeature(allAreas.find(l => l.id == id));
-                openArea.area = updatedArea;
+                const feature = allAreas.find(l => l.id == id);
+                if (feature){
+                    const updatedArea = MapArea.fromFeature(feature);
+                    openArea.area = updatedArea;
 
-                // Update polygon
-                polygon.setStyle({
-                    color: updatedArea.color ?? "blue"
-                });
-                polygon.setTooltipContent(updatedArea.name);
+                    // Update polygon
+                    polygon.setStyle({
+                        color: updatedArea.color ?? "blue"
+                    });
+                    polygon.setTooltipContent(updatedArea.name);
+                }
             }
         })
 
@@ -441,7 +454,7 @@
         locationLayer.on('pm:edit', (e) => {
             if (e.layer instanceof Marker) {
                 let mloc = openLocations.find(l => l.marker == e.layer);
-                if (mloc.location.isCustom()) {
+                if (mloc && mloc.location.isCustom()) {
                     mloc.location.loc = e.layer.getLatLng();
                     featureStore.update(mloc.location);
                 }

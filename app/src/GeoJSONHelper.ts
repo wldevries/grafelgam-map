@@ -3,7 +3,7 @@
  */
 export function featureIsPlace(obj: GeoJSON.Feature): obj is GeoJSON.Feature<GeoJSON.Point> {
     // 👇️ check for type property
-    return 'type' in obj && obj.geometry.type === 'Point';
+    return 'type' in obj.geometry && obj.geometry.type === 'Point';
 }
 
 /**
@@ -11,5 +11,5 @@ export function featureIsPlace(obj: GeoJSON.Feature): obj is GeoJSON.Feature<Geo
  */
 export function featureIsArea(obj: GeoJSON.Feature): obj is GeoJSON.Feature<GeoJSON.Polygon> {
     // 👇️ check for type property
-    return 'type' in obj && obj.geometry.type === 'Polygon';
+    return 'type' in obj.geometry && obj.geometry.type === 'Polygon';
 }

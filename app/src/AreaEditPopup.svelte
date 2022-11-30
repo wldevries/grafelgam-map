@@ -20,7 +20,7 @@
     onMount(() => {
         if (area) {
             name = area.name;
-            color = area.color;
+            color = area.color ?? "";
         }
         
         setTimeout(() => {

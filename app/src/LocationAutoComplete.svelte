@@ -22,7 +22,7 @@
     let allLocations: MapLocation[] = [];
     let skipDispatch: boolean;
 
-    export function select(location: MapLocation) {
+    export function select(location: MapLocation | undefined) {
         // Skip even dispatch if selection was made from the outside
         skipDispatch = true;
         selectedLocation = location;

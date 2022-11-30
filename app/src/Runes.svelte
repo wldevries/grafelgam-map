@@ -65,7 +65,7 @@
     }
 
     function loadSaved() {
-        const namesJson = localStorage.getItem(storageKey);
+        const namesJson = localStorage.getItem(storageKey) ?? '[]';
         const names: string[] = JSON.parse(namesJson);
         if (Array.isArray(names)) {
             names.forEach(n => {
