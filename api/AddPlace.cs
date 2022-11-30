@@ -21,8 +21,8 @@ public class AddPlace
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
-        BlobClient placeBlob = container.GetBlobClient("customLocations.json");
+        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
+        BlobClient placeBlob = container.GetBlobClient(Constants.CustomLocations);
 
         // Parse place to add
         Feature? placeToAdd;

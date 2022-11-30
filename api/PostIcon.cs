@@ -59,7 +59,7 @@ public class PostIcon
             return response;
         }
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
+        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
         BlobClient blob = container.GetBlobClient($"icons/{filename}");
 
         if (await blob.ExistsAsync())

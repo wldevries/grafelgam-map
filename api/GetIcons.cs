@@ -23,7 +23,7 @@ public class GetIcons
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
+        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
 
         List<BlobItem> blobs = await container.ListBlobsAsync("icons");
 

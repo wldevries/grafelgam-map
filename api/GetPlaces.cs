@@ -24,8 +24,8 @@ public class GetPlaces
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
-        BlobClient placeBlob = container.GetBlobClient("locations2.json");
+        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
+        BlobClient placeBlob = container.GetBlobClient(Constants.Locations);
 
         string json = await placeBlob.DownloadTextAsync();
         var places = JsonSerializer.Deserialize<List<Feature>>(json);

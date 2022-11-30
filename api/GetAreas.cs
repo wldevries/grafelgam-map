@@ -22,8 +22,8 @@ public class GetAreas
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient("$web");
-        BlobClient areaBlob = container.GetBlobClient("areas2.json");
+        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
+        BlobClient areaBlob = container.GetBlobClient(Constants.Areas);
 
         string json = await areaBlob.DownloadTextAsync();
         var areas = JsonSerializer.Deserialize<List<Feature>>(json);
