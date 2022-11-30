@@ -6,10 +6,11 @@
     import { ArrowsMove } from 'svelte-bootstrap-icons';
     import type { Polygon } from 'leaflet';
     import type { MapArea } from './MapArea';
-    import { bindAreaViewPopup } from './MapPopup';
 	
 	export let area: MapArea;
     export let polygon: Polygon
+    export let bindViewPopup: (marker: Polygon, area: MapArea) => void;
+
 	
     let nameInput: HTMLInputElement;
 
@@ -44,7 +45,7 @@
     
     function handleEdit() {
         polygon.unbindPopup();
-        bindAreaViewPopup(polygon, area);
+        bindViewPopup(polygon, area);
         polygon.openPopup();
     }
 

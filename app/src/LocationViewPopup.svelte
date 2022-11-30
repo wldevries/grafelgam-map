@@ -1,10 +1,10 @@
 <script lang="ts">
     import type { MapLocation } from './MapLocation';
     import type { Popup, Marker } from 'leaflet';
-    import { bindLocationEditPopup } from './MapPopup';
     import Pencil from "svelte-bootstrap-icons/lib/Pencil.svelte";
 	
 	export let location: MapLocation;
+    export let bindEditPopup: (marker: Marker, location: MapLocation) => void;
 
     let popup: Popup;
     let marker: Marker;
@@ -17,7 +17,7 @@
     // Switch to not editing mode
     function handleEdit() {
         marker.unbindPopup();
-        bindLocationEditPopup(marker, location);
+        bindEditPopup(marker, location);
         marker.openPopup();
     }
 

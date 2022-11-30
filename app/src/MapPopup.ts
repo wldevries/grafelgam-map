@@ -56,6 +56,7 @@ export function bindLocationEditPopup(marker: Marker, location: MapLocation) {
             target: m,
             props: {
                 location,
+                bindViewPopup: bindLocationViewPopup,
             },
         }),
         {
@@ -69,6 +70,7 @@ export function bindLocationViewPopup(marker: Marker, location: MapLocation) {
                 target: m,
                 props: {
                     location,
+                    bindEditPopup: bindLocationEditPopup,
                 },
             }));
 }
@@ -91,7 +93,8 @@ export function bindAreaEditPopup(polygon: Polygon, area: MapArea) {
             target: m,
             props: {
                 area,
-                polygon
+                polygon,
+                bindViewPopup: bindAreaViewPopup,
             },
         }));
 }
@@ -103,7 +106,8 @@ export function bindAreaViewPopup(polygon: Polygon, area: MapArea) {
             target: m,
             props: {
                 area,
-                polygon
+                polygon,
+                bindEditPopup: bindAreaEditPopup,
             },
         }));
 }

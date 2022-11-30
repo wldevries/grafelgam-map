@@ -7,10 +7,10 @@
     import type { Popup, Marker } from 'leaflet';
     import { IconStore, MapIcon } from './IconStore';
     import { Api } from './Api';
-    import { bindLocationViewPopup } from './MapPopup';
     import { setLocationIcon } from './IconAssigner';
 	
 	export let location: MapLocation;
+    export let bindViewPopup: (marker: Marker, location: MapLocation) => void;
 	
     let popup: Popup;
     let marker: Marker;
@@ -67,7 +67,7 @@
     // Switch to not editing mode
     function handleEdit() {
         marker.unbindPopup();
-        bindLocationViewPopup(marker, location);
+        bindViewPopup(marker, location);
         marker.openPopup();
     }
 
