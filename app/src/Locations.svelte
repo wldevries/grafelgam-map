@@ -5,11 +5,11 @@
     import { MapArea } from "./MapArea";
     import { loadAreasWeb, loadPlacesWeb } from "./Services/WebLoader";
     import { featureIsArea, featureIsPlace } from "./GeoJSONHelper";
-    import { featureStore } from "./Services/Stores";
+    import { featureStore } from "./Stores";
 
     const dispatch = createEventDispatcher();
 
-    let allLocations: MapLocation[] = [];
+    let allPlaces: MapLocation[] = [];
     let countries: Set<string> = new Set();
     let countriesSorted: string[] = [];
     let allAreas: MapArea[] = [];
@@ -18,26 +18,46 @@
     onMount(async () => {
         const places = await loadPlacesWeb();
         const areas = await loadAreasWeb();
-        const features = await featureStore.load();
-        const placeFeatures = features.filter(featureIsPlace);
-        const areaFeatures = features.filter(featureIsArea);
+
+        allPlaces = places.map(MapLocation.fromFeature);
+        allPlaces.sort((a, b) => a.name.localeCompare(b.name));
+
+        allAreas = areas.map(MapArea.fromFeature);
+
+        updateGroupings();
         
-        allLocations = places
-            .concat(placeFeatures)
-            .map(MapLocation.fromFeature);
-        allLocations.sort((a, b) => a.name.localeCompare(b.name));
-
-        countries.clear();
-        allLocations.forEach((loc) => countries.add(loc.country));
-        countriesSorted = Array.from(countries).sort((a, b) => a.localeCompare(b));
-
-        allAreas = areas
-            .concat(areaFeatures)
-            .map(MapArea.fromFeature);
-        customAreas = allAreas.filter(a => a.isCustom());
+        // Fetch custom locations
+        await loadCustomFeatures();
     });
 
-    function showLocations(locations: MapLocation[]) {
+    async function loadCustomFeatures() {
+        let features: GeoJSON.Feature[];
+        try {
+            features = await featureStore.load();
+        }
+        catch(error) {
+            console.error(error);
+            return;
+        }
+
+        const placeFeatures = features.filter(featureIsPlace);
+        const areaFeatures = features.filter(featureIsArea);
+
+        allPlaces=allPlaces.concat(placeFeatures.map(MapLocation.fromFeature));
+        allAreas=allAreas.concat(areaFeatures.map(MapArea.fromFeature));
+
+        updateGroupings();
+    }
+
+    function updateGroupings() {
+	    countries.clear();
+        allPlaces.forEach((loc) => countries.add(loc.country));
+        countriesSorted = Array.from(countries).sort((a, b) => a.localeCompare(b));	
+
+        customAreas = allAreas.filter(a => a.isCustom());
+    }
+
+    function showPlaces(locations: MapLocation[]) {
         dispatch("showMap", {
             locations: locations,
         });
@@ -51,7 +71,7 @@
 
     function showCountry(country: string) {
         const regions = getRegions(country);
-        const locations = allLocations.filter((l) => l.country == country);
+        const locations = allPlaces.filter((l) => l.country == country);
         const areas = allAreas.filter(a => a.name == country || regions.indexOf(a.name) != -1);
         dispatch("showMap", {
             locations: locations,
@@ -60,7 +80,7 @@
     }
 
     function showRegion(country: string, region: string) {
-        const locations = allLocations.filter(l => l.country == country && l.region == region);
+        const locations = allPlaces.filter(l => l.country == country && l.region == region);
         const areas = allAreas.filter(a => a.name == region);
         dispatch("showMap", {
             locations: locations,
@@ -70,18 +90,18 @@
 
     function getRegions(country: string) {
         return Array.from(new Set(
-            allLocations
+            allPlaces
                 .filter((l) => l.country == country)
                 .map((l) => l.region)
         )).sort((a, b) => a.localeCompare(b));
     }
 
-    function getLocations(country: string, region: string) {
-        return allLocations.filter((l) => l.country === country && l.region === region)
+    function getPlaces(country: string, region: string) {
+        return allPlaces.filter((l) => l.country === country && l.region === region)
     }
 </script>
 
-<div class="locations">
+<div class="places">
     {#if customAreas.length > 0}
         <section class="country-list">
             <button class="country-heading" on:click={() => showAreas(customAreas)}>
@@ -123,10 +143,10 @@
                 {/if}
 
                 <ul class="country-entries">
-                    {#each getLocations(country, region) as location}
-                        <li class="country-entry {location.isCustom() ? 'custom-location' : ''}">
-                            <button on:click={() => showLocations([location])}>
-                                <span>{location.name}</span>
+                    {#each getPlaces(country, region) as place}
+                        <li class="country-entry {place.isCustom() ? 'custom-location' : ''}">
+                            <button on:click={() => showPlaces([place])}>
+                                <span>{place.name}</span>
                             </button>
                         </li>
                     {/each}
@@ -137,7 +157,7 @@
 </div>
 
 <style>
-    .locations {
+    .places {
         columns: 180px;
         column-gap: 5px;
     }

@@ -7,7 +7,7 @@
     import { IconStore, MapIcon } from './Services/IconStore';
     import { Api } from './Services/Api';
     import { setLocationIcon } from './IconAssigner';
-    import { featureStore } from './Services/Stores';
+    import { featureStore } from './Stores';
 	
 	export let location: MapLocation;
     export let marker: Marker;

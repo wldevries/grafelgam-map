@@ -37,7 +37,7 @@
     import { tileLayer, geoJSON, FeatureGroup, LeafletMouseEvent } from "leaflet";
     import { bindAreaPopup, bindLocationPopup } from "./MapPopup";
     import { setLocationIcon } from "./IconAssigner";
-    import { featureStore } from "./Services/Stores";
+    import { featureStore } from "./Stores";
 
     let mapDiv: Map;
     let addRegionButton: HTMLButtonElement;
