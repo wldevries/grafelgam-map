@@ -1,10 +1,6 @@
-import { writable } from 'svelte/store';
+import { Writable, writable } from 'svelte/store';
 
 export const modal = writable(null);
 export const windowStyle = writable({});
 
-import { ApiFeatureStore } from "./Services/ApiFeatureStore"
-export const featureStore: FeatureStore = new ApiFeatureStore();
-
-// import { LocalFeatureStore } from "./Services/LocalFeatureStore"
-// export const featureStore = new LocalFeatureStore();
+export const google_jwt: Writable<string | null> = writable();

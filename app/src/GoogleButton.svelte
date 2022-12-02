@@ -42,18 +42,17 @@
 </style>
 
 <script lang="ts">
-    import * as google from 'google-one-tap';
     import { onMount, tick } from "svelte";
-
-    const StorageKey = "GrafelgamJwt";
+    import { getParsedJwt, signoutGoogle } from './Services/Auth';
+    import { google_jwt } from './Stores';
 
     // @ts-ignore
     let googleClientId = GOOGLE_CLIENT_ID;
 
-    let jwt: string | null;
     let payload: any | null;
+    let prompted = false;
 
-    onMount(() => {
+    onMount(() => {        
         document.onreadystatechange = () => {
             if (document.readyState === "complete") {                        
                 initializeGoogle();
@@ -64,17 +63,27 @@
     async function initializeGoogle() {
 	    google.accounts.id.initialize({
             client_id: googleClientId,
-            callback: handleCredentialResponse
+            callback: handleCredentialResponse,            
         });
 
-        let jwt = localStorage.getItem(StorageKey);
-        if (jwt) {
-            payload = getParsedJwt(jwt);
-        }
-        else {
-            renderButton();
-            google.accounts.id.prompt();
-        }
+        google_jwt.subscribe(t => {
+            if (t) {
+                payload = getParsedJwt(t);
+                // No need to prompt if we were already signed in
+                prompted = true;
+
+                if (!payload || !payload.name) {
+                    google_jwt.set(null);
+                }
+            } else {
+                payload = null;
+                renderButton();
+                if (!prompted) {
+                    google.accounts.id.prompt();
+                    prompted = true;
+                }
+            }
+        });        
     }
 
     function renderButton() {
@@ -82,42 +91,20 @@
         if (button) {
             google.accounts.id.renderButton(
                 button,
-                { theme: 'outline', size: 'large' } // customization attributes
+                { theme: 'outline', size: 'large' }, // customization attributes
             );
-        }
-    }
-    /**
-     * Returns a JS object representation of a Javascript Web Token from its common encoded
-     * string form.
-     *
-     * @template T the expected shape of the parsed token
-     * @param {string} token a Javascript Web Token in base64 encoded, `.` separated form
-     * @returns {(T | undefined)} an object-representation of the token
-     * or undefined if parsing failed
-     */
-    export function getParsedJwt<T extends object = { [k: string]: string | number }>(
-        token: string,
-        ): T | undefined {
-        try {
-            return JSON.parse(window.atob(token.split('.')[1]))
-        } catch {
-            return undefined
         }
     }
 
     function handleCredentialResponse(response: google.CredentialResponse){
-        jwt = response.credential;
-        payload = getParsedJwt(response.credential);
-
-        localStorage.setItem(StorageKey, jwt);
+        google_jwt.set(response.credential);
+        payload = getParsedJwt(response.credential);        
     }
 
-    function signout(){
+    function signout() {
         google.accounts.id.revoke(payload.email, async response => {
             if (response.successful) {
-                jwt = null;
-                payload = null;
-                localStorage.removeItem(StorageKey);
+                signoutGoogle();
                 // force UI update so that div is available
                 await tick();
                 renderButton();

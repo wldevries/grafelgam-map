@@ -14,7 +14,7 @@
     import { MapLocation } from "./MapLocation";
 	import { createEventDispatcher } from 'svelte';
     import { loadPlacesWeb } from "./Services/WebLoader"
-    import { featureStore } from "./Stores";
+    import { featureStore } from "./Services/FeatureStore";
 
 	const dispatch = createEventDispatcher();
 

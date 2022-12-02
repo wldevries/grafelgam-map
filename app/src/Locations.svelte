@@ -5,7 +5,7 @@
     import { MapArea } from "./MapArea";
     import { loadAreasWeb, loadPlacesWeb } from "./Services/WebLoader";
     import { featureIsArea, featureIsPlace } from "./GeoJSONHelper";
-    import { featureStore } from "./Stores";
+    import { featureStore } from "./Services/FeatureStore";
 
     const dispatch = createEventDispatcher();
 

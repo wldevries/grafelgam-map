@@ -5,7 +5,7 @@
     import { ArrowsMove } from 'svelte-bootstrap-icons';
     import type { Polygon } from 'leaflet';
     import type { MapArea } from './MapArea';
-    import { featureStore } from './Stores';
+    import { featureStore } from './Services/FeatureStore';
     
 	export let area: MapArea;
     export let polygon: Polygon;

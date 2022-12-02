@@ -1,4 +1,5 @@
 import type { Feature } from "geojson";
+import { getAccessToken } from "./Auth";
 
 const endpoints = {
     // @ts-ignore
@@ -19,13 +20,26 @@ const endpoints = {
     deleteFeature: API + '/DeleteFeature?code=' + API_CODE,
 };
 
+async function getHeaders() {
+    const headers = new Headers();
+    headers.set('Access-Control-Request-Headers', 'authorization,content-type');
+    headers.set('Content-Type', 'application/json');
+
+    let bearer = await getAccessToken();
+    if (bearer) {
+        headers.set("Authorization", `Bearer ${bearer}`);
+    }
+    return headers;
+}
+
 export class Api {
     static baseAddress : string | undefined;
 
     public static async getBaseAddress() {
         if (this.baseAddress == undefined) {
             const res = await fetch(endpoints.getBaseAddress, {
-                method: "GET"
+                method: "GET",
+                headers: await getHeaders(),
             });
             
             const json = await res.json()
@@ -45,7 +59,8 @@ export class Api {
             
         const res = await fetch(endpoints.uploadIcon, {
             method: 'POST',
-            body: uploadData
+            headers: await getHeaders(),
+            body: uploadData,
         });
         
         const json = await res.json()
@@ -56,7 +71,8 @@ export class Api {
 
     public static async getIcons(): Promise<{name: string, url: string}[]>  {
         const res = await fetch(endpoints.getIcons, {
-            method: "GET"
+            method: "GET", 
+            headers: await getHeaders(),
         });
         
         const json = await res.json()
@@ -69,7 +85,8 @@ export class Api {
     
     public static async getPlaces(): Promise<GeoJSON.FeatureCollection<GeoJSON.Point>> {    
         const res = await fetch(endpoints.getPlaces, {
-            method: "GET"
+            method: "GET",
+            headers: await getHeaders(),
         });
         
         const json = await res.json()
@@ -82,7 +99,8 @@ export class Api {
     
     public static async getAreas(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
         const res = await fetch(endpoints.getAreas, {
-            method: "GET"
+            method: "GET",
+            headers: await getHeaders(),
         });
         
         const json = await res.json()
@@ -94,22 +112,35 @@ export class Api {
     }
     
     public static async getFeatures(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
+        const myheaders = await getHeaders();
+        console.log(myheaders);
         const res = await fetch(endpoints.getFeatures, {
-            method: "GET"
+            method: "GET",
+            headers: myheaders,
+            // mode: "no-cors",
+            // referrerPolicy: 'no-referrer',
+            // credentials: 'include',
         });
         
-        const json = await res.json()
-        if (json.status == "success"){
-            return json.data;
+        if (res.ok) {
+            const json = await res.json()
+            if (json.status == "success"){
+                return json.data;
+            } else {
+                console.log(res);
+                console.log(json);
+                throw json;
+            }
         } else {
-            throw json;
+            throw res;
         }
     }
 
     public static async addFeature(feature: Feature) {
         const res = await fetch(endpoints.addFeature, {
             method: 'POST',
-            body: JSON.stringify(feature)
+            headers: await getHeaders(),
+            body: JSON.stringify(feature),
         });
         
         const json = await res.json()
@@ -121,6 +152,7 @@ export class Api {
     public static async deleteFeature(featureId: string) {
         const res = await fetch(endpoints.deleteFeature + '&featureId=' + featureId, {
             method: 'POST',
+            headers: await getHeaders(),
         });
         
         const json = await res.json()
