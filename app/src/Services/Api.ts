@@ -20,6 +20,9 @@ const endpoints = {
     deleteFeature: API + '/api/DeleteFeature',
 };
 
+// @ts-ignore
+const apiAuthRequired = API_AUTH == "true";
+
 async function getHeaders() {
     const headers = new Headers();
     headers.set('Access-Control-Request-Headers', 'authorization,content-type,Access-Control-Allow-Credentials');
@@ -27,8 +30,10 @@ async function getHeaders() {
     // @ts-ignore
     headers.set('x-functions-key', API_CODE);
 
-    let accessToken = await getAccessToken();
-    headers.set("X-ZUMO-AUTH", accessToken);
+    if (apiAuthRequired) {
+        let accessToken = await getAccessToken();
+        headers.set("X-ZUMO-AUTH", accessToken);
+    }
     return headers;
 }
 

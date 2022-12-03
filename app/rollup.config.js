@@ -55,6 +55,7 @@ export default {
             preventAssignment: true,
             API: JSON.stringify(process.env.API),
             API_CODE: JSON.stringify(process.env.API_CODE),
+            API_AUTH: JSON.stringify(process.env.API_AUTH),
             GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
         }),
 		svelte({

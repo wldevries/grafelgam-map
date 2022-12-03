@@ -31,17 +31,17 @@ export async function getAccessToken(): Promise<string> {
         return access_token;
     }
 
-    let idToken = localStorage.getItem(StorageKey);
+    const idToken = localStorage.getItem(StorageKey);
     const body =  JSON.stringify({
         'id_token': idToken || '',
     });
     // @ts-ignore
-    let uri = API + '/.auth/login/google';
-    let res = await fetch(uri,{
+    const uri = API + '/.auth/login/google';
+    const res = await fetch(uri,{
         method: "POST",
         body: body,
     });
-    let json = await res.json();
+    const json = await res.json();
     if (json && json.authenticationToken) {
         access_token = json.authenticationToken;
         return json.authenticationToken
