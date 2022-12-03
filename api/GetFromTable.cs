@@ -2,26 +2,24 @@ using Azure;
 using Azure.Data.Tables;
 using GeoJSON.Text.Feature;
 using GeoJSON.Text.Geometry;
-using Microsoft.Azure.Functions.Worker.Http;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace GrafelgamFunctions;
 
-public class GetFromTable
+public class GetFeatures
 {
     private readonly ILogger _logger;
     private readonly TableServiceClient _tableServiceClient;
 
-    public GetFromTable(
+    public GetFeatures(
         ILoggerFactory loggerFactory,
         TableServiceClient tableServiceClient)
     {
-        _logger = loggerFactory.CreateLogger<GetFromTable>();
+        _logger = loggerFactory.CreateLogger<GetFeatures>();
         _tableServiceClient = tableServiceClient;
     }
 
-    [Function("GetFromTable")]
+    [Function("GetFeatures")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
@@ -41,14 +39,18 @@ public class GetFromTable
             }
 
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(features);
+            await response.WriteAsJsonAsync(new
+            {
+                status = "success",
+                data = new FeatureCollection(features),
+            });
             return response;
         }
     }
 
-    private static async IAsyncEnumerable<Feature> LoadFeatures(TableClient client)
+    private static async IAsyncEnumerable<Feature> LoadFeatures(TableClient client, string? filter = null)
     {
-        var pageable = client.QueryAsync<TableEntity>("custom eq true");
+        var pageable = client.QueryAsync<TableEntity>(filter);
 
         await foreach (Page<TableEntity> page in pageable.AsPages())
         {
