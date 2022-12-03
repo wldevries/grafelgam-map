@@ -3,27 +3,29 @@ import { getAccessToken } from "./Auth";
 
 const endpoints = {
     // @ts-ignore
-    getBaseAddress: API + '/GetBaseAddress?code=' + API_CODE,
+    getBaseAddress: API + '/GetBaseAddress',
     // @ts-ignore
-    uploadIcon: API + '/PostIcon?code=' + API_CODE,
+    uploadIcon: API + '/PostIcon',
     // @ts-ignore
-    getIcons: API + '/GetIcons?code=' + API_CODE,
+    getIcons: API + '/GetIcons',
     // @ts-ignore
-    getPlaces: API + '/GetPlaces?code=' + API_CODE,
+    getPlaces: API + '/GetPlaces',
     // @ts-ignore
-    getAreas: API + '/GetAreas?code=' + API_CODE,
+    getAreas: API + '/GetAreas',
     // @ts-ignore
-    getFeatures: API + '/GetFeatures?code=' + API_CODE,
+    getFeatures: API + '/GetFeatures',
     // @ts-ignore
-    addFeature: API + '/AddFeature?code=' + API_CODE,
+    addFeature: API + '/AddFeature',
     // @ts-ignore
-    deleteFeature: API + '/DeleteFeature?code=' + API_CODE,
+    deleteFeature: API + '/DeleteFeature',
 };
 
 async function getHeaders() {
     const headers = new Headers();
     headers.set('Access-Control-Request-Headers', 'authorization,content-type,Access-Control-Allow-Credentials');
     headers.set('Content-Type', 'application/json');
+    // @ts-ignore
+    headers.set('x-functions-key', API_CODE);
 
     let bearer = await getAccessToken();
     if (bearer) {
@@ -183,7 +185,7 @@ export class Api {
 
     public static async deleteFeature(featureId: string) {
         const req = new Request(
-            endpoints.deleteFeature + '&featureId=' + featureId,
+            endpoints.deleteFeature + '?featureId=' + featureId,
             await withOptions({
                 method: 'POST',
             })
