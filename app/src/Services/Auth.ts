@@ -18,7 +18,7 @@ function checkStorage() {
 checkStorage();
 
 google_jwt.subscribe(t => {
-    if (t) {        
+    if (t) {
         localStorage.setItem(StorageKey, t);
     } else {
         localStorage.removeItem(StorageKey);
@@ -53,6 +53,24 @@ export function signoutGoogle() {
     google_jwt.set(null);
     localStorage.removeItem(StorageKey);
     sessionStorage.removeItem('GOOGLE_ACCESS_TOKEN');
+}
+
+export function getProfile() : GoogleProfile | null {
+    const idToken = localStorage.getItem(StorageKey);
+    if (idToken) {
+        const responsePayload = getParsedJwt(idToken);
+        if (responsePayload) {
+            return {
+                sub: responsePayload.sub as string,
+                name: responsePayload.name as string,
+                given_name: responsePayload.given_name as string,
+                family_name: responsePayload.family_name as string,
+                picture: responsePayload.picture as string,
+                email: responsePayload.email as string,
+            };
+        }
+    }
+    return null;
 }
 
 /**

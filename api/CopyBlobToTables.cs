@@ -1,7 +1,5 @@
 using Azure.Data.Tables;
 using GeoJSON.Text.Feature;
-using GeoJSON.Text.Geometry;
-using System.Text.Json;
 
 namespace GrafelgamFunctions;
 
@@ -43,19 +41,7 @@ public class CopyBlobToTable
 
         foreach (Feature f in features)
         {
-            TableEntity e = new(f.Geometry.Type.ToString(), f.Id)
-            {
-                { "custom", true },
-            };
-
-            foreach (var property in f.Properties)
-            {
-                e[property.Key] = property.Value;
-            }
-
-            string geometryJson = JsonSerializer.Serialize(f.Geometry);
-            e["geometry"] = geometryJson;
-            e["type"] = f.Geometry.Type.ToString();
+            TableEntity e = f.ToTableEntity();
 
             await client.UpdateEntityAsync(e, new Azure.ETag("*"));
         }

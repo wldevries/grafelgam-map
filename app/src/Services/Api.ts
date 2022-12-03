@@ -1,5 +1,5 @@
 import type { Feature } from "geojson";
-import { getAccessToken } from "./Auth";
+import { getAccessToken, getProfile } from "./Auth";
 
 const endpoints = {
     // @ts-ignore
@@ -165,11 +165,19 @@ export class Api {
     }
 
     public static async addFeature(feature: Feature) {
+        const gprofile = getProfile();
+
+        const body = {
+            feature: feature,
+            email: gprofile?.email,
+            sub: gprofile?.sub,
+        };
+
         const req = new Request(
             endpoints.addFeature,
             await withOptions({
                 method: 'POST',
-                body: JSON.stringify(feature),
+                body: JSON.stringify(body),
             })
         );
 
@@ -182,8 +190,10 @@ export class Api {
     }
 
     public static async deleteFeature(featureId: string) {
+        const gprofile = getProfile();
+        
         const req = new Request(
-            endpoints.deleteFeature + '?featureId=' + featureId,
+            `${endpoints.deleteFeature}?featureId=${featureId}&sub=${gprofile?.sub}`,
             await withOptions({
                 method: 'POST',
             })

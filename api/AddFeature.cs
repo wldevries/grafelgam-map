@@ -1,16 +1,18 @@
+using Azure.Data.Tables;
 using GeoJSON.Text.Feature;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace GrafelgamFunctions;
 
 public class AddFeature
 {
     private readonly ILogger _logger;
-    private readonly BlobServiceClient _serviceClient;
+    private readonly TableServiceClient _serviceClient;
 
     public AddFeature(
         ILoggerFactory loggerFactory,
-        BlobServiceClient serviceClient)
+        TableServiceClient serviceClient)
     {
         _logger = loggerFactory.CreateLogger<AddFeature>();
         _serviceClient = serviceClient;
@@ -21,16 +23,15 @@ public class AddFeature
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
-        BlobClient placeBlob = container.GetBlobClient(Constants.CustomFeatures);
+        TableClient? client = _serviceClient.GetTableClient(Constants.FeaturesTable);
 
         // Parse feature to add
-        Feature? featureToAdd;
+        AddFeatureRequest? featureToAdd;
         try
         {
             using StreamReader sr = new(req.Body);
             string json = await sr.ReadToEndAsync();
-            featureToAdd = JsonSerializer.Deserialize<Feature>(json);
+            featureToAdd = JsonSerializer.Deserialize<AddFeatureRequest>(json);
 
             if (featureToAdd == null)
             {
@@ -42,26 +43,23 @@ public class AddFeature
             return req.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        IList<Feature> places;
-        if (await placeBlob.ExistsAsync())
-        {
-            string blobJson = await placeBlob.DownloadTextAsync();
-            places = JsonSerializer.Deserialize<IList<Feature>>(blobJson) ?? Array.Empty<Feature>();
-        }
-        else
-        {
-            places = Array.Empty<Feature>();
-        }
-
-        places = places.Where(p => p.Id != featureToAdd.Id).ToList();
-        places.Add(featureToAdd);
-
-        string placesJson = JsonSerializer.Serialize(places);
-        using var writeStream = await placeBlob.OpenWriteAsync(overwrite: true);
-        using var sw = new StreamWriter(writeStream);
-        sw.Write(placesJson);
+        TableEntity tableEntity = featureToAdd.Feature.ToTableEntity();
+        // Overwrite any column
+        tableEntity.ETag = new Azure.ETag("*");
+        tableEntity["sub"] = featureToAdd.Sub;
+        tableEntity["email"] = featureToAdd.Email;
+        await client.UpsertEntityAsync(tableEntity);
 
         return req.CreateResponse(HttpStatusCode.OK);
     }
-}
 
+    public class AddFeatureRequest
+    {
+        [JsonPropertyName("feature")]
+        public Feature Feature { get; set; }
+        [JsonPropertyName("sub")]
+        public string Sub { get; set; }
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+    }
+}

@@ -1,16 +1,15 @@
-﻿using GeoJSON.Text.Feature;
-using System.Text.Json;
+﻿using Azure.Data.Tables;
 
 namespace GrafelgamFunctions;
 
 public class DeleteFeature
 {
     private readonly ILogger _logger;
-    private readonly BlobServiceClient _serviceClient;
+    private readonly TableServiceClient _serviceClient;
 
     public DeleteFeature(
         ILoggerFactory loggerFactory,
-        BlobServiceClient serviceClient)
+        TableServiceClient serviceClient)
     {
         _logger = loggerFactory.CreateLogger<DeleteFeature>();
         _serviceClient = serviceClient;
@@ -18,39 +17,35 @@ public class DeleteFeature
 
     [Function("DeleteFeature")]
     public async Task<HttpResponseData> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
-        string featureId)
+        string featureId, string sub)
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-        BlobContainerClient container = _serviceClient.GetBlobContainerClient(Constants.WebContainer);
-        BlobClient placeBlob = container.GetBlobClient(Constants.CustomFeatures);
+        TableClient? client = _serviceClient.GetTableClient(Constants.FeaturesTable);
 
-        List<Feature> features;
-        if (await placeBlob.ExistsAsync())
+        // We need the RowKey and PartitionKey to delete:
+        // The PartitionKey is set 'sub', the Google ID of the user
+        string partitionKey = sub;
+        // The id of features is stored in RowKey
+        string rowKey = featureId;
+
+        Azure.Response<TableEntity> tableResponse = await client.GetEntityAsync<TableEntity>(partitionKey, rowKey);
+        if (tableResponse.Value is TableEntity entity)
         {
-            string blobJson = await placeBlob.DownloadTextAsync();
-            features = JsonSerializer.Deserialize<List<Feature>>(blobJson) ?? new List<Feature>();
+            if (entity.GetBoolean("custom") == true)
+            {
+                await client.DeleteEntityAsync(partitionKey, rowKey);
+                return req.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                // Cannot delete features that are not custom
+                return req.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
         else
         {
-            features = new List<Feature>();
-        }
-
-        int index = features.FindIndex(f => f.Id == featureId);
-        if (index == -1)
-        {
-            return req.CreateResponse(HttpStatusCode.OK);
-        }
-        else
-        {
-            features.RemoveAt(index);
-
-            string featureJson = JsonSerializer.Serialize(features);
-            using var writeStream = await placeBlob.OpenWriteAsync(overwrite: true);
-            using var sw = new StreamWriter(writeStream);
-            sw.Write(featureJson);
-
-            return req.CreateResponse(HttpStatusCode.OK);
+            return req.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 }
