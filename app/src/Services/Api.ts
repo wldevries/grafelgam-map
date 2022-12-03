@@ -22,7 +22,7 @@ const endpoints = {
 
 async function getHeaders() {
     const headers = new Headers();
-    headers.set('Access-Control-Request-Headers', 'authorization,content-type');
+    headers.set('Access-Control-Request-Headers', 'authorization,content-type,Access-Control-Allow-Credentials');
     headers.set('Content-Type', 'application/json');
 
     let bearer = await getAccessToken();
@@ -32,15 +32,30 @@ async function getHeaders() {
     return headers;
 }
 
+
+async function withOptions(options: RequestInit) {
+    options.headers = await getHeaders();
+    options.credentials = 'include';
+    options.mode = 'cors';
+    options.cache = 'default';
+    options.referrerPolicy = "origin";
+    console.log(options);
+    return options;
+}
+
 export class Api {
     static baseAddress : string | undefined;
 
     public static async getBaseAddress() {
         if (this.baseAddress == undefined) {
-            const res = await fetch(endpoints.getBaseAddress, {
-                method: "GET",
-                headers: await getHeaders(),
-            });
+            const req = new Request(
+                endpoints.getBaseAddress,
+                await withOptions({
+                    method: "GET",
+                 })
+            );
+
+            const res = await fetch(req);
             
             const json = await res.json()
             if (json.status == "success"){
@@ -57,11 +72,15 @@ export class Api {
         // TODO: should we allow adding custom names?
         // uploadData.append('icon', "fakename.png");
             
-        const res = await fetch(endpoints.uploadIcon, {
-            method: 'POST',
-            headers: await getHeaders(),
-            body: uploadData,
-        });
+        const req = new Request(
+            endpoints.uploadIcon,
+            await withOptions({
+                method: 'POST',
+                body: uploadData,
+            })
+        );
+        
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status != "success") {
@@ -70,10 +89,14 @@ export class Api {
     }
 
     public static async getIcons(): Promise<{name: string, url: string}[]>  {
-        const res = await fetch(endpoints.getIcons, {
-            method: "GET", 
-            headers: await getHeaders(),
-        });
+        const req = new Request(
+            endpoints.getIcons,
+            await withOptions({
+                method: "GET", 
+                headers: await getHeaders(),
+            })
+        );
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status == "success"){
@@ -84,10 +107,14 @@ export class Api {
     }
     
     public static async getPlaces(): Promise<GeoJSON.FeatureCollection<GeoJSON.Point>> {    
-        const res = await fetch(endpoints.getPlaces, {
-            method: "GET",
-            headers: await getHeaders(),
-        });
+        const req = new Request(
+            endpoints.getPlaces,
+            await withOptions({
+                method: "GET",
+            })
+        );
+
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status == "success"){
@@ -98,10 +125,14 @@ export class Api {
     }
     
     public static async getAreas(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
-        const res = await fetch(endpoints.getAreas, {
-            method: "GET",
-            headers: await getHeaders(),
-        });
+        const req = new Request(
+            endpoints.getAreas,
+            await withOptions({
+                method: "GET",
+            })
+        );
+
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status == "success"){
@@ -112,23 +143,20 @@ export class Api {
     }
     
     public static async getFeatures(): Promise<GeoJSON.FeatureCollection<GeoJSON.Polygon>> {    
-        const myheaders = await getHeaders();
-        console.log(myheaders);
-        const res = await fetch(endpoints.getFeatures, {
-            method: "GET",
-            headers: myheaders,
-            // mode: "no-cors",
-            // referrerPolicy: 'no-referrer',
-            // credentials: 'include',
-        });
+        const req = new Request(
+            endpoints.getFeatures,
+            await withOptions({
+                method: "GET",
+            })
+        );
+
+        const res = await fetch(req);
         
         if (res.ok) {
             const json = await res.json()
             if (json.status == "success"){
                 return json.data;
             } else {
-                console.log(res);
-                console.log(json);
                 throw json;
             }
         } else {
@@ -137,11 +165,15 @@ export class Api {
     }
 
     public static async addFeature(feature: Feature) {
-        const res = await fetch(endpoints.addFeature, {
-            method: 'POST',
-            headers: await getHeaders(),
-            body: JSON.stringify(feature),
-        });
+        const req = new Request(
+            endpoints.addFeature,
+            await withOptions({
+                method: 'POST',
+                body: JSON.stringify(feature),
+            })
+        );
+
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status != "success") {
@@ -150,10 +182,14 @@ export class Api {
     }
 
     public static async deleteFeature(featureId: string) {
-        const res = await fetch(endpoints.deleteFeature + '&featureId=' + featureId, {
-            method: 'POST',
-            headers: await getHeaders(),
-        });
+        const req = new Request(
+            endpoints.deleteFeature + '&featureId=' + featureId,
+            await withOptions({
+                method: 'POST',
+            })
+        );
+        
+        const res = await fetch(req);
         
         const json = await res.json()
         if (json.status != "success") {

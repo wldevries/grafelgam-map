@@ -63,7 +63,7 @@
     async function initializeGoogle() {
 	    google.accounts.id.initialize({
             client_id: googleClientId,
-            callback: handleCredentialResponse,            
+            callback: handleCredentialResponse,
         });
 
         google_jwt.subscribe(t => {

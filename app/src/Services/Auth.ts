@@ -11,7 +11,7 @@ function checkStorage() {
     let value = localStorage.getItem(StorageKey);
     if (value) {
         google_jwt.set(value);
-        let access_token = localStorage.getItem('GOOGLE_ACCESS_TOKEN')
+        access_token = sessionStorage.getItem('GOOGLE_ACCESS_TOKEN')
     }
 }
 
@@ -19,12 +19,9 @@ checkStorage();
 
 google_jwt.subscribe(t => {
     if (t) {        
-        let parsed = getParsedJwt(t);
-        console.log(parsed);
         localStorage.setItem(StorageKey, t);
     } else {
         localStorage.removeItem(StorageKey);
-
         access_token = null;
     }
 });
@@ -32,17 +29,21 @@ google_jwt.subscribe(t => {
 export function getAccessToken() {
     return new Promise((resolve, reject) => {
         if (access_token) {
-            return access_token;
+            return resolve(access_token);
         } else {
             const client = google.accounts.oauth2.initTokenClient({
                 client_id: googleClientId,
                 scope: "openid",
                 callback: (response) => {
-                    console.log(response);
-                    access_token = response.access_token;
-                    console.log(access_token);
-                    localStorage.setItem('GOOGLE_ACCESS_TOKEN', access_token ?? "");
-                    resolve(access_token);
+                    if (response.access_token) {
+                        // console.log(response);
+                        access_token = response.access_token;
+                        // console.log(access_token);
+                        sessionStorage.setItem('GOOGLE_ACCESS_TOKEN', access_token ?? "");
+                        resolve(access_token);
+                    } else {
+                        reject(response?.error);
+                    }
                 },
             });
             client.requestAccessToken();
@@ -50,11 +51,10 @@ export function getAccessToken() {
     });
 }
 
-
 export function signoutGoogle() {
     google_jwt.set(null);
     localStorage.removeItem(StorageKey);
-    localStorage.removeItem('GOOGLE_ACCESS_TOKEN');
+    sessionStorage.removeItem('GOOGLE_ACCESS_TOKEN');
 }
 
 /**
