@@ -20,14 +20,15 @@ export class LocalFeatureStore implements FeatureStore {
     
     public async load() : Promise<GeoJSON.Feature[]> {
         let result: GeoJSON.Feature<GeoJSON.Polygon>[];
-        let areaJson = localStorage.getItem(StorageKey);
-        if (areaJson == undefined || areaJson == "") {
+        let storedFeatures = localStorage.getItem(StorageKey);
+        if (storedFeatures == undefined || storedFeatures == "") {
             result = [];
         }
         else {
             // TODO: do type checking
-            result = JSON.parse(areaJson);
+            result = JSON.parse(storedFeatures);
         }
+
         // Make sure the custom property is set
         result.forEach(a => {
             if (!a.properties) {
