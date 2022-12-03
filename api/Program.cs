@@ -17,7 +17,9 @@ var host = new HostBuilder()
         services.AddTransient<IFeatureLoader, FeatureLoader>();
         services.AddAzureClients(azureBuilder =>
         {
-            azureBuilder.AddBlobServiceClient(ctx.Configuration.GetValue<string>("mapstorage"));
+            string mapStorage = ctx.Configuration.GetValue<string>("mapstorage");
+            azureBuilder.AddBlobServiceClient(mapStorage);
+            azureBuilder.AddTableServiceClient(mapStorage);
         });
     })
     .Build();

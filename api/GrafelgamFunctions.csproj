@@ -8,10 +8,11 @@
     <UserSecretsId>a5cb59ae-355a-4833-bcc9-7586360b670b</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Data.Tables" Version="12.7.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
     <PackageReference Include="Azure.Storage.Files.Shares" Version="12.12.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.12.0" />
-    <PackageReference Include="GeoJSON.Text" Version="1.0.0" />
+    <PackageReference Include="GeoJSON.Text" Version="1.0.1" />
     <PackageReference Include="HttpMultipartParser" Version="7.1.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.10.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.0.13" />

@@ -6,4 +6,5 @@ public static class Constants
     public const string Locations = "locations2.json";
     public const string Areas = "areas2.json";
     public const string CustomFeatures = "customFeatures.json";
+    public const string FeaturesTable = "features";
 }
