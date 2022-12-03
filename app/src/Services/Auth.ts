@@ -26,29 +26,27 @@ google_jwt.subscribe(t => {
     }
 });
 
-export function getAccessToken() {
-    return new Promise((resolve, reject) => {
-        if (access_token) {
-            return resolve(access_token);
-        } else {
-            const client = google.accounts.oauth2.initTokenClient({
-                client_id: googleClientId,
-                scope: "openid",
-                callback: (response) => {
-                    if (response.access_token) {
-                        // console.log(response);
-                        access_token = response.access_token;
-                        // console.log(access_token);
-                        sessionStorage.setItem('GOOGLE_ACCESS_TOKEN', access_token ?? "");
-                        resolve(access_token);
-                    } else {
-                        reject(response?.error);
-                    }
-                },
-            });
-            client.requestAccessToken();
-        }
+export async function getAccessToken(): Promise<string> {
+    if (access_token) {
+        return access_token;
+    }
+
+    let idToken = localStorage.getItem(StorageKey);
+    const body =  JSON.stringify({
+        'id_token': idToken || '',
     });
+    // @ts-ignore
+    let uri = API + '/.auth/login/google';
+    let res = await fetch(uri,{
+        method: "POST",
+        body: body,
+    });
+    let json = await res.json();
+    if (json && json.authenticationToken) {
+        access_token = json.authenticationToken;
+        return json.authenticationToken
+    }
+    throw res.status;
 }
 
 export function signoutGoogle() {

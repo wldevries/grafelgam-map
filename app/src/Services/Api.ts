@@ -3,21 +3,21 @@ import { getAccessToken } from "./Auth";
 
 const endpoints = {
     // @ts-ignore
-    getBaseAddress: API + '/GetBaseAddress',
+    getBaseAddress: API + '/api/GetBaseAddress',
     // @ts-ignore
-    uploadIcon: API + '/PostIcon',
+    uploadIcon: API + '/api/PostIcon',
     // @ts-ignore
-    getIcons: API + '/GetIcons',
+    getIcons: API + '/api/GetIcons',
     // @ts-ignore
-    getPlaces: API + '/GetPlaces',
+    getPlaces: API + '/api/GetPlaces',
     // @ts-ignore
-    getAreas: API + '/GetAreas',
+    getAreas: API + '/api/GetAreas',
     // @ts-ignore
-    getFeatures: API + '/GetFeatures',
+    getFeatures: API + '/api/GetFeatures',
     // @ts-ignore
-    addFeature: API + '/AddFeature',
+    addFeature: API + '/api/AddFeature',
     // @ts-ignore
-    deleteFeature: API + '/DeleteFeature',
+    deleteFeature: API + '/api/DeleteFeature',
 };
 
 async function getHeaders() {
@@ -27,21 +27,14 @@ async function getHeaders() {
     // @ts-ignore
     headers.set('x-functions-key', API_CODE);
 
-    let bearer = await getAccessToken();
-    if (bearer) {
-        headers.set("Authorization", `Bearer ${bearer}`);
-    }
+    let accessToken = await getAccessToken();
+    headers.set("X-ZUMO-AUTH", accessToken);
     return headers;
 }
 
 
 async function withOptions(options: RequestInit) {
     options.headers = await getHeaders();
-    options.credentials = 'include';
-    options.mode = 'cors';
-    options.cache = 'default';
-    options.referrerPolicy = "origin";
-    console.log(options);
     return options;
 }
 
